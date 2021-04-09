@@ -188,7 +188,7 @@ What happens step by step, by timecode...
 
     ST-Link debugger is connected, showing the debug log. `Swap type` is set to `perm` because we have previously used nRF Connect to mark the Firmware image as "Confirmed"...
 
-    ```
+    ```text
     [INF] Primary image: magic=good, swap_type=0x2, copy_done=0x1, image_ok=0x1
     [INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
     [INF] Boot source: none
@@ -214,7 +214,7 @@ What happens step by step, by timecode...
 
 - `02:11` - __Upload completed__. PineTime attempts to reboot, but because we are running ST-Link, the reboot attempt was caught by the debugger. We restart the OpenOCD debugger to reboot PineTime manually.
 
-    ```
+    ```text
     target halted due to breakpoint, current mode: Thread 
     xPSR: 0x61000000 pc: 0x000081d8 psp: 0x20006a78, semihosting
     ```
@@ -223,14 +223,14 @@ What happens step by step, by timecode...
 
 - `02:13` - PineTime __reboots__. MCUBoot Bootloader starts.
 
-    ```
+    ```text
     Starting Bootloader...
     ```
     _From [`libs/pinetime_boot/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c#L35)_
 
 - `02:14` - MCUBoot Bootloader renders the __Boot Graphic__ (hand-drawn PineTime logo) in under 1 second
 
-    ```
+    ```text
     Displaying image...
     Image displayed
     ```
@@ -238,7 +238,7 @@ What happens step by step, by timecode...
 
     MCUBoot checks whether the watch button is pressed, for __Manual Firmware Rollback.__ (The checking of Manual Firmware Rollback is presently simulated, pending implementation)
 
-    ```
+    ```text
     Button: 0
     ```
     _From [`libs/pinetime_boot/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c#L45)_
@@ -249,7 +249,7 @@ What happens step by step, by timecode...
 
     `Swap type: test` means that the swapping to new firmware has been completed successfully.
 
-    ```
+    ```text
     [INF] Primary image: magic=good, swap_type=0x3, copy_done=0x1, image_ok=0x1
     [INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
     [INF] Boot source: none
@@ -259,7 +259,7 @@ What happens step by step, by timecode...
 
 - `02:30` - MCUBoot waits 5 seconds and checks whether the watch button is pressed, for __Manual Firmware Rollback__ (Simulated)
 
-    ```
+    ```text
     Button: 0
     Button: 0
     ```
@@ -267,14 +267,14 @@ What happens step by step, by timecode...
 
 - `02:36` - MCUBoot starts the __New Application Firmware__
 
-    ```
+    ```text
     Bootloader done
     ```
     _From [`pinetime_boot/pinetime_boot.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/libs/pinetime_boot/src/pinetime_boot.c#L61)_
 
     Mynewt Application Firmware starts the Temperature Stub Driver and dsplays the Hardware ID    
 
-    ```
+    ```text
     TMP create temp_stub_0
     NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
     NET standalone node 
@@ -283,7 +283,7 @@ What happens step by step, by timecode...
 
     Mynewt Application Firmware reads the Internal Flash ROM and External SPI Flash for testing 
 
-    ```
+    ```text
     Testing flash...
     Read Internal Flash ROM...
     Read 0x0 + 20
@@ -307,7 +307,7 @@ What happens step by step, by timecode...
 
     Mynewt Application Firmware __erases the screen very slowly__ via the Rust driver for ST7789 Display Controller
 
-    ```
+    ```text
     Rust test display
     ```
     _From [`rust/app/display.rs`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/rust/app/src/display.rs#L23)_
@@ -320,7 +320,7 @@ Here's the PineTime log for the above test, captured from the ST-Link OpenOCD de
 
 ## Before PineTime Reboot
 
-```
+```text
 # From PineTime Log
 Starting Bootloader...
 Displaying image...
@@ -357,7 +357,7 @@ xPSR: 0x61000000 pc: 0x000081d8 psp: 0x20006a78, semihosting
 
 ## After PineTime Reboot
 
-```
+```text
 # From PineTime Log
 Starting Bootloader...
 Displaying image...
@@ -423,7 +423,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
     We'll see...
 
-    ```
+    ```text
     Connection profile pinetime successfully added
     ```
 
@@ -445,7 +445,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
     We'll see...
 
-    ```
+    ```text
     DEBU[2020-05-19 04:46:13.693] Using connection profile: name=pinetime type=ble connstring=peer_name=pinetime 
     DEBU[2020-05-19 04:46:14.023] Connecting to peer                           
     DEBU[2020-05-19 04:46:14.244] Exchanging MTU                               
@@ -491,7 +491,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
     The upload completes in 31 seconds for the 205 KB firmware file.
 
-    ```
+    ```text
         205.27 KiB / 205.27 KiB [=====================================================================] 100.00% 6.47 KiB/s 31s
     Done
     ```
@@ -504,7 +504,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
     The new firmware as been loaded to Slot 1 (External SPI Flash). Note that the `flags` are empty.
 
-    ```
+    ```text
     Images:
     image=0 slot=0
         version: 1.0.0
@@ -533,7 +533,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
     Note that `66a2...` is the hash value for the new firmware, obtained from the previous step.
 
-    ```
+    ```text
     Images:
     image=0 slot=0
         version: 1.0.0
@@ -554,7 +554,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
     We reboot PineTime to test the new firmware. Here's the PineTime debug log captured with ST-Link and OpenOCD...
 
-    ```
+    ```text
     # From PineTime Log
     Starting Bootloader...
     Displaying image...
@@ -573,7 +573,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
     But somehow the new firmware failed to start (maybe because the ST-Link debugger was still attached).  PineTime rebooted by itself and showed this debug log...
 
-    ```
+    ```text
     # From PineTime Log
     Starting Bootloader...
     Displaying image...
@@ -592,7 +592,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
     The old firmware is now in the Internal Flash ROM and begins running...
 
-    ```
+    ```text
     # From PineTime Log
     TMP create temp_stub_0
     NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
@@ -628,7 +628,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
     After rebooting, the new firmware runs correctly...
 
-    ```
+    ```text
     # From PineTime Log
     Starting Bootloader...
     Displaying image...
@@ -647,7 +647,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
     The new firmware runs OK...
 
-    ```
+    ```text
     # From PineTime Log
     TMP create temp_stub_0
     NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
@@ -681,14 +681,14 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
     This command shows an error...
 
-    ```
+    ```text
     + sudo ./newtmgr image confirm -c pinetime
     Error: 1
     ```
 
     But when we list the firmware images, the `flags` for the new firmware (Slot 0) are indeed set to `confirmed`.
 
-    ```
+    ```text
     + sudo ./newtmgr image list -c pinetime
     Images:
     image=0 slot=0
@@ -710,7 +710,7 @@ For this test we're using Ubuntu 20.04 on Raspberry Pi 4, connected to a USB Blu
 
     Finally we reboot PineTime and verify that the new firmware runs properly...
 
-    ```
+    ```text
     # From PineTime Log
     Starting Bootloader...
     Displaying image...
@@ -761,7 +761,7 @@ The steps were derived from this Mynewt tutorial: [`ota_upgrade_nrf52.html`](htt
 
     Here's the PineTime log captured with ST-Link and OpenOCD...
 
-    ```
+    ```text
     Starting Bootloader...
     Displaying image...
     Image displayed

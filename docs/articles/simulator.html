@@ -89,8 +89,7 @@
 <li><a href="#caching-at-the-end">9.13 Caching At The End</a><ul></ul></li></ul></li>
 <li><a href="#environment-variables">10 Environment Variables</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/pinetime-simulator.png" alt="Custom PineTime Watch Face created in C++ by SravanSenthiln1: PineTime Watch Face Simulator vs Real PineTime" /></p>
 <p><em>Custom PineTime Watch Face created in C++ by <a href="https://twitter.com/SravanSenthiln1">SravanSenthiln1</a>: PineTime Watch Face Simulator vs Real PineTime</em></p>
-    <p>📝 <em>19 Aug 2020</em></p>
-
+<p>📝 <em>19 Aug 2020</em></p>
 <p>Now we can build and preview Watch Faces for <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a> in the Web Browser, thanks to WebAssembly...</p>
 <ul>
 <li>
@@ -122,9 +121,8 @@
 <p>This creates a <strong>Fork</strong> of the PineTime Repository under our GitHub Account...</p>
 <p><img src="https://lupyuen.github.io/images/cloud-fork2.png" alt="Created the fork" /></p>
 <p>The URL looks like this...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime</span></pre></div>
+<pre><code class="language-text">https://github.com/ACCOUNT_NAME/Pinetime
+</code></pre>
 </li>
 <li>
 <p>The Fork contains <strong>our own copy</strong> of the entire Source Code for the PineTime Firmware... Ready for us to make any updates!</p>
@@ -190,9 +188,8 @@
 </ol>
 <p>We have just created a <strong>Workflow</strong>... An automated job that will be run by GitHub whenever we update our source files.</p>
 <p>If we ever need to edit the Workflow, just browse to this URL...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/simulate.yml</span></pre></div>
+<pre><code class="language-text">https://github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/simulate.yml
+</code></pre>
 <p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
 <p>Let's change a PineTime source file... And trigger our very first PineTime Simulator Build in the Cloud!</p>
 <h1 id="modify-the-pinetime-source-code" class="section-header"><a href="#modify-the-pinetime-source-code">4 Modify the PineTime Source Code</a></h1>
@@ -200,9 +197,8 @@
 <ol>
 <li>
 <p>Browse to this URL...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp</span></pre></div>
+<pre><code class="language-text">https://github.com/ACCOUNT_NAME/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp
+</code></pre>
 <p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
 </li>
 <li>
@@ -259,9 +255,8 @@
 </li>
 <li>
 <p>Browse to this URL to see PineTime Simulator for our Fork...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//ACCOUNT_NAME.github.io/Pinetime</span></pre></div>
+<pre><code class="language-text">https://ACCOUNT_NAME.github.io/Pinetime
+</code></pre>
 <p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
 <p><img src="https://lupyuen.github.io/images/simulator-love.png" alt="PineTime Watch Face Simulator" /></p>
 </li>
@@ -358,7 +353,22 @@ bool Clock::Refresh() {
 <p>We have a lot to do, please chat with us if you're keen to help...</p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Discord / Matrix / Telegram / IRC</a></p>
 <p>And remember to enjoy your PineTime :-)</p>
-<p><a href="https://lupyuen.github.io/rss.xml">Check out my RSS Feed</a></p>
+<ul>
+<li>
+<p><a href="https://github.com/sponsors/lupyuen">Sponsor me a coffee</a></p>
+</li>
+<li>
+<p><a href="https://forum.pine64.org/showthread.php?tid=11077">Discuss this article on Pine64 Forum</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io">Check out my articles</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+</li>
+</ul>
+<p><em>Got a question, comment or suggestion? Create an Issue or submit a Pull Request here...</em></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/simulator.md"><code>pinetime-rust-mynewt/rust/ app/src/simulator.md</code></a></p>
 <h1 id="how-it-works" class="section-header"><a href="#how-it-works">9 How It Works</a></h1>
 <p>(Warning: The topics below are deeply technical... If you're keen please read on!)</p>
 <p>Let's look at the GitHub Actions Workflow we used for previewing PineTime Watch Faces: <a href="https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/simulate.yml"><code>.github/workflows/simulate.yml</code></a></p>
@@ -626,9 +636,8 @@ env.cache-name = cache-emsdk
       run:  set ; pwd ; ls -l /tmp/lvgl-wasm
 </code></pre>
 <p>The current directory <code>pwd</code> is shown as...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">runner</span><span class="op">/</span><span class="ident">work</span><span class="op">/</span><span class="ident">Pinetime</span><span class="op">/</span><span class="ident">Pinetime</span></pre></div>
+<pre><code class="language-text">/home/runner/work/Pinetime/Pinetime
+</code></pre>
 <p>Check the section &quot;Environment Variables&quot; below for the complete list of environment variables.</p>
 <h2 id="caching-at-the-end" class="section-header"><a href="#caching-at-the-end">9.13 Caching At The End</a></h2>
 <p>Here's a tip about the caches we have created for emscripten and wabt...</p>

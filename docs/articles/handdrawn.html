@@ -85,9 +85,8 @@
 <li><a href="#webassembly-rust">8 WebAssembly Rust</a><ul></ul></li>
 <li><a href="#embedded-rust">9 Embedded Rust</a><ul></ul></li>
 <li><a href="#whats-next">10 What's Next</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/handdrawn-title.png" alt="PineTime Smart Watch with Hand-Drawn Watch Face" /></p>
-    <p>📝 <em>18 Nov 2020</em></p>
-
-<p><strong>NOTE: THIS ARTICLE IS UNFINISHED</strong></p>    
+<p>📝 <em>18 Nov 2020</em></p>
+<p><strong>NOTE: THIS ARTICLE IS UNFINISHED</strong></p>
 <p><em>Q: We're in the middle of the pandemic... Is there something fun and useful that we can learn on our own?</em></p>
 <p>A: Try learning <strong>Embedded Programming</strong>!</p>
 <p><em>Q: I need to buy an Arduino or a Microcontroller Board? And have it shipped sloooowly to me at exorbitant prices?</em></p>
@@ -631,11 +630,15 @@
     <span class="comment">//  Return the watch face</span>
     <span class="prelude-val">Ok</span>(<span class="ident">watch_face</span>)
 }</pre></div>
-<p>TODO</p>
+<p>The <code>new</code> Method returns <code>MynewtResult&lt;Self&gt;</code>...</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Create the Watch Face</span>
 <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">MynewtResult</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> { ...</pre></div>
+<p>Which means that the method returns either a Watch Face (i.e. <code>Self</code>) or an error (i.e. <code>Err</code>)</p>
+<p><em>Why does <code>Self</code> refer to the Watch Face?</em></p>
+<p>We'll find out in a while.</p>
+<p>TODO</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">/// Create the Watch Face</span>
@@ -659,10 +662,19 @@
 <p>TODO</p>
 <p>Lemme know if you're keen to help! :-)</p>
 <p>In the meantime, please go right ahead to create your own Watch Faces and publish them on crates.io... So that all PineTime Owners can share, learn and enjoy :-)</p>
-<p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
+<ul>
+<li>
+<p><a href="https://github.com/sponsors/lupyuen">Sponsor me a coffee</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io">Check out my articles</a></p>
+</li>
+<li>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+</li>
+</ul>
 <p><em>Got a question, comment or suggestion? Create an Issue or submit a Pull Request here...</em></p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/handdrawn.md"><code>github.com/lupyuen/pinetime-rust-mynewt/rust/app/src/handdrawn.md</code></a></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/handdrawn.md"><code>pinetime-rust-mynewt/rust/ app/src/handdrawn.md</code></a></p>
 
     
 </body>

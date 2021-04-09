@@ -1038,13 +1038,13 @@ We're now altering the behaviour of File Manager, by tampering with the [__Click
 
 Change the `Exec` line from...
 
-```
+```text
 Exec=filemanager
 ```
 
 To...
 
-```
+```text
 Exec=./run.sh
 ```
 
@@ -1107,13 +1107,13 @@ cd ~/lvgl-wayland
 
 The script [`lvgl.sh`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.sh) copies [`run.sh`](https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/run.sh) from `~/lvgl-wayland/wayland` to the Click Package Folder for File Manager...
 
-```
+```text
 /usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
 ```
 
 In a few seconds we'll see the message...
 
-```
+```text
 *** Tap on File Manager icon on PinePhone
 ```
 
@@ -1125,13 +1125,13 @@ In the SSH console, press `Ctrl-C` to stop the log display.
 
 The log file for the app is located at...
 
-```
+```text
 /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
 ```
 
 The log for the Wayland Compositor `unity-system-compositor` may be useful for troubleshooting...
 
-```
+```text
 /home/phablet/.cache/upstart/unity8.log
 ```
 
@@ -1232,7 +1232,7 @@ Because Ubuntu Touch's Wayland Service stops unauthorized processes from grabbin
 
 We see this in the Wayland Compositor log: `/home/phablet/.cache/upstart/unity8.log`
 
-```
+```text
 ApplicationManager REJECTED connection from app with pid 6710 
 as it was not launched by upstart, and no desktop_file_hint is specified
 ```
@@ -1412,7 +1412,7 @@ Here's how...
 
 1.  When prompted...
 
-    ```
+    ```text
     Enter a file in which to save the key
     ```
     
@@ -1420,13 +1420,13 @@ Here's how...
 
 1.  When prompted...
 
-    ```
+    ```text
     Enter a file in which to save the key
     ```
     
     Enter...
     
-    ```
+    ```text
     pinephone_rsa
     ```
 
@@ -1434,7 +1434,7 @@ Here's how...
 
 1.  When prompted...
 
-    ```
+    ```text
     Enter passphrase
     ```
     
@@ -1477,7 +1477,7 @@ This creates an SSH Key Pair in the `.ssh` folder in our Home Directory...
 
     We should see this...
 
-    ```
+    ```text
     drwx------  2 phablet phablet 4096 Jul  7 20:06 .
     drwxr-xr-x 28 phablet phablet 4096 Jul 24 11:38 ..
     -rw-------  1 phablet phablet  743 Jul  7 20:08 authorized_keys
@@ -1563,7 +1563,7 @@ ls -l /dev/disk/by-label
 
 We should see something like this...
 
-```
+```text
 lrwxrwxrwx 1 root root 15 Jul 23 22:24 BOOT_MNJRO -> ../../mmcblk0p1
 lrwxrwxrwx 1 root root 15 Jul 23 22:24 cache -> ../../mmcblk2p8
 lrwxrwxrwx 1 root root 15 Jul 23 22:24 ROOT_MNJRO -> ../../mmcblk0p2

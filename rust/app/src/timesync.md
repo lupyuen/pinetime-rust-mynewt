@@ -160,13 +160,13 @@ struct ble_current_time {
 
 So when our phone returns these 10 bytes to PineTime as the current date/time...
 
-```
+```text
 e4 07 0a 04 0e 05 29 07 87 00 
 ```
 
 PineTime shall decode the 10 bytes as...
 
-```
+```text
 2020-10-04 14:05:41.527343 Sunday
 ```
 
@@ -176,7 +176,7 @@ We'll see in a while how PineTime decodes the 10 bytes and sets the Mynewt syste
 
 One fine Sunday afternoon in sunny Singapore, the 4th of October 2020, at 2:05 PM (and 41.527343 seconds), PineTime received these 10 encoded bytes...
 
-```
+```text
 e4 07 0a 04 0e 05 29 07 87 00 
 ```
 
@@ -326,7 +326,7 @@ if (rc != 0) { console_printf("Can't format time: %d\n", rc); return 4; }
 
 This produces the currrent date and time in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format like...
 
-```
+```text
 2020-10-04T13:20:26.839843+00:00
 ```
 
@@ -339,7 +339,7 @@ buf[16] = 0;
 
 Which looks like this...
 
-```
+```text
 2020-10-04T13:20
 ```
 
@@ -456,7 +456,7 @@ After fetching the current date and time, `update_watch_face` does this...
 
 `buf` contains the current date and time in the format...
 
-```
+```text
 2020-10-04T13:20
 ```
 

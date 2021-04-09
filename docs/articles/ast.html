@@ -82,8 +82,7 @@
 <li><a href="#whats-next">12 What's Next</a><ul></ul></li>
 <li><a href="#further-reading">13 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/bloc-ios.jpg" alt="Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart" /></p>
 <p><em>Work-in-progress PineTime Companion App on iPhone, converted from Go to Flutter and Dart</em></p>
-    <p>📝 <em>9 Jul 2020</em></p>
-
+<p>📝 <em>9 Jul 2020</em></p>
 <p><strong>NOTE: THIS ARTICLE IS UNFINISHED</strong></p>
 <p>We're now building with <a href="https://flutter.dev/"><strong>Flutter</strong></a> the open source <strong><a href="https://github.com/lupyuen/pinetime-companion">Android and iOS Companion App</a></strong> for <strong><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/pinetime">PineTime Smart Watch</a></strong>: For updating firmware, syncing date/time, pushing mobile notifications, controlling our smart home gadgets, ... and so much more!</p>
 <p>There's a problem: The code to do all this is available in Go... But Flutter runs on another language: Dart!</p>
@@ -193,13 +192,11 @@ class ImageUploadReq  {
 <h1 id="whats-an-abstract-syntax-tree" class="section-header"><a href="#whats-an-abstract-syntax-tree">2 What's an Abstract Syntax Tree?</a></h1>
 <p><em>Have you ever wondered... Why do we speak the way we speak?</em></p>
 <p><em>Why is this ok...</em></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-    <span class="ident">I</span> <span class="ident">EAT</span> <span class="ident">RICE</span></pre></div>
+<pre><code class="language-text">    I EAT RICE
+</code></pre>
 <p><em>But not this?</em></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-    <span class="ident">I</span> <span class="ident">RICE</span></pre></div>
+<pre><code class="language-text">    I RICE
+</code></pre>
 <p>Because there's a structure in everything that we say...</p>
 <p><img src="https://lupyuen.github.io/images/ast-tree2.jpg" alt="Syntax Tree for a sentence" /></p>
 <p>We call this tree-like structure the <strong>Syntax Tree</strong> (though it looks more like a flying broomstick)</p>
@@ -213,13 +210,11 @@ class ImageUploadReq  {
 <p><em>Why not just translate word by word?</em></p>
 <p>Because the Surrounding Context matters!</p>
 <p>If we don't look at the surrounding text, translating <code>I EAT RICE</code> word for word produces this hilarious result...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-    <span class="ident">我吃米</span></pre></div>
+<pre><code class="language-text">    我吃米
+</code></pre>
 <p>Which sounds really weird because it means...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-    <span class="ident">I</span> <span class="ident">EAT</span> <span class="ident">UNCOOKED</span> <span class="ident">RICE</span></pre></div>
+<pre><code class="language-text">    I EAT UNCOOKED RICE
+</code></pre>
 <p><em>(Unless we really meant to say &quot;老鼠吃大米&quot;)</em></p>
 <p>Let's find out how to generate a Syntax Tree automatically for our Go code.</p>
 <h1 id="generate-an-abstract-syntax-tree" class="section-header"><a href="#generate-an-abstract-syntax-tree">3 Generate an Abstract Syntax Tree</a></h1>
@@ -456,9 +451,8 @@ func convertField(fileset *token.FileSet, astField *ast.Field) DartField {
   dartField.GoType = fmt.Sprintf(&quot;%v&quot;, astField.Type) // e.g. &quot;uint32&quot;
 </code></pre>
 <p>This works for simple Go Types like <code>uint32</code>. But the code above converts array types like <code>[]byte</code> to something weird like...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-  <span class="kw-2">&amp;</span>{<span class="number">181</span> <span class="op">&lt;</span><span class="ident">nil</span><span class="op">&gt;</span> <span class="ident">byte</span>}</pre></div>
+<pre><code class="language-text">  &amp;{181 &lt;nil&gt; byte}
+</code></pre>
 <p>We fix this by rewriting anything that matches <code>&amp;{...byte}</code> to <code>[]byte</code>...</p>
 <pre><code class="language-go">  // Handle converted Go Type &quot;&amp;{181 &lt;nil&gt; byte}&quot; as &quot;[]byte&quot;
   if strings.HasPrefix(dartField.GoType, &quot;&amp;{&quot;) 
@@ -736,9 +730,8 @@ func convertFunction(fileset *token.FileSet, decl *ast.FuncDecl) {
 </code></pre>
 <h1 id="test-auto-conversion" class="section-header"><a href="#test-auto-conversion">10 Test Auto Conversion</a></h1>
 <p>TODO</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">&gt;</span> <span class="ident">Executing</span> <span class="ident">task</span>: <span class="op">/</span><span class="ident">usr</span><span class="op">/</span><span class="ident">local</span><span class="op">/</span><span class="ident">go</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">go</span> <span class="ident">run</span> <span class="ident">dart</span><span class="op">/</span><span class="ident">convert</span>.<span class="ident">go</span> <span class="op">&lt;</span></pre></div>
+<pre><code class="language-text">&gt; Executing task: /usr/local/go/bin/go run dart/convert.go &lt;
+</code></pre>
 <pre><code class="language-go">//  Go Code...
 
 package main
@@ -838,8 +831,19 @@ ImageUploadReq NewImageUploadReq() {
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
+<ul>
+<li>
+<p><a href="https://github.com/sponsors/lupyuen">Sponsor me a coffee</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io">Check out my articles</a></p>
+</li>
+<li>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+</li>
+</ul>
+<p><em>Got a question, comment or suggestion? Create an Issue or submit a Pull Request here...</em></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/ast.md"><code>pinetime-rust-mynewt/rust/ app/src/ast.md</code></a></p>
 
     
 </body>

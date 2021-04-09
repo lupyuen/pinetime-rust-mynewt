@@ -25,6 +25,7 @@
 <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
 <link rel="stylesheet" type="text/css" href="../dark.css">
 <link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+<link rel="stylesheet" type="text/css" href="../prism.css">
 <script src="../storage.js"></script><noscript>
 <link rel="stylesheet" href="../noscript.css"></noscript>
 <link rel="shortcut icon" href="../favicon.ico">
@@ -56,6 +57,7 @@
         <div id="theme-choices"></div>
     </div>
     <script src="../theme.js"></script>
+    <script src="../prism.js"></script>
     <!-- Theme Picker -->
 
     <!-- End scripts/rustdoc-before.html -->
@@ -81,7 +83,7 @@
 <li><a href="#task-scheduling-micropython-vs-mynewt">11 Task Scheduling: MicroPython vs Mynewt</a><ul></ul></li>
 <li><a href="#build-and-flash-mynewt--micropython-firmware">12 Build and Flash Mynewt + MicroPython Firmware</a><ul>
 <li><a href="#install-build-tools">12.1 Install Build Tools</a><ul></ul></li>
-<li><a href="#dowload-source-files">12.2 Dowload Source Files</a><ul></ul></li>
+<li><a href="#download-source-files">12.2 Download Source Files</a><ul></ul></li>
 <li><a href="#build-mynewt-firmware">12.3 Build Mynewt Firmware</a><ul></ul></li>
 <li><a href="#build-wasp-os-and-micropython">12.4 Build wasp-os and MicroPython</a><ul></ul></li>
 <li><a href="#build-mynewt--micropython-firmware">12.5 Build Mynewt + MicroPython Firmware</a><ul></ul></li>
@@ -529,84 +531,81 @@ int start_micropython(void) {
 <p><em>How much RAM and ROM are used by MicroPython on Mynewt?</em></p>
 <p>According to the build output, the MicroPython Runtime takes up <strong>33 KB of RAM</strong>. That includes 32 KB of Heap Memory that we have allocated above.</p>
 <p>The compiled MicroPython Runtime code occupies <strong>210 KB</strong> of Flash ROM.</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-  <span class="ident">FLASH</span>     <span class="ident">RAM</span> 
- <span class="number">214606</span>   <span class="number">33557</span> <span class="ident">libs_micropython</span>.<span class="ident">a</span></pre></div>
+<pre><code class="language-text">  FLASH     RAM 
+ 214606   33557 libs_micropython.a
+</code></pre>
 <p>The MicroPython Runtime is compiled as a custom library in Mynewt, hence the name <code>libs_micropython.a</code>. <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/build-app.sh#L164-L189">See the build script</a></p>
 <p>The combined MicroPython + Mynewt firmware (including the NimBLE Bluetooth Stack) occupies <strong>340 KB of Flash ROM, 53 KB of RAM</strong>...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-   <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>
- <span class="number">347992</span>     <span class="number">984</span>   <span class="number">54728</span></pre></div>
+<pre><code class="language-text">   text    data     bss
+ 347992     984   54728
+</code></pre>
 <p>Hence MicroPython takes up 62% of the firmware ROM, 61% of the firmware RAM.</p>
 <p>Here are the ROM and RAM sizes of all code modules in the MicroPython + Mynewt firmware...</p>
+<pre><code class="language-text">+ newt size -v nrf52_my_sensor
+Size of Application Image: app
+Mem FLASH: 0x8000-0x7bc00
+Mem RAM: 0x20000000-0x20010000
+  FLASH     RAM 
+    800     324 *fill*
+   1018      98 apps_my_sensor_app.a
+   2268     116 boot_bootutil.a
+     18       0 boot_mynewt_flash_map_backend.a
+    438      26 boot_split.a
+   1180       0 crypto_mbedtls.a
+   2302       0 crypto_tinycrypt.a
+    401       0 encoding_base64.a
+   1622       0 encoding_cborattr.a
+   3002       0 encoding_tinycbor.a
+    452     444 hw_bsp_nrf52.a
+     52       0 hw_cmsis-core.a
+   1560      92 hw_drivers_flash_spiflash.a
+    706       1 hw_hal.a
+   6646      89 hw_mcu_nordic_nrf52xxx.a
+      2       0 hw_sensor_creator.a
+   1264     260 hw_sensor.a
+   8790   11296 kernel_os.a
+   3152      50 libc_baselibc.a
+ 214606   33557 libs_micropython.a
+     16       0 libs_mynewt_rust.a
+   1410       0 libs_rust_app.a
+   1014       0 libs_rust_libcore.a
+    738      42 libs_semihosting_console.a
+     40       9 libs_sensor_coap.a
+    583      99 libs_sensor_network.a
+    677     212 libs_temp_stub.a
+   3428      72 mgmt_imgmgr.a
+    231      20 mgmt_mgmt.a
+    884     100 mgmt_newtmgr.a
+   1410      44 mgmt_newtmgr_nmgr_os.a
+    454     108 mgmt_newtmgr_transport_ble.a
+    405     388 net_oic.a
+  35496    2107 nimble_controller.a
+   4086    1203 nimble_drivers_nrf52.a
+  41721    2797 nimble_host.a
+    822     218 nimble_host_services_ans.a
+    241     112 nimble_host_services_dis.a
+    396     118 nimble_host_services_gap.a
+    204      62 nimble_host_services_gatt.a
+   1814     648 nimble_host_store_config.a
+    114       0 nimble_host_util.a
+    692    1096 nimble_transport_ram.a
+   1578      54 sys_config.a
+    634     128 sys_flash_map.a
+      2       0 sys_log_modlog.a
+    686      29 sys_mfg.a
+    839      51 sys_reboot.a
+    226      37 sys_sysdown.a
+     30       5 sys_sysinit.a
+   1746       0 time_datetime.a
+    120       0 util_mem.a
+    208       0 nrf52_my_sensor-sysinit-app.a
+   2016       0 libgcc.a
+Loading compiler /Users/Luppy/PineTime/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">+</span> <span class="ident">newt</span> <span class="ident">size</span> <span class="op">-</span><span class="ident">v</span> <span class="ident">nrf52_my_sensor</span>
-<span class="ident">Size</span> <span class="ident">of</span> <span class="ident">Application</span> <span class="ident">Image</span>: <span class="ident">app</span>
-<span class="ident">Mem</span> <span class="ident">FLASH</span>: <span class="number">0x8000</span><span class="op">-</span><span class="number">0x7bc00</span>
-<span class="ident">Mem</span> <span class="ident">RAM</span>: <span class="number">0x20000000</span><span class="op">-</span><span class="number">0x20010000</span>
-  <span class="ident">FLASH</span>     <span class="ident">RAM</span> 
-    <span class="number">800</span>     <span class="number">324</span> <span class="kw-2">*</span><span class="ident">fill</span><span class="op">*</span>
-   <span class="number">1018</span>      <span class="number">98</span> <span class="ident">apps_my_sensor_app</span>.<span class="ident">a</span>
-   <span class="number">2268</span>     <span class="number">116</span> <span class="ident">boot_bootutil</span>.<span class="ident">a</span>
-     <span class="number">18</span>       <span class="number">0</span> <span class="ident">boot_mynewt_flash_map_backend</span>.<span class="ident">a</span>
-    <span class="number">438</span>      <span class="number">26</span> <span class="ident">boot_split</span>.<span class="ident">a</span>
-   <span class="number">1180</span>       <span class="number">0</span> <span class="ident">crypto_mbedtls</span>.<span class="ident">a</span>
-   <span class="number">2302</span>       <span class="number">0</span> <span class="ident">crypto_tinycrypt</span>.<span class="ident">a</span>
-    <span class="number">401</span>       <span class="number">0</span> <span class="ident">encoding_base64</span>.<span class="ident">a</span>
-   <span class="number">1622</span>       <span class="number">0</span> <span class="ident">encoding_cborattr</span>.<span class="ident">a</span>
-   <span class="number">3002</span>       <span class="number">0</span> <span class="ident">encoding_tinycbor</span>.<span class="ident">a</span>
-    <span class="number">452</span>     <span class="number">444</span> <span class="ident">hw_bsp_nrf52</span>.<span class="ident">a</span>
-     <span class="number">52</span>       <span class="number">0</span> <span class="ident">hw_cmsis</span><span class="op">-</span><span class="ident">core</span>.<span class="ident">a</span>
-   <span class="number">1560</span>      <span class="number">92</span> <span class="ident">hw_drivers_flash_spiflash</span>.<span class="ident">a</span>
-    <span class="number">706</span>       <span class="number">1</span> <span class="ident">hw_hal</span>.<span class="ident">a</span>
-   <span class="number">6646</span>      <span class="number">89</span> <span class="ident">hw_mcu_nordic_nrf52xxx</span>.<span class="ident">a</span>
-      <span class="number">2</span>       <span class="number">0</span> <span class="ident">hw_sensor_creator</span>.<span class="ident">a</span>
-   <span class="number">1264</span>     <span class="number">260</span> <span class="ident">hw_sensor</span>.<span class="ident">a</span>
-   <span class="number">8790</span>   <span class="number">11296</span> <span class="ident">kernel_os</span>.<span class="ident">a</span>
-   <span class="number">3152</span>      <span class="number">50</span> <span class="ident">libc_baselibc</span>.<span class="ident">a</span>
- <span class="number">214606</span>   <span class="number">33557</span> <span class="ident">libs_micropython</span>.<span class="ident">a</span>
-     <span class="number">16</span>       <span class="number">0</span> <span class="ident">libs_mynewt_rust</span>.<span class="ident">a</span>
-   <span class="number">1410</span>       <span class="number">0</span> <span class="ident">libs_rust_app</span>.<span class="ident">a</span>
-   <span class="number">1014</span>       <span class="number">0</span> <span class="ident">libs_rust_libcore</span>.<span class="ident">a</span>
-    <span class="number">738</span>      <span class="number">42</span> <span class="ident">libs_semihosting_console</span>.<span class="ident">a</span>
-     <span class="number">40</span>       <span class="number">9</span> <span class="ident">libs_sensor_coap</span>.<span class="ident">a</span>
-    <span class="number">583</span>      <span class="number">99</span> <span class="ident">libs_sensor_network</span>.<span class="ident">a</span>
-    <span class="number">677</span>     <span class="number">212</span> <span class="ident">libs_temp_stub</span>.<span class="ident">a</span>
-   <span class="number">3428</span>      <span class="number">72</span> <span class="ident">mgmt_imgmgr</span>.<span class="ident">a</span>
-    <span class="number">231</span>      <span class="number">20</span> <span class="ident">mgmt_mgmt</span>.<span class="ident">a</span>
-    <span class="number">884</span>     <span class="number">100</span> <span class="ident">mgmt_newtmgr</span>.<span class="ident">a</span>
-   <span class="number">1410</span>      <span class="number">44</span> <span class="ident">mgmt_newtmgr_nmgr_os</span>.<span class="ident">a</span>
-    <span class="number">454</span>     <span class="number">108</span> <span class="ident">mgmt_newtmgr_transport_ble</span>.<span class="ident">a</span>
-    <span class="number">405</span>     <span class="number">388</span> <span class="ident">net_oic</span>.<span class="ident">a</span>
-  <span class="number">35496</span>    <span class="number">2107</span> <span class="ident">nimble_controller</span>.<span class="ident">a</span>
-   <span class="number">4086</span>    <span class="number">1203</span> <span class="ident">nimble_drivers_nrf52</span>.<span class="ident">a</span>
-  <span class="number">41721</span>    <span class="number">2797</span> <span class="ident">nimble_host</span>.<span class="ident">a</span>
-    <span class="number">822</span>     <span class="number">218</span> <span class="ident">nimble_host_services_ans</span>.<span class="ident">a</span>
-    <span class="number">241</span>     <span class="number">112</span> <span class="ident">nimble_host_services_dis</span>.<span class="ident">a</span>
-    <span class="number">396</span>     <span class="number">118</span> <span class="ident">nimble_host_services_gap</span>.<span class="ident">a</span>
-    <span class="number">204</span>      <span class="number">62</span> <span class="ident">nimble_host_services_gatt</span>.<span class="ident">a</span>
-   <span class="number">1814</span>     <span class="number">648</span> <span class="ident">nimble_host_store_config</span>.<span class="ident">a</span>
-    <span class="number">114</span>       <span class="number">0</span> <span class="ident">nimble_host_util</span>.<span class="ident">a</span>
-    <span class="number">692</span>    <span class="number">1096</span> <span class="ident">nimble_transport_ram</span>.<span class="ident">a</span>
-   <span class="number">1578</span>      <span class="number">54</span> <span class="ident">sys_config</span>.<span class="ident">a</span>
-    <span class="number">634</span>     <span class="number">128</span> <span class="ident">sys_flash_map</span>.<span class="ident">a</span>
-      <span class="number">2</span>       <span class="number">0</span> <span class="ident">sys_log_modlog</span>.<span class="ident">a</span>
-    <span class="number">686</span>      <span class="number">29</span> <span class="ident">sys_mfg</span>.<span class="ident">a</span>
-    <span class="number">839</span>      <span class="number">51</span> <span class="ident">sys_reboot</span>.<span class="ident">a</span>
-    <span class="number">226</span>      <span class="number">37</span> <span class="ident">sys_sysdown</span>.<span class="ident">a</span>
-     <span class="number">30</span>       <span class="number">5</span> <span class="ident">sys_sysinit</span>.<span class="ident">a</span>
-   <span class="number">1746</span>       <span class="number">0</span> <span class="ident">time_datetime</span>.<span class="ident">a</span>
-    <span class="number">120</span>       <span class="number">0</span> <span class="ident">util_mem</span>.<span class="ident">a</span>
-    <span class="number">208</span>       <span class="number">0</span> <span class="ident">nrf52_my_sensor</span><span class="op">-</span><span class="ident">sysinit</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">a</span>
-   <span class="number">2016</span>       <span class="number">0</span> <span class="ident">libgcc</span>.<span class="ident">a</span>
-<span class="ident">Loading</span> <span class="ident">compiler</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">repos</span><span class="op">/</span><span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span><span class="op">/</span><span class="ident">compiler</span><span class="op">/</span><span class="ident">arm</span><span class="op">-</span><span class="ident">none</span><span class="op">-</span><span class="ident">eabi</span><span class="op">-</span><span class="ident">m4</span>, <span class="ident">buildProfile</span> <span class="ident">debug</span>
-
-<span class="ident">objsize</span>
-   <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
- <span class="number">347992</span>     <span class="number">984</span>   <span class="number">54728</span>  <span class="number">403704</span>   <span class="number">628f8</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span></pre></div>
+objsize
+   text    data     bss     dec     hex filename
+ 347992     984   54728  403704   628f8 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+</code></pre>
 <h1 id="nimble-bluetooth-stack" class="section-header"><a href="#nimble-bluetooth-stack">10 NimBLE Bluetooth Stack</a></h1>
 <p>Mynewt includes the open-source <a href="https://github.com/apache/mynewt-nimble">NimBLE Bluetooth LE networking stack</a>, so we won't be using the <a href="https://infocenter.nordicsemi.com/topic/ug_gsg_ses/UG/gsg/softdevices.html">Nordic SoftDevice</a> Bluetooth stack from the nRF Port of MicroPython.</p>
 <p>Let's flip NimBLE on and watch what happens. We'll add these NimBLE libraries to our firmware: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/pkg.yml"><code>apps/my_sensor_app/pkg.yml</code></a></p>
@@ -649,7 +648,7 @@ Simple Management Protocol for uploading firmware images over Bluetooth LE</p>
 <span class="doccomment">/// Rust Main Function main() will be called at Mynewt startup. </span>
 <span class="doccomment">/// It replaces the C version of the main() function.</span>
 <span class="attribute">#[<span class="ident">no_mangle</span>]</span>                 <span class="comment">//  Don&#39;t mangle the name &quot;main&quot;</span>
-<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="op">!</span> {  <span class="comment">//  Declare extern &quot;C&quot; because it will be called by Mynewt</span>
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-&gt;</span> <span class="op">!</span> {  <span class="comment">//  Declare extern &quot;C&quot; because it will be called by Mynewt</span>
     <span class="comment">//  Initialise the Mynewt drivers. Any startup functions defined in pkg.yml </span>
     <span class="comment">//  of our custom drivers and libraries will be called by sysinit().  </span>
     <span class="comment">//  Here are the startup functions consolidated by Mynewt:</span>
@@ -657,21 +656,21 @@ Simple Management Protocol for uploading firmware images over Bluetooth LE</p>
     <span class="ident">mynewt</span>::<span class="ident">sysinit</span>();
 
     <span class="comment">//  Start Bluetooth LE, including over-the-air firmware upgrade</span>
-    <span class="kw">extern</span> { <span class="kw">fn</span> <span class="ident">start_ble</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>; }
+    <span class="kw">extern</span> { <span class="kw">fn</span> <span class="ident">start_ble</span>() <span class="op">-&gt;</span> <span class="ident">i32</span>; }
     <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">start_ble</span>() };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>, <span class="string">&quot;BLE fail&quot;</span>);
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;BLE fail&quot;</span>);
 
     <span class="comment">//  Start MicroPython</span>
-    <span class="kw">extern</span> { <span class="kw">fn</span> <span class="ident">start_micropython</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>; }
+    <span class="kw">extern</span> { <span class="kw">fn</span> <span class="ident">start_micropython</span>() <span class="op">-&gt;</span> <span class="ident">i32</span>; }
     <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">start_micropython</span>() };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>, <span class="string">&quot;MP fail&quot;</span>);
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;MP fail&quot;</span>);
     ...</pre></div>
 <p><code>start_ble()</code> is defined in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_main.c"><code>my_sensor_app/src/ble_main.c</code></a>, which calls supporting Bluetooth LE functions in  <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_gatt_svr.c"><code>ble_gatt_svr.c</code></a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_misc.c"><code>ble_misc.c</code></a>, <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_phy.c"><code>ble_phy.c</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/apps/my_sensor_app/src/ble_prph.h"><code>ble_prph.h</code></a></p>
 <p>Then <code>main()</code> calls <code>start_micropython()</code> to start the MicroPython Runtime, including wasp-os. We have seen <code>start_micropython()</code> in <a href="https://github.com/AppKaki/micropython/blob/wasp-os/ports/mynewt/main.c"><code>ports/mynewt/main.c</code></a></p>
 <p>At the end of <code>main()</code> we see this: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a></p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="op">!</span> {
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-&gt;</span> <span class="op">!</span> {
     ...
     <span class="comment">//  Mynewt Event Loop</span>
     <span class="kw">loop</span> {                            <span class="comment">//  Loop forever...</span>
@@ -688,11 +687,10 @@ Simple Management Protocol for uploading firmware images over Bluetooth LE</p>
 <p>So technically we're calling: <strong>C (Mynewt) → Rust → MicroPython!</strong></p>
 <p><em>But won't Rust bloat our Mynewt + MicroPython firmware unnecessarily?</em></p>
 <p>Not at all! The Rust Application and Rust Core Library occupy only 2.4 KB of ROM, 0 KB of RAM! Amazing!</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-  <span class="ident">FLASH</span>     <span class="ident">RAM</span> 
-   <span class="number">1410</span>       <span class="number">0</span> <span class="ident">libs_rust_app</span>.<span class="ident">a</span>
-   <span class="number">1014</span>       <span class="number">0</span> <span class="ident">libs_rust_libcore</span>.<span class="ident">a</span></pre></div>
+<pre><code class="language-text">  FLASH     RAM 
+   1410       0 libs_rust_app.a
+   1014       0 libs_rust_libcore.a
+</code></pre>
 <h1 id="task-scheduling-micropython-vs-mynewt" class="section-header"><a href="#task-scheduling-micropython-vs-mynewt">11 Task Scheduling: MicroPython vs Mynewt</a></h1>
 <p>We have just enabled the NimBLE Bluetooth Stack on our Mynewt + MicroPython firmware... But we can't scan our PineTime device on the <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">Nordic nRF Connect mobile app</a>. Why?</p>
 <p>Let's look again at the <code>main()</code> function: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/rust/app/src/lib.rs"><code>rust/app/src/lib.rs</code></a></p>
@@ -700,7 +698,7 @@ Simple Management Protocol for uploading firmware images over Bluetooth LE</p>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="doccomment">///  Rust Main Function main() will be called at Mynewt startup. It replaces the C version of the main() function.</span>
 <span class="attribute">#[<span class="ident">no_mangle</span>]</span>                 <span class="comment">//  Don&#39;t mangle the name &quot;main&quot;</span>
-<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="op">!</span> {  <span class="comment">//  Declare extern &quot;C&quot; because it will be called by Mynewt</span>
+<span class="kw">extern</span> <span class="string">&quot;C&quot;</span> <span class="kw">fn</span> <span class="ident">main</span>() <span class="op">-&gt;</span> <span class="op">!</span> {  <span class="comment">//  Declare extern &quot;C&quot; because it will be called by Mynewt</span>
     <span class="comment">//  Initialise the Mynewt packages and internal temperature sensor driver. Any startup</span>
     <span class="comment">//  functions defined in pkg.yml of our custom drivers and libraries will be called by </span>
     <span class="comment">//  sysinit().  Here are the startup functions consolidated by Mynewt:</span>
@@ -708,14 +706,14 @@ Simple Management Protocol for uploading firmware images over Bluetooth LE</p>
     <span class="ident">mynewt</span>::<span class="ident">sysinit</span>();
 
     <span class="comment">//  Start Bluetooth LE, including over-the-air firmware upgrade</span>
-    <span class="kw">extern</span> { <span class="kw">fn</span> <span class="ident">start_ble</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>; }
+    <span class="kw">extern</span> { <span class="kw">fn</span> <span class="ident">start_ble</span>() <span class="op">-&gt;</span> <span class="ident">i32</span>; }
     <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">start_ble</span>() };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>, <span class="string">&quot;BLE fail&quot;</span>);
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;BLE fail&quot;</span>);
 
     <span class="comment">//  Start MicroPython</span>
-    <span class="kw">extern</span> { <span class="kw">fn</span> <span class="ident">start_micropython</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">i32</span>; }
+    <span class="kw">extern</span> { <span class="kw">fn</span> <span class="ident">start_micropython</span>() <span class="op">-&gt;</span> <span class="ident">i32</span>; }
     <span class="kw">let</span> <span class="ident">rc</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">start_micropython</span>() };
-    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>, <span class="string">&quot;MP fail&quot;</span>);
+    <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">rc</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;MP fail&quot;</span>);
 
     <span class="comment">//  OOPS: start_micropython() will never return,</span>
     <span class="comment">//  because it&#39;s stuck in a MicroPython Event Loop. So the</span>
@@ -771,7 +769,7 @@ rustup target add thumbv7em-none-eabihf
 </ul>
 </li>
 </ol>
-<h2 id="dowload-source-files" class="section-header"><a href="#dowload-source-files">12.2 Dowload Source Files</a></h2>
+<h2 id="download-source-files" class="section-header"><a href="#download-source-files">12.2 Download Source Files</a></h2>
 <p>We'll download the source files into these folders...</p>
 <p><img src="https://lupyuen.github.io/images/micropython-folders.jpg" alt="Build folders for Mynewt + MicroPython Firmware" /></p>
 <ol>
@@ -802,23 +800,22 @@ git clone --recursive --branch micropython https://github.com/lupyuen/pinetime-r
 newt install
 </code></pre>
 <p>We should see...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Downloading</span> <span class="ident">repository</span> <span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span> (<span class="ident">commit</span>: <span class="ident">master</span>) <span class="ident">from</span> <span class="ident">https</span>:<span class="comment">//github.com/apache/mynewt-core.git</span>
-<span class="ident">Downloading</span> <span class="ident">repository</span> <span class="ident">mynewt</span><span class="op">-</span><span class="ident">mcumgr</span> (<span class="ident">commit</span>: <span class="ident">master</span>) <span class="ident">from</span> <span class="ident">https</span>:<span class="comment">//github.com/apache/mynewt-mcumgr.git</span>
-<span class="ident">Downloading</span> <span class="ident">repository</span> <span class="ident">mynewt</span><span class="op">-</span><span class="ident">nimble</span> (<span class="ident">commit</span>: <span class="ident">master</span>) <span class="ident">from</span> <span class="ident">https</span>:<span class="comment">//github.com/apache/mynewt-nimble.git</span>
-<span class="ident">Downloading</span> <span class="ident">repository</span> <span class="ident">mcuboot</span> (<span class="ident">commit</span>: <span class="ident">master</span>) <span class="ident">from</span> <span class="ident">https</span>:<span class="comment">//github.com/JuulLabs-OSS/mcuboot.git</span>
-<span class="ident">Making</span> <span class="ident">the</span> <span class="ident">following</span> <span class="ident">changes</span> <span class="ident">to</span> <span class="ident">the</span> <span class="ident">project</span>:
-    <span class="ident">install</span> <span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span> (<span class="number">1.7</span>.<span class="number">0</span>)
-    <span class="ident">install</span> <span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">nimble</span> (<span class="number">1.2</span>.<span class="number">0</span>)
-    <span class="ident">install</span> <span class="ident">mcuboot</span> (<span class="number">1.3</span>.<span class="number">1</span>)
-<span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span> <span class="ident">successfully</span> <span class="ident">installed</span> <span class="ident">version</span> <span class="number">1.7</span>.<span class="number">0</span>
-<span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">nimble</span> <span class="ident">successfully</span> <span class="ident">installed</span> <span class="ident">version</span> <span class="number">1.2</span>.<span class="number">0</span>
-<span class="ident">Error</span>: <span class="ident">Error</span> <span class="ident">updating</span> <span class="string">&quot;mcuboot&quot;</span>: <span class="ident">error</span>: <span class="ident">The</span> <span class="ident">following</span> <span class="ident">untracked</span> <span class="ident">working</span> <span class="ident">tree</span> <span class="ident">files</span> <span class="ident">would</span> <span class="ident">be</span> <span class="ident">overwritten</span> <span class="ident">by</span> <span class="ident">checkout</span>:
-        <span class="ident">ext</span><span class="op">/</span><span class="ident">mbedtls</span><span class="op">/</span><span class="ident">include</span><span class="op">/</span><span class="ident">mbedtls</span><span class="op">/</span><span class="ident">check_config</span>.<span class="ident">h</span>
-        <span class="ident">ext</span><span class="op">/</span><span class="ident">mbedtls</span><span class="op">/</span><span class="ident">include</span><span class="op">/</span><span class="ident">mbedtls</span><span class="op">/</span><span class="ident">config</span>.<span class="ident">h</span>
-<span class="ident">Please</span> <span class="kw">move</span> <span class="ident">or</span> <span class="ident">remove</span> <span class="ident">them</span> <span class="ident">before</span> <span class="ident">you</span> <span class="ident">switch</span> <span class="ident">branches</span>.
-<span class="ident">Aborting</span></pre></div>
+<pre><code class="language-text">Downloading repository mynewt-core (commit: master) from https://github.com/apache/mynewt-core.git
+Downloading repository mynewt-mcumgr (commit: master) from https://github.com/apache/mynewt-mcumgr.git
+Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git
+Downloading repository mcuboot (commit: master) from https://github.com/JuulLabs-OSS/mcuboot.git
+Making the following changes to the project:
+    install apache-mynewt-core (1.7.0)
+    install apache-mynewt-nimble (1.2.0)
+    install mcuboot (1.3.1)
+apache-mynewt-core successfully installed version 1.7.0
+apache-mynewt-nimble successfully installed version 1.2.0
+Error: Error updating &quot;mcuboot&quot;: error: The following untracked working tree files would be overwritten by checkout:
+        ext/mbedtls/include/mbedtls/check_config.h
+        ext/mbedtls/include/mbedtls/config.h
+Please move or remove them before you switch branches.
+Aborting
+</code></pre>
 <p>Ignore the <code>mcuboot</code> error above and proceed to the next step.</p>
 </li>
 </ol>
@@ -828,11 +825,11 @@ newt install
 scripts/build-app.sh
 </code></pre>
 <p>We should see...</p>
-
-<pre><code>Linking my_sensor_app.elf
-Error: ld: libc_baselibc.a(start.o): in function `_start&#39;:
-start.c:39: undefined reference to `main&#39;
-collect2: error: ld returned 1 exit status</code></pre>
+<pre><code class="language-text">Linking my_sensor_app.elf
+Error: ld: libc_baselibc.a(start.o): in function `_start':
+start.c:39: undefined reference to `main'
+collect2: error: ld returned 1 exit status
+</code></pre>
 <p>Ignore the <code>Undefined reference to main</code> error above and proceed to the next step.</p>
 <h2 id="build-wasp-os-and-micropython" class="section-header"><a href="#build-wasp-os-and-micropython">12.4 Build wasp-os and MicroPython</a></h2>
 <pre><code class="language-bash">cd ~/pinetime/wasp-os
@@ -840,15 +837,16 @@ export BUILD_VERBOSE=1
 make -j 1 BOARD=pinetime micropython
 </code></pre>
 <p>We should see...</p>
-
-<pre><code>arm-none-eabi-size build-pinetime/micropython.a
+<pre><code class="language-text">arm-none-eabi-size build-pinetime/micropython.a
    text    data     bss     dec     hex filename
       0       0       0       0       0 mpstate.o (ex build-pinetime/micropython.a)
      32       0       0      32      20 nlr.o (ex build-pinetime/micropython.a)
       0       0       0       0       0 nlrx86.o (ex build-pinetime/micropython.a)
 ...
    1041       0       0    1041     411 pins_gen.o (ex build-pinetime/micropython.a)
-make[1]: Leaving directory &#39;pinetime/wasp-os/micropython/ports/mynewt&#39;   </code></pre><h2 id="build-mynewt--micropython-firmware" class="section-header"><a href="#build-mynewt--micropython-firmware">12.5 Build Mynewt + MicroPython Firmware</a></h2>
+make[1]: Leaving directory 'pinetime/wasp-os/micropython/ports/mynewt'   
+</code></pre>
+<h2 id="build-mynewt--micropython-firmware" class="section-header"><a href="#build-mynewt--micropython-firmware">12.5 Build Mynewt + MicroPython Firmware</a></h2>
 <ol>
 <li>
 <p>Build the Mynewt firmware again...</p>
@@ -856,14 +854,13 @@ make[1]: Leaving directory &#39;pinetime/wasp-os/micropython/ports/mynewt&#39;  
 scripts/build-app.sh
 </code></pre>
 <p>We should see...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">objsize</span>
-<span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
-<span class="number">346216</span>     <span class="number">984</span>   <span class="number">54720</span>  <span class="number">401920</span>   <span class="number">62200</span> <span class="ident">pinetime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span>
-<span class="op">+</span> <span class="ident">set</span> <span class="op">+</span><span class="ident">x</span>
-<span class="op">+</span> <span class="ident">newt</span> <span class="ident">create</span><span class="op">-</span><span class="ident">image</span> <span class="ident">nrf52_my_sensor</span> <span class="number">1.0</span>.<span class="number">0</span>
-<span class="ident">App</span> <span class="ident">image</span> <span class="ident">successfully</span> <span class="ident">generated</span>: <span class="ident">pinetime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">img</span>    </pre></div>
+<pre><code class="language-text">objsize
+text    data     bss     dec     hex filename
+346216     984   54720  401920   62200 pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
++ set +x
++ newt create-image nrf52_my_sensor 1.0.0
+App image successfully generated: pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img    
+</code></pre>
 <p>If you see the error <code>Undefined main</code>, run <code>scripts/build-app.sh</code> again. It should fix the error.</p>
 </li>
 <li>
@@ -871,9 +868,8 @@ scripts/build-app.sh
 <pre><code class="language-bash">scripts/nrf52/image-app.sh
 </code></pre>
 <p>We should see...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">App</span> <span class="ident">image</span> <span class="ident">successfully</span> <span class="ident">generated</span>: <span class="ident">pinetime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">img</span>    </pre></div>
+<pre><code class="language-text">App image successfully generated: pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img    
+</code></pre>
 </li>
 </ol>
 <h2 id="select-the-openocd-interface-st-link-or-raspberry-pi-spi" class="section-header"><a href="#select-the-openocd-interface-st-link-or-raspberry-pi-spi">12.6 Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI</a></h2>
@@ -909,9 +905,9 @@ openocd/bin/openocd \
 </li>
 <li>
 <p>Change <code>bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin</code> to the path of the downloaded <code>mynewt.elf.bin</code></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">program</span> <span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span>.<span class="ident">bin</span> <span class="ident">verify</span> <span class="number">0x00000000</span></pre></div>
+<pre><code class="language-text"># For MCUBoot (debugging not supported):
+program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
+</code></pre>
 </li>
 <li>
 <p>Flash the bootloader...</p>
@@ -934,9 +930,8 @@ openocd/bin/openocd \
 </li>
 <li>
 <p>The path of the built firmware file is defined in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-app.ocd"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.ocd</code></a>. We shouldn't need to change this.</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">program</span> <span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">img</span> <span class="ident">verify</span> <span class="number">0x00008000</span></pre></div>
+<pre><code class="language-text">program bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img verify 0x00008000
+</code></pre>
 </li>
 <li>
 <p>Flash the application...</p>
@@ -951,8 +946,7 @@ openocd/bin/openocd \
 <h1 id="debug-log" class="section-header"><a href="#debug-log">13 Debug Log</a></h1>
 <p>Here's the debug log that appears in OpenOCD when we run <code>flash-app.sh</code>...</p>
 <p>The firmware is flashed to PineTime via OpenOCD and ST-Link...</p>
-
-<pre><code>&gt; Executing task in folder pinetime-rust-mynewt: bash -c -l &#39; scripts/nrf52/flash-app.sh &amp;&amp; echo ✅ ◾ ️Done! &#39; &lt;
+<pre><code class="language-text">&gt; Executing task in folder pinetime-rust-mynewt: bash -c -l ' scripts/nrf52/flash-app.sh &amp;&amp; echo ✅ ◾ ️Done! ' &lt;
 
 + source scripts/config.sh
 ++ swd_device=scripts/nrf52/swd-stlink.ocd
@@ -990,140 +984,136 @@ target halted due to debug-request, current mode: Thread
 xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
 Enabled ARM Semihosting to show debug output
 semihosting is enabled
-**** Done! Press Ctrl-C to exit...</code></pre>
+**** Done! Press Ctrl-C to exit...
+</code></pre>
 <p>PineTime reboots after flashing. The MCUBoot Booloader starts...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
-<span class="ident">Displaying</span> <span class="ident">image</span>...
-<span class="ident">Image</span> <span class="ident">displayed</span>
-<span class="ident">Check</span> <span class="ident">button</span>: <span class="number">0</span>
-[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">good</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x4</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x1</span>
-[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">bad</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x2</span>
-[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">none</span>
-[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">none</span>
-<span class="ident">Waiting</span> <span class="number">5</span> <span class="ident">seconds</span> <span class="kw">for</span> <span class="ident">button</span>: <span class="number">0</span>...
-<span class="ident">Waited</span> <span class="kw">for</span> <span class="ident">button</span>: <span class="number">0</span>
-<span class="ident">Bootloader</span> <span class="ident">done</span></pre></div>
+<pre><code class="language-text">Starting Bootloader...
+Displaying image...
+Image displayed
+Check button: 0
+[INF] Primary image: magic=good, swap_type=0x4, copy_done=0x1, image_ok=0x1
+[INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
+[INF] Boot source: none
+[INF] Swap type: none
+Waiting 5 seconds for button: 0...
+Waited for button: 0
+Bootloader done
+</code></pre>
 <p>Mynewt starts running...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">TMP</span> <span class="ident">create</span> <span class="ident">temp_stub_0</span>
-<span class="ident">NET</span> <span class="ident">hwid</span> <span class="number">4a</span> <span class="ident">f8</span> <span class="ident">cf</span> <span class="number">95</span> <span class="number">6a</span> <span class="ident">be</span> <span class="ident">c1</span> <span class="ident">f6</span> <span class="number">89</span> <span class="ident">ba</span> <span class="number">12</span> <span class="number">1a</span> 
-<span class="ident">NET</span> <span class="ident">standalone</span> <span class="ident">node</span> </pre></div>
+<pre><code class="language-text">TMP create temp_stub_0
+NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+NET standalone node 
+</code></pre>
 <p>MicroPython initialises the stack and heap...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">stack_start</span>: <span class="number">20000618</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">heap_start</span>: <span class="number">20004bfa</span>
-<span class="ident">heap_end</span>: <span class="number">2000cbfa</span>
-<span class="ident">TODO</span> <span class="ident">adc_init0</span>
-<span class="ident">TODO</span> <span class="ident">timer_init0</span>
-<span class="ident">TODO</span> <span class="ident">microbit_filesystem_init</span>
-<span class="ident">TODO</span> <span class="ident">machine_rtc_make_new</span>
-<span class="ident">TODO</span> <span class="ident">machine_rtc_start</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_make_new</span>
-<span class="number">1</span> <span class="ident">chips</span> <span class="ident">detected</span>. <span class="ident">Total</span> <span class="ident">flash</span> <span class="ident">size</span> <span class="number">4MiB</span>.
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">20001dc0</span>, <span class="ident">len</span><span class="op">=</span><span class="number">216</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">20001f28</span>, <span class="ident">len</span><span class="op">=</span><span class="number">1bc</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span></pre></div>
+<pre><code class="language-text">stack_start: 20000618
+stack_end: 20002618
+heap_start: 20004bfa
+heap_end: 2000cbfa
+TODO adc_init0
+TODO timer_init0
+TODO microbit_filesystem_init
+TODO machine_rtc_make_new
+TODO machine_rtc_start
+TODO machine_adc_make_new
+1 chips detected. Total flash size 4MiB.
+stack_end: 20002618
+gc_collect: sp=20001dc0, len=216
+stack_end: 20002618
+gc_collect: sp=20001f28, len=1bc
+TODO machine_adc_value_read
+TODO machine_adc_value_read
+</code></pre>
 <p>The ADC is probably used for reading the battery status.</p>
 <p>wasp-os starts the REPL loop and renders the watch face...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Watch</span> <span class="ident">is</span> <span class="ident">running</span>, <span class="kw">use</span> <span class="ident">Ctrl</span><span class="op">-</span><span class="ident">C</span> <span class="ident">to</span> <span class="ident">stop</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">20001f38</span>, <span class="ident">len</span><span class="op">=</span><span class="number">1b8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span></pre></div>
+<pre><code class="language-text">Watch is running, use Ctrl-C to stop
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+stack_end: 20002618
+gc_collect: sp=20001f38, len=1b8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+</code></pre>
 <p>After a while PineTime reboots, probably because of the Mynewt watchdog.</p>
 <p>And PineTime runs the same thing again and again...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
-<span class="ident">Displaying</span> <span class="ident">image</span>...
-<span class="ident">Image</span> <span class="ident">displayed</span>
-<span class="ident">Check</span> <span class="ident">button</span>: <span class="number">0</span>
-[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">good</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x4</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x1</span>
-[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">bad</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x2</span>
-[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">none</span>
-[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">none</span>
-<span class="ident">Waiting</span> <span class="number">5</span> <span class="ident">seconds</span> <span class="kw">for</span> <span class="ident">button</span>: <span class="number">0</span>...
-<span class="ident">Waited</span> <span class="kw">for</span> <span class="ident">button</span>: <span class="number">0</span>
-<span class="ident">Bootloader</span> <span class="ident">done</span>
-<span class="ident">TMP</span> <span class="ident">create</span> <span class="ident">temp_stub_0</span>
-<span class="ident">NET</span> <span class="ident">hwid</span> <span class="number">4a</span> <span class="ident">f8</span> <span class="ident">cf</span> <span class="number">95</span> <span class="number">6a</span> <span class="ident">be</span> <span class="ident">c1</span> <span class="ident">f6</span> <span class="number">89</span> <span class="ident">ba</span> <span class="number">12</span> <span class="number">1a</span> 
-<span class="ident">NET</span> <span class="ident">standalone</span> <span class="ident">node</span> 
-<span class="ident">stack_start</span>: <span class="number">20000618</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">heap_start</span>: <span class="number">20004bfa</span>
-<span class="ident">heap_end</span>: <span class="number">2000cbfa</span>
-<span class="ident">TODO</span> <span class="ident">adc_init0</span>
-<span class="ident">TODO</span> <span class="ident">timer_init0</span>
-<span class="ident">TODO</span> <span class="ident">microbit_filesystem_init</span>
-<span class="ident">TODO</span> <span class="ident">machine_rtc_make_new</span>
-<span class="ident">TODO</span> <span class="ident">machine_rtc_start</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_make_new</span>
-<span class="number">1</span> <span class="ident">chips</span> <span class="ident">detected</span>. <span class="ident">Total</span> <span class="ident">flash</span> <span class="ident">size</span> <span class="number">4MiB</span>.
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">20001dc0</span>, <span class="ident">len</span><span class="op">=</span><span class="number">216</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">20001f28</span>, <span class="ident">len</span><span class="op">=</span><span class="number">1bc</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">Watch</span> <span class="ident">is</span> <span class="ident">running</span>, <span class="kw">use</span> <span class="ident">Ctrl</span><span class="op">-</span><span class="ident">C</span> <span class="ident">to</span> <span class="ident">stop</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">20001f38</span>, <span class="ident">len</span><span class="op">=</span><span class="number">1b8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span>
-<span class="ident">TODO</span> <span class="ident">machine_adc_value_read</span>
-<span class="ident">stack_end</span>: <span class="number">20002618</span>
-<span class="ident">gc_collect</span>: <span class="ident">sp</span><span class="op">=</span><span class="number">200022b8</span>, <span class="ident">len</span><span class="op">=</span><span class="ident">d8</span></pre></div>
+<pre><code class="language-text">Starting Bootloader...
+Displaying image...
+Image displayed
+Check button: 0
+[INF] Primary image: magic=good, swap_type=0x4, copy_done=0x1, image_ok=0x1
+[INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
+[INF] Boot source: none
+[INF] Swap type: none
+Waiting 5 seconds for button: 0...
+Waited for button: 0
+Bootloader done
+TMP create temp_stub_0
+NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+NET standalone node 
+stack_start: 20000618
+stack_end: 20002618
+heap_start: 20004bfa
+heap_end: 2000cbfa
+TODO adc_init0
+TODO timer_init0
+TODO microbit_filesystem_init
+TODO machine_rtc_make_new
+TODO machine_rtc_start
+TODO machine_adc_make_new
+1 chips detected. Total flash size 4MiB.
+stack_end: 20002618
+gc_collect: sp=20001dc0, len=216
+stack_end: 20002618
+gc_collect: sp=20001f28, len=1bc
+TODO machine_adc_value_read
+TODO machine_adc_value_read
+Watch is running, use Ctrl-C to stop
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+stack_end: 20002618
+gc_collect: sp=20001f38, len=1b8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+TODO machine_adc_value_read
+stack_end: 20002618
+gc_collect: sp=200022b8, len=d8
+</code></pre>
 <h1 id="loose-ends" class="section-header"><a href="#loose-ends">14 Loose Ends</a></h1>
 <p>This article is getting waaaaay too long, and I haven't covered all the topics yet. Drop me a note if you would like me to cover the following...</p>
 <ol>
@@ -1147,6 +1137,22 @@ semihosting is enabled
 <p><em>Will we see wasp-os and MicroPython run on Mynewt someday?</em></p>
 <p>The work continues! We have a showstopper: Unable to handle Bluetooth packets due to conflicts with the Mynewt and the MicroPython task scheduler.</p>
 <p>I'll continue to experiment on wasp-os with <a href="https://forum.pine64.org/showthread.php?tid=9017&amp;page=4">guidance</a> from <a href="https://github.com/daniel-thompson">Daniel</a> and keep this article updated!</p>
+<ul>
+<li>
+<p><a href="https://github.com/sponsors/lupyuen">Sponsor me a coffee</a></p>
+</li>
+<li>
+<p><a href="https://forum.pine64.org/showthread.php?tid=10055">Discuss this article on Pine64 Forum</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io">Check out my articles</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+</li>
+</ul>
+<p><em>Got a question, comment or suggestion? Create an Issue or submit a Pull Request here...</em></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/micropython.md"><code>pinetime-rust-mynewt/rust/ app/src/micropython.md</code></a></p>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">16 Further Reading</a></h1>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/">wasp-os documentation</a></p>
 <p><a href="https://wasp-os.readthedocs.io/en/latest/appguide.html">wasp-os Application Writer’s Guide</a></p>
@@ -1154,8 +1160,6 @@ semihosting is enabled
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">&quot;MCUBoot Bootloader for PineTime Smart Watch (nRF52)&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfu">&quot;Firmware Update over Bluetooth Low Energy on PineTime Smart Watch&quot;</a></em></p>
 <p><em><a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">&quot;Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)&quot;</a></em></p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
-<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
 
     
 </body>

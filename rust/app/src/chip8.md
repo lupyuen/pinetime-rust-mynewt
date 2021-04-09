@@ -793,7 +793,7 @@ _Why is this considered 3D Interpolation, not 2D Interpolation? Because we are m
 
 It sounds like a miracle, but the [[spade] 3D Interpolation Program](https://github.com/lupyuen/interpolate-surface) will produce smoothly-interpolated CHIP-8 Virtual X values for __every single PineTime pixel of Physical (X, Y)__ from (0, 0) to (120, 100)... (That's the lower right quadrant)
 
-```
+```text
 Physical ( 1,  0) -> Virtual X =  0  //  Provided value
 Physical ( 2,  0) -> Virtual X =  0  //  Interpolated value
 Physical ( 3,  0) -> Virtual X =  1  //  Interpolated value

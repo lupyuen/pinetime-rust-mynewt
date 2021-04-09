@@ -543,31 +543,30 @@
 <p><img src="https://lupyuen.github.io/images/dfu-imgtool.png" alt="Generate a Firmware Image File for PineTime" /></p>
 <p><em>How shall we modify the GCC Linker Script for our firmware to include the Image Header?</em></p>
 <p>For building our firmware, we'll modify our Linker Script like this (See <a href="https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/nrf52.ld"><code>nrf52.ld</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/nrf52xxaa.ld"><code>nrf52xxaa.ld</code></a>)</p>
+<pre><code class="language-text">_imghdr_size = 0x20;
 
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">_imghdr_size</span> <span class="op">=</span> <span class="number">0x20</span>;
-
-<span class="ident">MEMORY</span>
+MEMORY
 {
-  <span class="ident">FLASH</span> (<span class="ident">rx</span>) : <span class="ident">ORIGIN</span> <span class="op">=</span> <span class="number">0x00008000</span>, <span class="ident">LENGTH</span> <span class="op">=</span> <span class="number">464K</span>
-  <span class="ident">RAM</span> (<span class="ident">rwx</span>)  : <span class="ident">ORIGIN</span> <span class="op">=</span> <span class="number">0x20000000</span>, <span class="ident">LENGTH</span> <span class="op">=</span> <span class="number">64K</span>
+  FLASH (rx) : ORIGIN = 0x00008000, LENGTH = 464K
+  RAM (rwx)  : ORIGIN = 0x20000000, LENGTH = 64K
 }
 
-<span class="ident">SECTIONS</span>
+SECTIONS
 {
-    .<span class="ident">imghdr</span> (<span class="ident">NOLOAD</span>):
+    .imghdr (NOLOAD):
     {
-        . <span class="op">=</span> . <span class="op">+</span> <span class="ident">_imghdr_size</span>;
-    } <span class="op">&gt;</span> <span class="ident">FLASH</span>
+        . = . + _imghdr_size;
+    } &gt; FLASH
 
-    <span class="ident">__text</span> <span class="op">=</span> .;
+    __text = .;
 
-    .<span class="ident">text</span> :
+    .text :
     {
-        <span class="ident">__isr_vector_start</span> <span class="op">=</span> .;
-        <span class="ident">KEEP</span>(<span class="kw-2">*</span>(.<span class="ident">isr_vector</span>))
-        <span class="ident">__isr_vector_end</span> <span class="op">=</span> .;
-        <span class="kw-2">*</span>(.<span class="ident">text</span><span class="kw-2">*</span>)</pre></div>
+        __isr_vector_start = .;
+        KEEP(*(.isr_vector))
+        __isr_vector_end = .;
+        *(.text*)
+</code></pre>
 <p>This Linker Script says...</p>
 <ol>
 <li>
@@ -584,24 +583,23 @@
 </li>
 </ol>
 <p>When GCC links our firmware with the above Linker Script, it produces a <a href="https://linuxhint.com/understanding_elf_file_format/">Firmware ELF File</a> that has the following layout...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="comment">/* Section   Address      Size */</span>
-.<span class="ident">imghdr</span>      <span class="number">0x8000</span>       <span class="number">0x20</span>
-.<span class="ident">text</span>        <span class="number">0x8020</span>    <span class="number">0x32578</span>
- .<span class="ident">isr_vector</span> <span class="number">0x8020</span>       <span class="number">0xd8</span>
-             <span class="number">0x80f8</span> <span class="ident">Reset_Handler</span></pre></div>
+<pre><code class="language-text">/* Section   Address      Size */
+.imghdr      0x8000       0x20
+.text        0x8020    0x32578
+ .isr_vector 0x8020       0xd8
+             0x80f8 Reset_Handler
+</code></pre>
 <p>In the example above, <code>Reset_Handler</code> is the first function in our firmware. That's why it was allocated address <code>0x80f8</code>.</p>
 <p><em>How shall we convert the Firmware ELF File to a Firmware BIN File?</em></p>
 <p>To create the Firmware BIN File <code>my_sensor_app.elf.bin</code> from the Firmware ELF File <code>my_sensor_app.elf</code>, we run <code>arm-none-eabi-objcopy</code> (<a href="http://web.mit.edu/gnu/doc/html/binutils_4.html">documented here</a>)...</p>
-
-<pre><code>arm-none-eabi-objcopy \
+<pre><code class="language-text">arm-none-eabi-objcopy \
     -R .bss \
     -R .bss.core \
     -R .bss.core.nz \
     -O binary \
     my_sensor_app.elf \
-    my_sensor_app.elf.bin</code></pre>
+    my_sensor_app.elf.bin
+</code></pre>
 <p>(Refer to <a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1"><code>my_sensor_app.elf.cmd</code></a>)</p>
 <p><code>arm-none-eabi-objcopy</code> takes an ELF file compiled for Arm Cortex-M and copies the binary sections (code and data) to the BIN file. It strips away the ELF headers and other metadata that are not required at runtime.</p>
 <p>We use the <code>-R</code> option to remove unwanted ELF sections from the Firmware BIN File. The unwanted sections (like <code>.bss.core</code>) may be named differently for your embedded operating system.</p>
@@ -789,75 +787,74 @@ Device Name (<code>pinetime</code>) and Appearance. <a href="https://www.bluetoo
 <p>The Firmware ELF (<code>my_sensor_app.elf</code>), BIN (<code>my_sensor_app.elf.bin</code>) and Image (<code>my_sensor_app.img</code>) Files may be found here...</p>
 <p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/releases/tag/v4.0.1"><code>pinetime-rust-mynewt/releases/tag/v4.0.1</code></a></p>
 <p>The built Firmware Image is 201 KB in size. Here are the sizes of each library linked into the firmware...</p>
+<pre><code class="language-text">----- Build Mynewt and link with Rust app
++ newt build nrf52_my_sensor
+Building target targets/nrf52_my_sensor
+Linking /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+Target successfully built: targets/nrf52_my_sensor
++ newt size -v nrf52_my_sensor
+Size of Application Image: app
+Mem FLASH: 0x8000-0x7bc00
+Mem RAM: 0x20000000-0x20010000
+  FLASH     RAM 
+    740     330 *fill*
+   1018      98 apps_my_sensor_app.a
+   1810     112 boot_bootutil.a
+    438      26 boot_split.a
+   1180       0 crypto_mbedtls.a
+   2302       0 crypto_tinycrypt.a
+    401       0 encoding_base64.a
+   1622       0 encoding_cborattr.a
+   3002       0 encoding_tinycbor.a
+    440     444 hw_bsp_nrf52.a
+     52       0 hw_cmsis-core.a
+    706       1 hw_hal.a
+   7074     154 hw_mcu_nordic_nrf52xxx.a
+      2       0 hw_sensor_creator.a
+   1264     260 hw_sensor.a
+   8756   35712 kernel_os.a
+   3044      50 libc_baselibc.a
+     16       0 libs_mynewt_rust.a
+  57400    9582 libs_rust_app.a
+  12912       0 libs_rust_libcore.a
+    738      42 libs_semihosting_console.a
+     40       9 libs_sensor_coap.a
+    583      99 libs_sensor_network.a
+    677     212 libs_temp_stub.a
+   3428      72 mgmt_imgmgr.a
+    231      20 mgmt_mgmt.a
+    884     100 mgmt_newtmgr.a
+   1410      44 mgmt_newtmgr_nmgr_os.a
+    454     108 mgmt_newtmgr_transport_ble.a
+    405     388 net_oic.a
+  35496    2107 nimble_controller.a
+   4086    1203 nimble_drivers_nrf52.a
+  41721    2797 nimble_host.a
+    822     218 nimble_host_services_ans.a
+    241     112 nimble_host_services_dis.a
+    396     118 nimble_host_services_gap.a
+    204      62 nimble_host_services_gatt.a
+   1814     648 nimble_host_store_config.a
+    114       0 nimble_host_util.a
+    692    1096 nimble_transport_ram.a
+   1578      54 sys_config.a
+    634     128 sys_flash_map.a
+      2       0 sys_log_modlog.a
+    686      29 sys_mfg.a
+    839      51 sys_reboot.a
+    226      37 sys_sysdown.a
+     30       5 sys_sysinit.a
+   1746       0 time_datetime.a
+    120       0 util_mem.a
+    208       0 nrf52_my_sensor-sysinit-app.a
+    166       0 libg.a
+    968       0 libgcc.a
+Loading compiler /Users/Luppy/PineTime/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span> <span class="ident">Build</span> <span class="ident">Mynewt</span> <span class="ident">and</span> <span class="ident">link</span> <span class="ident">with</span> <span class="ident">Rust</span> <span class="ident">app</span>
-<span class="op">+</span> <span class="ident">newt</span> <span class="ident">build</span> <span class="ident">nrf52_my_sensor</span>
-<span class="ident">Building</span> <span class="ident">target</span> <span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span>
-<span class="ident">Linking</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span>
-<span class="ident">Target</span> <span class="ident">successfully</span> <span class="ident">built</span>: <span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span>
-<span class="op">+</span> <span class="ident">newt</span> <span class="ident">size</span> <span class="op">-</span><span class="ident">v</span> <span class="ident">nrf52_my_sensor</span>
-<span class="ident">Size</span> <span class="ident">of</span> <span class="ident">Application</span> <span class="ident">Image</span>: <span class="ident">app</span>
-<span class="ident">Mem</span> <span class="ident">FLASH</span>: <span class="number">0x8000</span><span class="op">-</span><span class="number">0x7bc00</span>
-<span class="ident">Mem</span> <span class="ident">RAM</span>: <span class="number">0x20000000</span><span class="op">-</span><span class="number">0x20010000</span>
-  <span class="ident">FLASH</span>     <span class="ident">RAM</span> 
-    <span class="number">740</span>     <span class="number">330</span> <span class="kw-2">*</span><span class="ident">fill</span><span class="op">*</span>
-   <span class="number">1018</span>      <span class="number">98</span> <span class="ident">apps_my_sensor_app</span>.<span class="ident">a</span>
-   <span class="number">1810</span>     <span class="number">112</span> <span class="ident">boot_bootutil</span>.<span class="ident">a</span>
-    <span class="number">438</span>      <span class="number">26</span> <span class="ident">boot_split</span>.<span class="ident">a</span>
-   <span class="number">1180</span>       <span class="number">0</span> <span class="ident">crypto_mbedtls</span>.<span class="ident">a</span>
-   <span class="number">2302</span>       <span class="number">0</span> <span class="ident">crypto_tinycrypt</span>.<span class="ident">a</span>
-    <span class="number">401</span>       <span class="number">0</span> <span class="ident">encoding_base64</span>.<span class="ident">a</span>
-   <span class="number">1622</span>       <span class="number">0</span> <span class="ident">encoding_cborattr</span>.<span class="ident">a</span>
-   <span class="number">3002</span>       <span class="number">0</span> <span class="ident">encoding_tinycbor</span>.<span class="ident">a</span>
-    <span class="number">440</span>     <span class="number">444</span> <span class="ident">hw_bsp_nrf52</span>.<span class="ident">a</span>
-     <span class="number">52</span>       <span class="number">0</span> <span class="ident">hw_cmsis</span><span class="op">-</span><span class="ident">core</span>.<span class="ident">a</span>
-    <span class="number">706</span>       <span class="number">1</span> <span class="ident">hw_hal</span>.<span class="ident">a</span>
-   <span class="number">7074</span>     <span class="number">154</span> <span class="ident">hw_mcu_nordic_nrf52xxx</span>.<span class="ident">a</span>
-      <span class="number">2</span>       <span class="number">0</span> <span class="ident">hw_sensor_creator</span>.<span class="ident">a</span>
-   <span class="number">1264</span>     <span class="number">260</span> <span class="ident">hw_sensor</span>.<span class="ident">a</span>
-   <span class="number">8756</span>   <span class="number">35712</span> <span class="ident">kernel_os</span>.<span class="ident">a</span>
-   <span class="number">3044</span>      <span class="number">50</span> <span class="ident">libc_baselibc</span>.<span class="ident">a</span>
-     <span class="number">16</span>       <span class="number">0</span> <span class="ident">libs_mynewt_rust</span>.<span class="ident">a</span>
-  <span class="number">57400</span>    <span class="number">9582</span> <span class="ident">libs_rust_app</span>.<span class="ident">a</span>
-  <span class="number">12912</span>       <span class="number">0</span> <span class="ident">libs_rust_libcore</span>.<span class="ident">a</span>
-    <span class="number">738</span>      <span class="number">42</span> <span class="ident">libs_semihosting_console</span>.<span class="ident">a</span>
-     <span class="number">40</span>       <span class="number">9</span> <span class="ident">libs_sensor_coap</span>.<span class="ident">a</span>
-    <span class="number">583</span>      <span class="number">99</span> <span class="ident">libs_sensor_network</span>.<span class="ident">a</span>
-    <span class="number">677</span>     <span class="number">212</span> <span class="ident">libs_temp_stub</span>.<span class="ident">a</span>
-   <span class="number">3428</span>      <span class="number">72</span> <span class="ident">mgmt_imgmgr</span>.<span class="ident">a</span>
-    <span class="number">231</span>      <span class="number">20</span> <span class="ident">mgmt_mgmt</span>.<span class="ident">a</span>
-    <span class="number">884</span>     <span class="number">100</span> <span class="ident">mgmt_newtmgr</span>.<span class="ident">a</span>
-   <span class="number">1410</span>      <span class="number">44</span> <span class="ident">mgmt_newtmgr_nmgr_os</span>.<span class="ident">a</span>
-    <span class="number">454</span>     <span class="number">108</span> <span class="ident">mgmt_newtmgr_transport_ble</span>.<span class="ident">a</span>
-    <span class="number">405</span>     <span class="number">388</span> <span class="ident">net_oic</span>.<span class="ident">a</span>
-  <span class="number">35496</span>    <span class="number">2107</span> <span class="ident">nimble_controller</span>.<span class="ident">a</span>
-   <span class="number">4086</span>    <span class="number">1203</span> <span class="ident">nimble_drivers_nrf52</span>.<span class="ident">a</span>
-  <span class="number">41721</span>    <span class="number">2797</span> <span class="ident">nimble_host</span>.<span class="ident">a</span>
-    <span class="number">822</span>     <span class="number">218</span> <span class="ident">nimble_host_services_ans</span>.<span class="ident">a</span>
-    <span class="number">241</span>     <span class="number">112</span> <span class="ident">nimble_host_services_dis</span>.<span class="ident">a</span>
-    <span class="number">396</span>     <span class="number">118</span> <span class="ident">nimble_host_services_gap</span>.<span class="ident">a</span>
-    <span class="number">204</span>      <span class="number">62</span> <span class="ident">nimble_host_services_gatt</span>.<span class="ident">a</span>
-   <span class="number">1814</span>     <span class="number">648</span> <span class="ident">nimble_host_store_config</span>.<span class="ident">a</span>
-    <span class="number">114</span>       <span class="number">0</span> <span class="ident">nimble_host_util</span>.<span class="ident">a</span>
-    <span class="number">692</span>    <span class="number">1096</span> <span class="ident">nimble_transport_ram</span>.<span class="ident">a</span>
-   <span class="number">1578</span>      <span class="number">54</span> <span class="ident">sys_config</span>.<span class="ident">a</span>
-    <span class="number">634</span>     <span class="number">128</span> <span class="ident">sys_flash_map</span>.<span class="ident">a</span>
-      <span class="number">2</span>       <span class="number">0</span> <span class="ident">sys_log_modlog</span>.<span class="ident">a</span>
-    <span class="number">686</span>      <span class="number">29</span> <span class="ident">sys_mfg</span>.<span class="ident">a</span>
-    <span class="number">839</span>      <span class="number">51</span> <span class="ident">sys_reboot</span>.<span class="ident">a</span>
-    <span class="number">226</span>      <span class="number">37</span> <span class="ident">sys_sysdown</span>.<span class="ident">a</span>
-     <span class="number">30</span>       <span class="number">5</span> <span class="ident">sys_sysinit</span>.<span class="ident">a</span>
-   <span class="number">1746</span>       <span class="number">0</span> <span class="ident">time_datetime</span>.<span class="ident">a</span>
-    <span class="number">120</span>       <span class="number">0</span> <span class="ident">util_mem</span>.<span class="ident">a</span>
-    <span class="number">208</span>       <span class="number">0</span> <span class="ident">nrf52_my_sensor</span><span class="op">-</span><span class="ident">sysinit</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">a</span>
-    <span class="number">166</span>       <span class="number">0</span> <span class="ident">libg</span>.<span class="ident">a</span>
-    <span class="number">968</span>       <span class="number">0</span> <span class="ident">libgcc</span>.<span class="ident">a</span>
-<span class="ident">Loading</span> <span class="ident">compiler</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">repos</span><span class="op">/</span><span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span><span class="op">/</span><span class="ident">compiler</span><span class="op">/</span><span class="ident">arm</span><span class="op">-</span><span class="ident">none</span><span class="op">-</span><span class="ident">eabi</span><span class="op">-</span><span class="ident">m4</span>, <span class="ident">buildProfile</span> <span class="ident">debug</span>
-
-<span class="ident">objsize</span>
-   <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
- <span class="number">205760</span>     <span class="number">904</span>   <span class="number">55224</span>  <span class="number">261888</span>   <span class="number">3ff00</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">elf</span></pre></div>
+objsize
+   text    data     bss     dec     hex filename
+ 205760     904   55224  261888   3ff00 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
+</code></pre>
 <h1 id="upcoming-enhancements-for-pinetime-firmware-update-over-bluetooth-le" class="section-header"><a href="#upcoming-enhancements-for-pinetime-firmware-update-over-bluetooth-le">14 Upcoming Enhancements for PineTime Firmware Update over Bluetooth LE</a></h1>
 <p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">Check out the followup article here</a> ]</p>
 <p>Based on feedback from the PineTime Community, the following enhancements are planned for the implementation of firmware updates...</p>
@@ -997,7 +994,6 @@ Split status: N/A (0)
 </ol>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">17 Further Reading</a></h1>
 <p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot">Check out the followup article here</a> ]</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
 <ul>
 <li>
 <p><a href="https://github.com/sponsors/lupyuen">Sponsor me a coffee</a></p>

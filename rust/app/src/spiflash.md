@@ -279,7 +279,7 @@ int test_flash() {
 
 This code reads 32 bytes, starting at offset 0, from both Internal Flash ROM and External SPI Flash. As expected, the flash memory contents are different for Internal Flash ROM and External SPI Flash...
 
-```
+```text
 Testing flash...
 Read Internal Flash ROM...
 Read 0x0 + 20
@@ -308,7 +308,7 @@ Next in [`flash_test.c`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ot
 flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
 ```
 
-```
+```text
 Erase External SPI Flash...
 Erase 0x0 + 20
 Done!
@@ -330,7 +330,7 @@ flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
 Here are the contents...
 
-```
+```text
 Read Internal Flash ROM...
 Read 0x0 + 20
   0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
@@ -369,7 +369,7 @@ flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
 
 This shows...
 
-```
+```text
 Write External SPI Flash...
 Write 0x0 + 20
 Done!
@@ -393,7 +393,7 @@ flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 
 Here's the result...
 
-```
+```text
 Read Internal Flash ROM...
 Read 0x0 + 20
   0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
@@ -428,7 +428,7 @@ map_cmd(1) ||
 
 Here's the output...
 
-```
+```text
 Sector Map for Internal Flash ROM...
 Flash 0 at 0x0 size 0x80000 with 128 sectors, alignment req 1 bytes
   0: 1000
@@ -470,7 +470,7 @@ This code repeatedly reads 32 bytes from Internal Flash ROM and External SPI Fla
 
 Here's the output...
 
-```
+```text
 Speed Test for Internal Flash ROM...
 Speed test, hal_flash_read(0, 0x0, 32)
 207503
@@ -503,7 +503,7 @@ speed_cmd(1, 0x0, 0, 1, 0) ||
 
 Now we get a table of Read Operations Per 2 Seconds (second column), for data sizes ranging from 1 byte to 256 bytes (first column)...
 
-```
+```text
 Speed Test for Internal Flash ROM...
 Speed test, hal_flash_read(0, 0x0, X)
   1 271962
@@ -660,14 +660,14 @@ Then edit the Bootloader OpenOCD Script [`scripts/nrf52/flash-boot.ocd`](https:/
 
 Comment out the `program` line below (insert `#` at the beginning of the line)...
 
-```
+```text
 # For MCUBoot (debugging not supported):
 # program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
 ```
 
 And uncomment the `program` line below (remove `#` from the beginning of the line)...
 
-```
+```text
 # For Stub Bootloader (supports debugging):
 program bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin verify 0x00000000
 ```

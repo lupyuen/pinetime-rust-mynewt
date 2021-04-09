@@ -93,7 +93,6 @@
 <li><a href="#caching-at-the-end">9.17 Caching At The End</a><ul></ul></li></ul></li>
 <li><a href="#environment-variables">10 Environment Variables</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/cloud-title.jpg" alt="PineTime Firmware Programming vs Fortnite" /></p>
 <p>📝 <em>27 Jul 2020</em></p>
-    
 <p>Programming the firmware of our gadgets (like <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>) has always been cumbersome...</p>
 <ol>
 <li>
@@ -151,9 +150,8 @@
 <p>This creates a <strong>Fork</strong> of the PineTime Repository under our GitHub Account...</p>
 <p><img src="https://lupyuen.github.io/images/cloud-fork2.png" alt="Created the fork" /></p>
 <p>The URL looks like this...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime</span></pre></div>
+<pre><code class="language-text">https://github.com/ACCOUNT_NAME/Pinetime
+</code></pre>
 </li>
 <li>
 <p>The Fork contains <strong>our own copy</strong> of the entire Source Code for the PineTime Firmware... Ready for us to make any updates!</p>
@@ -199,9 +197,8 @@
 </ol>
 <p>We have just created a <strong>Workflow</strong>... An automated job that will be run by GitHub whenever we update our source files.</p>
 <p>If we ever need to edit the Workflow, just browse to this URL...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/main.yml</span></pre></div>
+<pre><code class="language-text">https://github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/main.yml
+</code></pre>
 <p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
 <p>Let's change a PineTime source file... And trigger our very first PineTime Firmware Build in the Cloud!</p>
 <h1 id="modify-the-pinetime-source-code" class="section-header"><a href="#modify-the-pinetime-source-code">3 Modify the PineTime Source Code</a></h1>
@@ -209,9 +206,8 @@
 <ol>
 <li>
 <p>Browse to this URL...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp</span></pre></div>
+<pre><code class="language-text">https://github.com/ACCOUNT_NAME/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp
+</code></pre>
 <p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
 </li>
 <li>
@@ -261,17 +257,15 @@
 </li>
 </ol>
 <p>If we see this error...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">runner</span><span class="op">/</span><span class="ident">work</span><span class="op">/</span><span class="ident">Pinetime</span><span class="op">/</span><span class="ident">Pinetime</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">drivers</span><span class="op">/</span><span class="ident">TwiMaster</span>.<span class="ident">cpp</span>:<span class="number">1</span>:<span class="number">10</span>: <span class="ident">fatal</span> <span class="ident">error</span>: <span class="ident">sdk</span><span class="op">/</span><span class="ident">integration</span><span class="op">/</span><span class="ident">nrfx</span><span class="op">/</span><span class="ident">nrfx_log</span>.<span class="ident">h</span>: <span class="ident">No</span> <span class="ident">such</span> <span class="ident">file</span> <span class="ident">or</span> <span class="ident">directory</span>
- #<span class="ident">include</span> <span class="op">&lt;</span><span class="ident">sdk</span><span class="op">/</span><span class="ident">integration</span><span class="op">/</span><span class="ident">nrfx</span><span class="op">/</span><span class="ident">nrfx_log</span>.<span class="ident">h</span><span class="op">&gt;</span>
-          <span class="op">^</span>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-<span class="ident">compilation</span> <span class="ident">terminated</span>.
-<span class="ident">make</span>[<span class="number">3</span>]: <span class="kw-2">*</span><span class="kw-2">*</span><span class="op">*</span> [<span class="ident">src</span><span class="op">/</span><span class="ident">CMakeFiles</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">dir</span><span class="op">/</span><span class="ident">drivers</span><span class="op">/</span><span class="ident">TwiMaster</span>.<span class="ident">cpp</span>.<span class="ident">o</span>] <span class="ident">Error</span> <span class="number">1</span></pre></div>
+<pre><code class="language-text">/home/runner/work/Pinetime/Pinetime/src/drivers/TwiMaster.cpp:1:10: fatal error: sdk/integration/nrfx/nrfx_log.h: No such file or directory
+ #include &lt;sdk/integration/nrfx/nrfx_log.h&gt;
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make[3]: *** [src/CMakeFiles/pinetime-app.dir/drivers/TwiMaster.cpp.o] Error 1
+</code></pre>
 <p>Browse to...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/blob/master/src/drivers/TwiMaster.cpp</span></pre></div>
+<pre><code class="language-text">https://github.com/ACCOUNT_NAME/Pinetime/blob/master/src/drivers/TwiMaster.cpp
+</code></pre>
 <p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
 <p>Edit the first two lines...</p>
 <pre><code class="language-c">#include &lt;sdk/integration/nrfx/nrfx_log.h&gt;
@@ -291,9 +285,8 @@
 <li>
 <p>On our Android Phone, launch the Web Browser.</p>
 <p>Browse to this URL to see GitHub Actions for our Fork...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//github.com/ACCOUNT_NAME/Pinetime/actions</span></pre></div>
+<pre><code class="language-text">https://github.com/ACCOUNT_NAME/Pinetime/actions
+</code></pre>
 <p>(Change <code>ACCOUNT_NAME</code> to our GitHub Account Name)</p>
 </li>
 <li>
@@ -429,10 +422,19 @@
 <p>We have a lot to do, please chat with us if you're keen to help...</p>
 <p><a href="https://wiki.pine64.org/index.php/PineTime#Community">PineTime Chatroom on Discord / Matrix / Telegram / IRC</a></p>
 <p>And remember to enjoy your PineTime :-)</p>
-<p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
+<ul>
+<li>
+<p><a href="https://github.com/sponsors/lupyuen">Sponsor me a coffee</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io">Check out my articles</a></p>
+</li>
+<li>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+</li>
+</ul>
 <p><em>Got a question, comment or suggestion? Create an Issue or submit a Pull Request here...</em></p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/cloud.md"><code>github.com/lupyuen/pinetime-rust-mynewt/rust/app/src/cloud.md</code></a></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/cloud.md"><code>pinetime-rust-mynewt/rust/ app/src/cloud.md</code></a></p>
 <h1 id="how-it-works" class="section-header"><a href="#how-it-works">9 How It Works</a></h1>
 <p>(Warning: The topics below are deeply technical... If you're keen please read on!)</p>
 <p>Let's look at the GitHub Actions Workflow we used for building PineTime Firmware: <a href="https://github.com/lupyuen/pinetime-lab/blob/master/.github/workflows/main.yml"><code>.github/workflows/main.yml</code></a></p>
@@ -627,23 +629,21 @@ mv nRF5_SDK_15.3.0_59ac345 nrf5_sdk
       run:  set ; pwd ; ls -l
 </code></pre>
 <p>The current directory <code>pwd</code> is shown as...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">runner</span><span class="op">/</span><span class="ident">work</span><span class="op">/</span><span class="ident">Pinetime</span><span class="op">/</span><span class="ident">Pinetime</span></pre></div>
+<pre><code class="language-text">/home/runner/work/Pinetime/Pinetime
+</code></pre>
 <p>The list of files and folders in that directory...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">total</span> <span class="number">48</span>
-<span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">2194</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">CMakeLists</span>.<span class="ident">txt</span>
-<span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">5079</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">README</span>.<span class="ident">md</span>
-<span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>  <span class="number">3</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">bootloader</span>
-<span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>  <span class="number">3</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">cmake</span><span class="op">-</span><span class="ident">nRF5x</span>
-<span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>  <span class="number">3</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">doc</span>
-<span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">2952</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">gcc_nrf52</span><span class="op">-</span><span class="ident">mcuboot</span>.<span class="ident">ld</span>
-<span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">2952</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">gcc_nrf52</span>.<span class="ident">ld</span>
-<span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>  <span class="number">4</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">images</span>
-<span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4475</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">nrf_common</span>.<span class="ident">ld</span>
-<span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span> <span class="number">10</span> <span class="ident">runner</span> <span class="ident">docker</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">26</span> <span class="number">14</span>:<span class="number">39</span> <span class="ident">src</span></pre></div>
+<pre><code class="language-text">total 48
+-rw-r--r--  1 runner docker 2194 Jul 26 14:39 CMakeLists.txt
+-rw-r--r--  1 runner docker 5079 Jul 26 14:39 README.md
+drwxr-xr-x  3 runner docker 4096 Jul 26 14:39 bootloader
+drwxr-xr-x  3 runner docker 4096 Jul 26 14:39 cmake-nRF5x
+drwxr-xr-x  3 runner docker 4096 Jul 26 14:39 doc
+-rw-r--r--  1 runner docker 2952 Jul 26 14:39 gcc_nrf52-mcuboot.ld
+-rw-r--r--  1 runner docker 2952 Jul 26 14:39 gcc_nrf52.ld
+drwxr-xr-x  4 runner docker 4096 Jul 26 14:39 images
+-rw-r--r--  1 runner docker 4475 Jul 26 14:39 nrf_common.ld
+drwxr-xr-x 10 runner docker 4096 Jul 26 14:39 src
+</code></pre>
 <p>Check the section &quot;Environment Variables&quot; below for the complete list of environment variables.</p>
 <h2 id="cmake" class="section-header"><a href="#cmake">9.9 CMake</a></h2>
 <p>Now that we have <code>cmake</code> installed and the complete set of source files, let's start building the firmware...</p>
@@ -668,12 +668,11 @@ cmake \
         make pinetime-mcuboot-app
 </code></pre>
 <p>This generates the PineTime Firmware File <code>pinetime-mcuboot-app.out</code>, as shown in the log...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-[<span class="number">100</span><span class="op">%</span>] <span class="ident">Linking</span> <span class="ident">CXX</span> <span class="ident">executable</span> <span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span>
-<span class="ident">post</span> <span class="ident">build</span> <span class="ident">steps</span> <span class="kw">for</span> <span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>
-   <span class="ident">text</span>	   <span class="ident">data</span>	    <span class="ident">bss</span>	    <span class="ident">dec</span>	    <span class="ident">hex</span>	<span class="ident">filename</span>
- <span class="number">238012</span>	    <span class="number">772</span>	  <span class="number">35784</span>	 <span class="number">274568</span>	  <span class="number">43088</span>	<span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span></pre></div>
+<pre><code class="language-text">[100%] Linking CXX executable pinetime-mcuboot-app.out
+post build steps for pinetime-mcuboot-app
+   text	   data	    bss	    dec	    hex	filename
+ 238012	    772	  35784	 274568	  43088	pinetime-mcuboot-app.out
+</code></pre>
 <p>This says...</p>
 <ul>
 <li>
@@ -733,16 +732,15 @@ make -j pinetime-mcuboot-app
 </code></pre>
 <p>This creates the DFU Package <code>pinetime-mcuboot-app-dfu.zip</code>.</p>
 <p>The DFU Package contains 3 files...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Archive</span>:  <span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span><span class="op">-</span><span class="ident">dfu</span>.<span class="ident">zip</span>
- <span class="ident">Length</span>   <span class="ident">Method</span>    <span class="ident">Size</span>  <span class="ident">Cmpr</span>    <span class="ident">Date</span>    <span class="ident">Time</span>   <span class="ident">CRC</span><span class="op">-</span><span class="number">32</span>   <span class="ident">Name</span>
-<span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span> <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span> <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span> <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span> <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>
-      <span class="number">14</span>  <span class="ident">Stored</span>       <span class="number">14</span>   <span class="number">0</span><span class="op">%</span> <span class="number">2020</span><span class="op">-</span><span class="number">07</span><span class="op">-</span><span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> <span class="number">8cf6f003</span>  <span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span><span class="op">-</span><span class="ident">img</span>.<span class="ident">dat</span>
-     <span class="number">498</span>  <span class="ident">Stored</span>      <span class="number">498</span>   <span class="number">0</span><span class="op">%</span> <span class="number">2020</span><span class="op">-</span><span class="number">07</span><span class="op">-</span><span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> <span class="ident">b0b12660</span>  <span class="ident">manifest</span>.<span class="ident">json</span>
-  <span class="number">238856</span>  <span class="ident">Stored</span>   <span class="number">238856</span>   <span class="number">0</span><span class="op">%</span> <span class="number">2020</span><span class="op">-</span><span class="number">07</span><span class="op">-</span><span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> <span class="ident">ded98812</span>  <span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span><span class="op">-</span><span class="ident">img</span>.<span class="ident">bin</span>
-<span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>          <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="op">-</span><span class="op">-</span><span class="op">-</span>                            <span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>
-  <span class="number">239368</span>           <span class="number">239368</span>   <span class="number">0</span><span class="op">%</span>                            <span class="number">3</span> <span class="ident">files</span></pre></div>
+<pre><code class="language-text">Archive:  build/src/pinetime-mcuboot-app-dfu.zip
+ Length   Method    Size  Cmpr    Date    Time   CRC-32   Name
+--------  ------  ------- ---- ---------- ----- --------  ----
+      14  Stored       14   0% 2020-07-30 06:47 8cf6f003  pinetime-mcuboot-app-img.dat
+     498  Stored      498   0% 2020-07-30 06:47 b0b12660  manifest.json
+  238856  Stored   238856   0% 2020-07-30 06:47 ded98812  pinetime-mcuboot-app-img.bin
+--------          -------  ---                            -------
+  239368           239368   0%                            3 files
+</code></pre>
 <p><em>Why did we unzip the DFU Package?</em></p>
 <p>Let's say we didn't unzip the DFU Package... And we pass <code>pinetime-mcuboot-app-dfu.zip</code> to GitHub Actions to store as an Arfitact for downloading.</p>
 <p>GitHub Actions <strong>always</strong> zips up artifacts for downloading... And we'll end up with a DFU Package that's <strong>zipped twice!</strong></p>
@@ -759,8 +757,8 @@ make -j pinetime-mcuboot-app
 </code></pre>
 <p>The <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/persisting-workflow-data-using-artifacts"><code>actions/upload-artifact</code></a> GitHub Action saves the PineTime DFU Package <code>pinetime-mcuboot-app-dfu.zip</code> as an <strong>Artifact</strong> for us to download and flash to PineTime.</p>
 <p>Remember that this path contains 3 files...</p>
-
-<pre><code>        path: build/src/pinetime-mcuboot-app-dfu/*</code></pre>
+<pre><code class="language-text">        path: build/src/pinetime-mcuboot-app-dfu/*
+</code></pre>
 <p>So this step will zip up the 3 files to create our DFU Package <code>pinetime-mcuboot-app-dfu.zip</code></p>
 <h2 id="make-standalone-firmware-pinetime-app" class="section-header"><a href="#make-standalone-firmware-pinetime-app">9.14 Make Standalone Firmware <code>pinetime-app</code></a></h2>
 <p>Our Workflow also creates the <strong>Standalone PineTime Firmware</strong>... It's self-contained firmware that runs without the MCUBoot Bootloader. Which makes it simpler for GDB debugging.</p>
@@ -770,12 +768,11 @@ make -j pinetime-mcuboot-app
         make pinetime-app
 </code></pre>
 <p>This generates the PineTime Firmware File <code>pinetime-app.out</code>, as shown in the log...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-[<span class="number">100</span><span class="op">%</span>] <span class="ident">Linking</span> <span class="ident">CXX</span> <span class="ident">executable</span> <span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span>
-<span class="ident">post</span> <span class="ident">build</span> <span class="ident">steps</span> <span class="kw">for</span> <span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>
-  <span class="ident">text</span>	   <span class="ident">data</span>	    <span class="ident">bss</span>	    <span class="ident">dec</span>	    <span class="ident">hex</span>	<span class="ident">filename</span>
-<span class="number">238012</span>	    <span class="number">772</span>	  <span class="number">35784</span>	 <span class="number">274568</span>	  <span class="number">43088</span>	<span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span></pre></div>
+<pre><code class="language-text">[100%] Linking CXX executable pinetime-app.out
+post build steps for pinetime-app
+  text	   data	    bss	    dec	    hex	filename
+238012	    772	  35784	 274568	  43088	pinetime-app.out
+</code></pre>
 <h2 id="upload-standalone-firmware" class="section-header"><a href="#upload-standalone-firmware">9.15 Upload Standalone Firmware</a></h2>
 <p>This step uploads the Standalone Firmware as an Artifact for us to download...</p>
 <pre><code class="language-yaml">    - name: Upload standalone firmware
@@ -796,18 +793,17 @@ make -j pinetime-mcuboot-app
         find . -name &quot;pinetime-mcuboot-app.*&quot; -ls
 </code></pre>
 <p>Some of these files may be useful for troubleshooting our firmware (like the Linker Maps <code>*.map</code>)...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-  <span class="number">1327374</span>    <span class="number">656</span> <span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>     <span class="number">671691</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">50</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">hex</span>
-  <span class="number">1327372</span>   <span class="number">6504</span> <span class="op">-</span><span class="ident">rwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>    <span class="number">6740720</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">50</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span>
-  <span class="number">1326257</span>      <span class="number">4</span> <span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>  <span class="number">11</span> <span class="ident">runner</span>   <span class="ident">docker</span>       <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">48</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">CMakeFiles</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">dir</span>
-  <span class="number">1327371</span>   <span class="number">5004</span> <span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>    <span class="number">5122576</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">50</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">map</span>
-  <span class="number">1327373</span>    <span class="number">236</span> <span class="op">-</span><span class="ident">rwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>     <span class="number">238784</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">50</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">bin</span>
-  <span class="number">1326403</span>      <span class="number">4</span> <span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>  <span class="number">11</span> <span class="ident">runner</span>   <span class="ident">docker</span>       <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">45</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">CMakeFiles</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">dir</span>
-  <span class="number">1326990</span>    <span class="number">236</span> <span class="op">-</span><span class="ident">rwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>     <span class="number">238784</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">bin</span>
-  <span class="number">1326989</span>   <span class="number">6504</span> <span class="op">-</span><span class="ident">rwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>    <span class="number">6740728</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">out</span>
-  <span class="number">1326988</span>   <span class="number">5304</span> <span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>    <span class="number">5427760</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">map</span>
-  <span class="number">1326991</span>    <span class="number">656</span> <span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span><span class="ident">r</span><span class="op">-</span><span class="op">-</span>   <span class="number">1</span> <span class="ident">runner</span>   <span class="ident">docker</span>     <span class="number">671708</span> <span class="ident">Jul</span> <span class="number">30</span> <span class="number">06</span>:<span class="number">47</span> .<span class="op">/</span><span class="ident">build</span><span class="op">/</span><span class="ident">src</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">mcuboot</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">hex</span></pre></div>
+<pre><code class="language-text">  1327374    656 -rw-r--r--   1 runner   docker     671691 Jul 30 06:50 ./build/src/pinetime-app.hex
+  1327372   6504 -rwxr-xr-x   1 runner   docker    6740720 Jul 30 06:50 ./build/src/pinetime-app.out
+  1326257      4 drwxr-xr-x  11 runner   docker       4096 Jul 30 06:48 ./build/src/CMakeFiles/pinetime-app.dir
+  1327371   5004 -rw-r--r--   1 runner   docker    5122576 Jul 30 06:50 ./build/src/pinetime-app.map
+  1327373    236 -rwxr-xr-x   1 runner   docker     238784 Jul 30 06:50 ./build/src/pinetime-app.bin
+  1326403      4 drwxr-xr-x  11 runner   docker       4096 Jul 30 06:45 ./build/src/CMakeFiles/pinetime-mcuboot-app.dir
+  1326990    236 -rwxr-xr-x   1 runner   docker     238784 Jul 30 06:47 ./build/src/pinetime-mcuboot-app.bin
+  1326989   6504 -rwxr-xr-x   1 runner   docker    6740728 Jul 30 06:47 ./build/src/pinetime-mcuboot-app.out
+  1326988   5304 -rw-r--r--   1 runner   docker    5427760 Jul 30 06:47 ./build/src/pinetime-mcuboot-app.map
+  1326991    656 -rw-r--r--   1 runner   docker     671708 Jul 30 06:47 ./build/src/pinetime-mcuboot-app.hex
+</code></pre>
 <h2 id="caching-at-the-end" class="section-header"><a href="#caching-at-the-end">9.17 Caching At The End</a></h2>
 <p>Here's a tip about the caches we have created for the Embedded Arm Toolchain and the nRF5 SDK...</p>
 <pre><code class="language-yaml"># Embedded Arm Toolchain and nRF5 SDK will only be cached if the build succeeds.

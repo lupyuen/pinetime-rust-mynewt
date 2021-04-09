@@ -483,14 +483,13 @@ cargo build
 cargo run -v pinetime-graphic.png
 </code></pre>
 <p>The RGB565 values (115,200 bytes) will be dumped to the console like this...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,
-<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,
+<pre><code class="language-text">0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 ...
-<span class="number">0x05</span>, <span class="number">0xa3</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x01</span>, <span class="number">0x20</span>, <span class="number">0x06</span>, <span class="number">0xe4</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>,
-<span class="number">0x05</span>, <span class="number">0xe3</span>, <span class="number">0x02</span>, <span class="number">0xc1</span>, <span class="number">0x02</span>, <span class="number">0xa1</span>, <span class="number">0x03</span>, <span class="number">0x62</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xe5</span>, <span class="number">0x07</span>, <span class="number">0xc5</span>,
-...</pre></div>
+0x05, 0xa3, 0x01, 0x20, 0x01, 0x20, 0x01, 0x20, 0x06, 0xe4, 0x07, 0xe5, 0x07, 0xe5, 0x07, 0xe5,
+0x05, 0xe3, 0x02, 0xc1, 0x02, 0xa1, 0x03, 0x62, 0x07, 0xe5, 0x07, 0xe5, 0x07, 0xe5, 0x07, 0xc5,
+...
+</code></pre>
 <p>Copy the converted RGB565 values and paste into <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/graphic.inc"><code>libs/pinetime_boot/src/graphic.inc</code></a>.</p>
 <p>Then run this code on PineTime to load the converted RGB565 values into PineTime's SPI Flash: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/libs/pinetime_boot/src/write.c"><code>libs/pinetime_boot/src/write.c</code></a></p>
 <pre><code class="language-c">#define BATCH_SIZE  4096  //  Max number of data bytes to be written in a batch
@@ -806,71 +805,69 @@ void pinetime_boot_check_button(void) {
 </li>
 </ol>
 <p>Here is the log that appears on Semihosting Console in OpenOCD...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
-<span class="ident">Displaying</span> <span class="ident">image</span>...
-<span class="ident">Image</span> <span class="ident">displayed</span>
-<span class="ident">Button</span>: <span class="number">0</span>
-[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">unset</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x3</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x3</span>
-[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">unset</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x3</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x3</span>
-[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">primary</span> <span class="ident">slot</span>
-[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">none</span>
-<span class="ident">Button</span>: <span class="number">0</span>
-<span class="ident">Button</span>: <span class="number">0</span>
-<span class="ident">Bootloader</span> <span class="ident">done</span>
-<span class="ident">TMP</span> <span class="ident">create</span> <span class="ident">temp_stub_0</span>
-<span class="ident">NET</span> <span class="ident">hwid</span> <span class="number">4a</span> <span class="ident">f8</span> <span class="ident">cf</span> <span class="number">95</span> <span class="number">6a</span> <span class="ident">be</span> <span class="ident">c1</span> <span class="ident">f6</span> <span class="number">89</span> <span class="ident">ba</span> <span class="number">12</span> <span class="number">1a</span> 
-<span class="ident">NET</span> <span class="ident">standalone</span> <span class="ident">node</span> 
-<span class="ident">Testing</span> <span class="ident">flash</span>...
-<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
-<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
-<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0008</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-<span class="ident">Flash</span> <span class="ident">OK</span>
-<span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span></pre></div>
+<pre><code class="language-text">Starting Bootloader...
+Displaying image...
+Image displayed
+Button: 0
+[INF] Primary image: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
+[INF] Scratch: magic=unset, swap_type=0x1, copy_done=0x3, image_ok=0x3
+[INF] Boot source: primary slot
+[INF] Swap type: none
+Button: 0
+Button: 0
+Bootloader done
+TMP create temp_stub_0
+NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+NET standalone node 
+Testing flash...
+Read Internal Flash ROM...
+Read 0x0 + 20
+  0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
+  0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
+  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+Read External SPI Flash...
+Read 0x0 + 20
+  0x0000: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0008: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+Flash OK
+Rust test display
+</code></pre>
 <p>The Enhanced MCUBoot Bootloader for PineTime is now <strong>22 KB</strong> in size. Here are the sizes of each MCUBoot component...</p>
+<pre><code class="language-text">+ newt size -v nrf52_boot
+Size of Application Image: app
+Mem FLASH: 0x0-0x6000
+Mem RAM: 0x20000000-0x20010000
+  FLASH     RAM 
+     90     229 *fill*
+   6863    5996 boot_bootutil.a
+    124       0 boot_mynewt.a
+     18       0 boot_mynewt_flash_map_backend.a
+   1180       0 crypto_mbedtls.a
+    392     444 hw_bsp_nrf52.a
+     52       0 hw_cmsis-core.a
+   1302      80 hw_drivers_flash_spiflash.a
+    662       1 hw_hal.a
+   4190      72 hw_mcu_nordic_nrf52xxx.a
+   2022   18776 kernel_os.a
+   1784      12 libc_baselibc.a
+   1312     256 libs_pinetime_boot.a
+    539      40 libs_semihosting_console.a
+    548     128 sys_flash_map.a
+      2       0 sys_log_modlog.a
+    666      29 sys_mfg.a
+     30       5 sys_sysinit.a
+     48       0 util_mem.a
+    100       0 nrf52_boot-sysinit-app.a
+    768       0 libgcc.a
+Loading compiler /Users/Luppy/PineTime/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">+</span> <span class="ident">newt</span> <span class="ident">size</span> <span class="op">-</span><span class="ident">v</span> <span class="ident">nrf52_boot</span>
-<span class="ident">Size</span> <span class="ident">of</span> <span class="ident">Application</span> <span class="ident">Image</span>: <span class="ident">app</span>
-<span class="ident">Mem</span> <span class="ident">FLASH</span>: <span class="number">0x0</span><span class="op">-</span><span class="number">0x6000</span>
-<span class="ident">Mem</span> <span class="ident">RAM</span>: <span class="number">0x20000000</span><span class="op">-</span><span class="number">0x20010000</span>
-  <span class="ident">FLASH</span>     <span class="ident">RAM</span> 
-     <span class="number">90</span>     <span class="number">229</span> <span class="kw-2">*</span><span class="ident">fill</span><span class="op">*</span>
-   <span class="number">6863</span>    <span class="number">5996</span> <span class="ident">boot_bootutil</span>.<span class="ident">a</span>
-    <span class="number">124</span>       <span class="number">0</span> <span class="ident">boot_mynewt</span>.<span class="ident">a</span>
-     <span class="number">18</span>       <span class="number">0</span> <span class="ident">boot_mynewt_flash_map_backend</span>.<span class="ident">a</span>
-   <span class="number">1180</span>       <span class="number">0</span> <span class="ident">crypto_mbedtls</span>.<span class="ident">a</span>
-    <span class="number">392</span>     <span class="number">444</span> <span class="ident">hw_bsp_nrf52</span>.<span class="ident">a</span>
-     <span class="number">52</span>       <span class="number">0</span> <span class="ident">hw_cmsis</span><span class="op">-</span><span class="ident">core</span>.<span class="ident">a</span>
-   <span class="number">1302</span>      <span class="number">80</span> <span class="ident">hw_drivers_flash_spiflash</span>.<span class="ident">a</span>
-    <span class="number">662</span>       <span class="number">1</span> <span class="ident">hw_hal</span>.<span class="ident">a</span>
-   <span class="number">4190</span>      <span class="number">72</span> <span class="ident">hw_mcu_nordic_nrf52xxx</span>.<span class="ident">a</span>
-   <span class="number">2022</span>   <span class="number">18776</span> <span class="ident">kernel_os</span>.<span class="ident">a</span>
-   <span class="number">1784</span>      <span class="number">12</span> <span class="ident">libc_baselibc</span>.<span class="ident">a</span>
-   <span class="number">1312</span>     <span class="number">256</span> <span class="ident">libs_pinetime_boot</span>.<span class="ident">a</span>
-    <span class="number">539</span>      <span class="number">40</span> <span class="ident">libs_semihosting_console</span>.<span class="ident">a</span>
-    <span class="number">548</span>     <span class="number">128</span> <span class="ident">sys_flash_map</span>.<span class="ident">a</span>
-      <span class="number">2</span>       <span class="number">0</span> <span class="ident">sys_log_modlog</span>.<span class="ident">a</span>
-    <span class="number">666</span>      <span class="number">29</span> <span class="ident">sys_mfg</span>.<span class="ident">a</span>
-     <span class="number">30</span>       <span class="number">5</span> <span class="ident">sys_sysinit</span>.<span class="ident">a</span>
-     <span class="number">48</span>       <span class="number">0</span> <span class="ident">util_mem</span>.<span class="ident">a</span>
-    <span class="number">100</span>       <span class="number">0</span> <span class="ident">nrf52_boot</span><span class="op">-</span><span class="ident">sysinit</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">a</span>
-    <span class="number">768</span>       <span class="number">0</span> <span class="ident">libgcc</span>.<span class="ident">a</span>
-<span class="ident">Loading</span> <span class="ident">compiler</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">repos</span><span class="op">/</span><span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span><span class="op">/</span><span class="ident">compiler</span><span class="op">/</span><span class="ident">arm</span><span class="op">-</span><span class="ident">none</span><span class="op">-</span><span class="ident">eabi</span><span class="op">-</span><span class="ident">m4</span>, <span class="ident">buildProfile</span> <span class="ident">debug</span>
-
-<span class="ident">objsize</span>
-   <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
-  <span class="number">22620</span>     <span class="number">132</span>   <span class="number">25504</span>   <span class="number">48256</span>    <span class="ident">bc80</span> <span class="op">/</span><span class="ident">Users</span><span class="op">/</span><span class="ident">Luppy</span><span class="op">/</span><span class="ident">PineTime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span></pre></div>
+objsize
+   text    data     bss     dec     hex filename
+  22620     132   25504   48256    bc80 /Users/Luppy/PineTime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
+</code></pre>
 <h1 id="more-enhancements-for-pinetime-bootloader" class="section-header"><a href="#more-enhancements-for-pinetime-bootloader">9 More Enhancements for PineTime Bootloader</a></h1>
 <p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">Check out the testing of Wireless Firmware Updates on PineTime</a> ]</p>
 <p>While writing this article, PineTime Firmware Developers have provided plenty of valuable feedback. Here are the proposed enhancements based on their feedback...</p>
@@ -1029,23 +1026,22 @@ git clone --recursive --branch master https://github.com/lupyuen/pinetime-rust-m
 newt install
 </code></pre>
 <p>We should see...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Downloading</span> <span class="ident">repository</span> <span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span> (<span class="ident">commit</span>: <span class="ident">master</span>) <span class="ident">from</span> <span class="ident">https</span>:<span class="comment">//github.com/apache/mynewt-core.git</span>
-<span class="ident">Downloading</span> <span class="ident">repository</span> <span class="ident">mynewt</span><span class="op">-</span><span class="ident">mcumgr</span> (<span class="ident">commit</span>: <span class="ident">master</span>) <span class="ident">from</span> <span class="ident">https</span>:<span class="comment">//github.com/apache/mynewt-mcumgr.git</span>
-<span class="ident">Downloading</span> <span class="ident">repository</span> <span class="ident">mynewt</span><span class="op">-</span><span class="ident">nimble</span> (<span class="ident">commit</span>: <span class="ident">master</span>) <span class="ident">from</span> <span class="ident">https</span>:<span class="comment">//github.com/apache/mynewt-nimble.git</span>
-<span class="ident">Downloading</span> <span class="ident">repository</span> <span class="ident">mcuboot</span> (<span class="ident">commit</span>: <span class="ident">master</span>) <span class="ident">from</span> <span class="ident">https</span>:<span class="comment">//github.com/JuulLabs-OSS/mcuboot.git</span>
-<span class="ident">Making</span> <span class="ident">the</span> <span class="ident">following</span> <span class="ident">changes</span> <span class="ident">to</span> <span class="ident">the</span> <span class="ident">project</span>:
-    <span class="ident">install</span> <span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span> (<span class="number">1.7</span>.<span class="number">0</span>)
-    <span class="ident">install</span> <span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">nimble</span> (<span class="number">1.2</span>.<span class="number">0</span>)
-    <span class="ident">install</span> <span class="ident">mcuboot</span> (<span class="number">1.3</span>.<span class="number">1</span>)
-<span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span> <span class="ident">successfully</span> <span class="ident">installed</span> <span class="ident">version</span> <span class="number">1.7</span>.<span class="number">0</span>
-<span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">nimble</span> <span class="ident">successfully</span> <span class="ident">installed</span> <span class="ident">version</span> <span class="number">1.2</span>.<span class="number">0</span>
-<span class="ident">Error</span>: <span class="ident">Error</span> <span class="ident">updating</span> <span class="string">&quot;mcuboot&quot;</span>: <span class="ident">error</span>: <span class="ident">The</span> <span class="ident">following</span> <span class="ident">untracked</span> <span class="ident">working</span> <span class="ident">tree</span> <span class="ident">files</span> <span class="ident">would</span> <span class="ident">be</span> <span class="ident">overwritten</span> <span class="ident">by</span> <span class="ident">checkout</span>:
-        <span class="ident">ext</span><span class="op">/</span><span class="ident">mbedtls</span><span class="op">/</span><span class="ident">include</span><span class="op">/</span><span class="ident">mbedtls</span><span class="op">/</span><span class="ident">check_config</span>.<span class="ident">h</span>
-        <span class="ident">ext</span><span class="op">/</span><span class="ident">mbedtls</span><span class="op">/</span><span class="ident">include</span><span class="op">/</span><span class="ident">mbedtls</span><span class="op">/</span><span class="ident">config</span>.<span class="ident">h</span>
-<span class="ident">Please</span> <span class="kw">move</span> <span class="ident">or</span> <span class="ident">remove</span> <span class="ident">them</span> <span class="ident">before</span> <span class="ident">you</span> <span class="ident">switch</span> <span class="ident">branches</span>.
-<span class="ident">Aborting</span></pre></div>
+<pre><code class="language-text">Downloading repository mynewt-core (commit: master) from https://github.com/apache/mynewt-core.git
+Downloading repository mynewt-mcumgr (commit: master) from https://github.com/apache/mynewt-mcumgr.git
+Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git
+Downloading repository mcuboot (commit: master) from https://github.com/JuulLabs-OSS/mcuboot.git
+Making the following changes to the project:
+    install apache-mynewt-core (1.7.0)
+    install apache-mynewt-nimble (1.2.0)
+    install mcuboot (1.3.1)
+apache-mynewt-core successfully installed version 1.7.0
+apache-mynewt-nimble successfully installed version 1.2.0
+Error: Error updating &quot;mcuboot&quot;: error: The following untracked working tree files would be overwritten by checkout:
+        ext/mbedtls/include/mbedtls/check_config.h
+        ext/mbedtls/include/mbedtls/config.h
+Please move or remove them before you switch branches.
+Aborting
+</code></pre>
 <p>Ignore the <code>mcuboot</code> error above and proceed to the next step.</p>
 </li>
 <li>
@@ -1076,41 +1072,40 @@ git clone --recursive --branch v1.5.0 https://github.com/JuulLabs-OSS/mcuboot
 scripts/nrf52/build-boot.sh
 </code></pre>
 <p>We should see...</p>
+<pre><code class="language-text">Linking pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
+Target successfully built: targets/nrf52_boot
++ newt size -v nrf52_boot
+Size of Application Image: app
+Mem FLASH: 0x0-0x6000
+Mem RAM: 0x20000000-0x20010000
+  FLASH     RAM 
+     90     229 *fill*
+   6823    5996 boot_bootutil.a
+    124       0 boot_mynewt.a
+     18       0 boot_mynewt_flash_map_backend.a
+   1182       0 crypto_mbedtls.a
+    392     444 hw_bsp_nrf52.a
+     52       0 hw_cmsis-core.a
+   1280      80 hw_drivers_flash_spiflash.a
+    654       1 hw_hal.a
+   4192      72 hw_mcu_nordic_nrf52xxx.a
+   2006   18776 kernel_os.a
+   1930      12 libc_baselibc.a
+   1478     256 libs_pinetime_boot.a
+    529      40 libs_semihosting_console.a
+    544     128 sys_flash_map.a
+      2       0 sys_log_modlog.a
+    632      29 sys_mfg.a
+     30       5 sys_sysinit.a
+     48       0 util_mem.a
+    100       0 nrf52_boot-sysinit-app.a
+    756       0 libgcc.a
+Loading compiler pinetime/pinetime-rust-mynewt/repos/apache-mynewt-core/compiler/arm-none-eabi-m4, buildProfile debug
 
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Linking</span> <span class="ident">pinetime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span>
-<span class="ident">Target</span> <span class="ident">successfully</span> <span class="ident">built</span>: <span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span>
-<span class="op">+</span> <span class="ident">newt</span> <span class="ident">size</span> <span class="op">-</span><span class="ident">v</span> <span class="ident">nrf52_boot</span>
-<span class="ident">Size</span> <span class="ident">of</span> <span class="ident">Application</span> <span class="ident">Image</span>: <span class="ident">app</span>
-<span class="ident">Mem</span> <span class="ident">FLASH</span>: <span class="number">0x0</span><span class="op">-</span><span class="number">0x6000</span>
-<span class="ident">Mem</span> <span class="ident">RAM</span>: <span class="number">0x20000000</span><span class="op">-</span><span class="number">0x20010000</span>
-  <span class="ident">FLASH</span>     <span class="ident">RAM</span> 
-     <span class="number">90</span>     <span class="number">229</span> <span class="kw-2">*</span><span class="ident">fill</span><span class="op">*</span>
-   <span class="number">6823</span>    <span class="number">5996</span> <span class="ident">boot_bootutil</span>.<span class="ident">a</span>
-    <span class="number">124</span>       <span class="number">0</span> <span class="ident">boot_mynewt</span>.<span class="ident">a</span>
-     <span class="number">18</span>       <span class="number">0</span> <span class="ident">boot_mynewt_flash_map_backend</span>.<span class="ident">a</span>
-   <span class="number">1182</span>       <span class="number">0</span> <span class="ident">crypto_mbedtls</span>.<span class="ident">a</span>
-    <span class="number">392</span>     <span class="number">444</span> <span class="ident">hw_bsp_nrf52</span>.<span class="ident">a</span>
-     <span class="number">52</span>       <span class="number">0</span> <span class="ident">hw_cmsis</span><span class="op">-</span><span class="ident">core</span>.<span class="ident">a</span>
-   <span class="number">1280</span>      <span class="number">80</span> <span class="ident">hw_drivers_flash_spiflash</span>.<span class="ident">a</span>
-    <span class="number">654</span>       <span class="number">1</span> <span class="ident">hw_hal</span>.<span class="ident">a</span>
-   <span class="number">4192</span>      <span class="number">72</span> <span class="ident">hw_mcu_nordic_nrf52xxx</span>.<span class="ident">a</span>
-   <span class="number">2006</span>   <span class="number">18776</span> <span class="ident">kernel_os</span>.<span class="ident">a</span>
-   <span class="number">1930</span>      <span class="number">12</span> <span class="ident">libc_baselibc</span>.<span class="ident">a</span>
-   <span class="number">1478</span>     <span class="number">256</span> <span class="ident">libs_pinetime_boot</span>.<span class="ident">a</span>
-    <span class="number">529</span>      <span class="number">40</span> <span class="ident">libs_semihosting_console</span>.<span class="ident">a</span>
-    <span class="number">544</span>     <span class="number">128</span> <span class="ident">sys_flash_map</span>.<span class="ident">a</span>
-      <span class="number">2</span>       <span class="number">0</span> <span class="ident">sys_log_modlog</span>.<span class="ident">a</span>
-    <span class="number">632</span>      <span class="number">29</span> <span class="ident">sys_mfg</span>.<span class="ident">a</span>
-     <span class="number">30</span>       <span class="number">5</span> <span class="ident">sys_sysinit</span>.<span class="ident">a</span>
-     <span class="number">48</span>       <span class="number">0</span> <span class="ident">util_mem</span>.<span class="ident">a</span>
-    <span class="number">100</span>       <span class="number">0</span> <span class="ident">nrf52_boot</span><span class="op">-</span><span class="ident">sysinit</span><span class="op">-</span><span class="ident">app</span>.<span class="ident">a</span>
-    <span class="number">756</span>       <span class="number">0</span> <span class="ident">libgcc</span>.<span class="ident">a</span>
-<span class="ident">Loading</span> <span class="ident">compiler</span> <span class="ident">pinetime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">repos</span><span class="op">/</span><span class="ident">apache</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">-</span><span class="ident">core</span><span class="op">/</span><span class="ident">compiler</span><span class="op">/</span><span class="ident">arm</span><span class="op">-</span><span class="ident">none</span><span class="op">-</span><span class="ident">eabi</span><span class="op">-</span><span class="ident">m4</span>, <span class="ident">buildProfile</span> <span class="ident">debug</span>
-
-<span class="ident">objsize</span>
-   <span class="ident">text</span>    <span class="ident">data</span>     <span class="ident">bss</span>     <span class="ident">dec</span>     <span class="ident">hex</span> <span class="ident">filename</span>
-  <span class="number">22792</span>     <span class="number">132</span>   <span class="number">25504</span>   <span class="number">48428</span>    <span class="ident">bd2c</span> <span class="ident">pinetime</span><span class="op">/</span><span class="ident">pinetime</span><span class="op">-</span><span class="ident">rust</span><span class="op">-</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span></pre></div>
+objsize
+   text    data     bss     dec     hex filename
+  22792     132   25504   48428    bd2c pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
+</code></pre>
 <h2 id="select-the-openocd-interface-st-link-or-raspberry-pi-spi" class="section-header"><a href="#select-the-openocd-interface-st-link-or-raspberry-pi-spi">11.4 Select the OpenOCD Interface: ST-Link or Raspberry Pi SPI</a></h2>
 <p>Edit <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/config.sh"><code>~/pinetime/pinetime-rust-mynewt/scripts/config.sh</code></a></p>
 <p>If we're using ST-Link v2 for flashing PineTime, set <code>swd_device</code> as follows...</p>
@@ -1139,9 +1134,9 @@ openocd/bin/openocd \
 </li>
 <li>
 <p>The path of the built firmware file is defined in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/flash-boot.ocd"><code>~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.ocd</code></a>. We shouldn't need to change this.</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">program</span> <span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">boot</span><span class="op">/</span><span class="ident">mynewt</span><span class="op">/</span><span class="ident">mynewt</span>.<span class="ident">elf</span>.<span class="ident">bin</span> <span class="ident">verify</span> <span class="number">0x00000000</span></pre></div>
+<pre><code class="language-text"># For MCUBoot (debugging not supported):
+program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
+</code></pre>
 </li>
 <li>
 <p>Flash the bootloader...</p>
@@ -1150,8 +1145,7 @@ openocd/bin/openocd \
 </li>
 <li>
 <p>We should see...</p>
-
-<pre><code>&gt; Executing task in folder pinetime-rust-mynewt: bash -c -l &#39; scripts/nrf52/flash-boot.sh &amp;&amp; echo ✅ ◾ ️Done! &#39; &lt;
+<pre><code class="language-text">&gt; Executing task in folder pinetime-rust-mynewt: bash -c -l ' scripts/nrf52/flash-boot.sh &amp;&amp; echo ✅ ◾ ️Done! ' &lt;
 
 + source scripts/config.sh
 ++ swd_device=scripts/nrf52/swd-stlink.ocd
@@ -1188,12 +1182,13 @@ Restarting...
 target halted due to debug-request, current mode: Thread 
 xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
 
-**** Done!</code></pre></li>
+**** Done!
+</code></pre>
+</li>
 <li>
 <p>For ST-Link, check that the Adapter Speed is set to 1000 kHz. OpenOCD won't work at higher speeds.</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">adapter</span> <span class="ident">speed</span>: <span class="number">1000</span> <span class="ident">kHz</span></pre></div>
+<pre><code class="language-text">adapter speed: 1000 kHz
+</code></pre>
 </li>
 <li>
 <p>If the flashing fails, check whether any <code>openocd</code> processes are running in the background, and kill them.</p>
@@ -1243,9 +1238,8 @@ openocd/bin/openocd \
 </li>
 <li>
 <p>Change <code>bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img</code> to the path of the downloaded Application Firmware Image File...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">program</span> <span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">img</span> <span class="ident">verify</span> <span class="number">0x00008000</span></pre></div>
+<pre><code class="language-text">program bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img verify 0x00008000
+</code></pre>
 </li>
 <li>
 <p>Flash the application...</p>
@@ -1254,8 +1248,7 @@ openocd/bin/openocd \
 </li>
 <li>
 <p>We should see...</p>
-
-<pre><code>&gt; Executing task in folder pinetime-rust-mynewt: bash -c -l &#39; scripts/nrf52/flash-app.sh &amp;&amp; echo ✅ ◾ ️Done! &#39; &lt;
+<pre><code class="language-text">&gt; Executing task in folder pinetime-rust-mynewt: bash -c -l ' scripts/nrf52/flash-app.sh &amp;&amp; echo ✅ ◾ ️Done! ' &lt;
 
 + source scripts/config.sh
 ++ swd_device=scripts/nrf52/swd-stlink.ocd
@@ -1286,98 +1279,94 @@ wrote 143360 bytes from file bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/
 target halted due to breakpoint, current mode: Thread 
 xPSR: 0x61000000 pc: 0x2000002e msp: 0x20010000, semihosting
 verified 139268 bytes in 0.363909s (373.731 KiB/s)
-** Verified OK **</code></pre></li>
+** Verified OK **
+</code></pre>
+</li>
 <li>
 <p>For ST-Link, check that the Adapter Speed is set to 1000 kHz. OpenOCD won't work at higher speeds.</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">adapter</span> <span class="ident">speed</span>: <span class="number">1000</span> <span class="ident">kHz</span></pre></div>
+<pre><code class="language-text">adapter speed: 1000 kHz
+</code></pre>
 </li>
 <li>
 <p>If the flashing fails, check whether any <code>openocd</code> processes are running in the background, and kill them.</p>
 </li>
 <li>
 <p>PineTime reboots (with the <code>reset init</code> OpenOCD Command)...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Restarting</span>...
-<span class="ident">target</span> <span class="ident">halted</span> <span class="ident">due</span> <span class="ident">to</span> <span class="ident">debug</span><span class="op">-</span><span class="ident">request</span>, <span class="ident">current</span> <span class="ident">mode</span>: <span class="ident">Thread</span> 
-<span class="ident">xPSR</span>: <span class="number">0x01000000</span> <span class="ident">pc</span>: <span class="number">0x000000d8</span> <span class="ident">msp</span>: <span class="number">0x20010000</span>, <span class="ident">semihosting</span>
-<span class="ident">Enabled</span> <span class="ident">ARM</span> <span class="ident">Semihosting</span> <span class="ident">to</span> <span class="ident">show</span> <span class="ident">debug</span> <span class="ident">output</span>
-<span class="ident">semihosting</span> <span class="ident">is</span> <span class="ident">enabled</span></pre></div>
+<pre><code class="language-text">Restarting...
+target halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
+Enabled ARM Semihosting to show debug output
+semihosting is enabled
+</code></pre>
 </li>
 <li>
 <p>PineTime starts MCUBoot Bootloader...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw-2">*</span><span class="kw-2">*</span><span class="kw-2">*</span><span class="op">*</span> <span class="macro">Done</span><span class="macro">!</span> <span class="ident">Press</span> <span class="ident">Ctrl</span><span class="op">-</span><span class="ident">C</span> <span class="ident">to</span> <span class="ident">exit</span>...
-<span class="ident">Starting</span> <span class="ident">Bootloader</span>...
-<span class="ident">Displaying</span> <span class="ident">image</span>...
-<span class="ident">Image</span> <span class="ident">displayed</span>
-<span class="ident">Check</span> <span class="ident">button</span>: <span class="number">0</span>
-[<span class="ident">INF</span>] <span class="ident">Primary</span> <span class="ident">image</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">good</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x4</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x1</span>
-[<span class="ident">INF</span>] <span class="ident">Scratch</span>: <span class="ident">magic</span><span class="op">=</span><span class="ident">bad</span>, <span class="ident">swap_type</span><span class="op">=</span><span class="number">0x1</span>, <span class="ident">copy_done</span><span class="op">=</span><span class="number">0x2</span>, <span class="ident">image_ok</span><span class="op">=</span><span class="number">0x2</span>
-[<span class="ident">INF</span>] <span class="ident">Boot</span> <span class="ident">source</span>: <span class="ident">none</span>
-[<span class="ident">INF</span>] <span class="ident">Swap</span> <span class="kw">type</span>: <span class="ident">none</span>
-<span class="ident">Waiting</span> <span class="number">5</span> <span class="ident">seconds</span> <span class="kw">for</span> <span class="ident">button</span>...
-<span class="ident">Waited</span> <span class="kw">for</span> <span class="ident">button</span>: <span class="number">0</span>
-<span class="ident">Bootloader</span> <span class="ident">done</span></pre></div>
+<pre><code class="language-text">**** Done! Press Ctrl-C to exit...
+Starting Bootloader...
+Displaying image...
+Image displayed
+Check button: 0
+[INF] Primary image: magic=good, swap_type=0x4, copy_done=0x1, image_ok=0x1
+[INF] Scratch: magic=bad, swap_type=0x1, copy_done=0x2, image_ok=0x2
+[INF] Boot source: none
+[INF] Swap type: none
+Waiting 5 seconds for button...
+Waited for button: 0
+Bootloader done
+</code></pre>
 </li>
 <li>
 <p>Finally PineTime starts the Application Firmware...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">TMP</span> <span class="ident">create</span> <span class="ident">temp_stub_0</span>
-<span class="ident">NET</span> <span class="ident">hwid</span> <span class="number">4a</span> <span class="ident">f8</span> <span class="ident">cf</span> <span class="number">95</span> <span class="number">6a</span> <span class="ident">be</span> <span class="ident">c1</span> <span class="ident">f6</span> <span class="number">89</span> <span class="ident">ba</span> <span class="number">12</span> <span class="number">1a</span> 
-<span class="ident">NET</span> <span class="ident">standalone</span> <span class="ident">node</span> </pre></div>
+<pre><code class="language-text">TMP create temp_stub_0
+NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
+NET standalone node 
+</code></pre>
 </li>
 <li>
 <p>Firmware tests internal and external flash memory...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Testing</span> <span class="ident">flash</span>...
-<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
-<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-<span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-<span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-<span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-<span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
-<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-<span class="number">0x0000</span>: <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0xf0</span> <span class="number">0x0f</span> <span class="number">0xff</span> <span class="number">0xf7</span> 
-<span class="number">0x0008</span>: <span class="number">0x6c</span> <span class="number">0x69</span> <span class="number">0x74</span> <span class="number">0x74</span> <span class="number">0x6c</span> <span class="number">0x65</span> <span class="number">0x66</span> <span class="number">0x73</span> 
-<span class="number">0x0010</span>: <span class="number">0x2f</span> <span class="number">0xe0</span> <span class="number">0x00</span> <span class="number">0x10</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x02</span> <span class="number">0x00</span> 
-<span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x02</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x20</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-<span class="ident">Flash</span> <span class="ident">OK</span></pre></div>
+<pre><code class="language-text">Testing flash...
+Read Internal Flash ROM...
+Read 0x0 + 20
+0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
+0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
+0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+Read External SPI Flash...
+Read 0x0 + 20
+0x0000: 0x01 0x00 0x00 0x00 0xf0 0x0f 0xff 0xf7 
+0x0008: 0x6c 0x69 0x74 0x74 0x6c 0x65 0x66 0x73 
+0x0010: 0x2f 0xe0 0x00 0x10 0x00 0x00 0x02 0x00 
+0x0018: 0x00 0x02 0x00 0x00 0x00 0x20 0x00 0x00 
+Flash OK
+</code></pre>
 </li>
 <li>
 <p>When we connect with <code>newtmgr</code>, the Bluetooth LE events are shown...</p>
+<pre><code class="language-text">Starting BLE...
+BLE started
+Rust test display 1.0.0
+Rust touch sensor
+connection established; status=0 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=0 peer_ota_addr= peer_id_addr_type=0 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=72 encrypted=0 authenticated=0 bonded=0
 
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Starting</span> <span class="ident">BLE</span>...
-<span class="ident">BLE</span> <span class="ident">started</span>
-<span class="ident">Rust</span> <span class="ident">test</span> <span class="ident">display</span> <span class="number">1.0</span>.<span class="number">0</span>
-<span class="ident">Rust</span> <span class="ident">touch</span> <span class="ident">sensor</span>
-<span class="ident">connection</span> <span class="ident">established</span>; <span class="ident">status</span><span class="op">=</span><span class="number">0</span> <span class="ident">handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr</span><span class="op">=</span> <span class="ident">our_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_id_addr</span><span class="op">=</span> <span class="ident">peer_ota_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_ota_addr</span><span class="op">=</span> <span class="ident">peer_id_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_id_addr</span><span class="op">=</span> <span class="ident">conn_itvl</span><span class="op">=</span><span class="number">6</span> <span class="ident">conn_latency</span><span class="op">=</span><span class="number">0</span> <span class="ident">supervision_timeout</span><span class="op">=</span><span class="number">72</span> <span class="ident">encrypted</span><span class="op">=</span><span class="number">0</span> <span class="ident">authenticated</span><span class="op">=</span><span class="number">0</span> <span class="ident">bonded</span><span class="op">=</span><span class="number">0</span>
+mtu update event; conn_handle=1 cid=4 mtu=256
+subscribe event; conn_handle=1 attr_handle=30 reason=1 prevn=0 curn=1 previ=0 curi=0
+subscribe event; conn_handle=1 attr_handle=30 reason=2 prevn=1 curn=0 previ=0 curi=0
+disconnect; reason=531 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=0 peer_ota_addr= peer_id_addr_type=0 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=72 encrypted=0 authenticated=0 bonded=0
 
-<span class="ident">mtu</span> <span class="ident">update</span> <span class="ident">event</span>; <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">cid</span><span class="op">=</span><span class="number">4</span> <span class="ident">mtu</span><span class="op">=</span><span class="number">256</span>
-<span class="ident">subscribe</span> <span class="ident">event</span>; <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">attr_handle</span><span class="op">=</span><span class="number">30</span> <span class="ident">reason</span><span class="op">=</span><span class="number">1</span> <span class="ident">prevn</span><span class="op">=</span><span class="number">0</span> <span class="ident">curn</span><span class="op">=</span><span class="number">1</span> <span class="ident">previ</span><span class="op">=</span><span class="number">0</span> <span class="ident">curi</span><span class="op">=</span><span class="number">0</span>
-<span class="ident">subscribe</span> <span class="ident">event</span>; <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">attr_handle</span><span class="op">=</span><span class="number">30</span> <span class="ident">reason</span><span class="op">=</span><span class="number">2</span> <span class="ident">prevn</span><span class="op">=</span><span class="number">1</span> <span class="ident">curn</span><span class="op">=</span><span class="number">0</span> <span class="ident">previ</span><span class="op">=</span><span class="number">0</span> <span class="ident">curi</span><span class="op">=</span><span class="number">0</span>
-<span class="ident">disconnect</span>; <span class="ident">reason</span><span class="op">=</span><span class="number">531</span> <span class="ident">handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr</span><span class="op">=</span> <span class="ident">our_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_id_addr</span><span class="op">=</span> <span class="ident">peer_ota_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_ota_addr</span><span class="op">=</span> <span class="ident">peer_id_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_id_addr</span><span class="op">=</span> <span class="ident">conn_itvl</span><span class="op">=</span><span class="number">6</span> <span class="ident">conn_latency</span><span class="op">=</span><span class="number">0</span> <span class="ident">supervision_timeout</span><span class="op">=</span><span class="number">72</span> <span class="ident">encrypted</span><span class="op">=</span><span class="number">0</span> <span class="ident">authenticated</span><span class="op">=</span><span class="number">0</span> <span class="ident">bonded</span><span class="op">=</span><span class="number">0</span>
+connection established; status=0 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=0 peer_ota_addr= peer_id_addr_type=0 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=72 encrypted=0 authenticated=0 bonded=0
 
-<span class="ident">connection</span> <span class="ident">established</span>; <span class="ident">status</span><span class="op">=</span><span class="number">0</span> <span class="ident">handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr</span><span class="op">=</span> <span class="ident">our_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_id_addr</span><span class="op">=</span> <span class="ident">peer_ota_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_ota_addr</span><span class="op">=</span> <span class="ident">peer_id_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_id_addr</span><span class="op">=</span> <span class="ident">conn_itvl</span><span class="op">=</span><span class="number">6</span> <span class="ident">conn_latency</span><span class="op">=</span><span class="number">0</span> <span class="ident">supervision_timeout</span><span class="op">=</span><span class="number">72</span> <span class="ident">encrypted</span><span class="op">=</span><span class="number">0</span> <span class="ident">authenticated</span><span class="op">=</span><span class="number">0</span> <span class="ident">bonded</span><span class="op">=</span><span class="number">0</span>
+mtu update event; conn_handle=1 cid=4 mtu=256
+subscribe event; conn_handle=1 attr_handle=30 reason=1 prevn=0 curn=1 previ=0 curi=0
+subscribe event; conn_handle=1 attr_handle=30 reason=2 prevn=1 curn=0 previ=0 curi=0
+disconnect; reason=531 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=0 peer_ota_addr= peer_id_addr_type=0 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=72 encrypted=0 authenticated=0 bonded=0
 
-<span class="ident">mtu</span> <span class="ident">update</span> <span class="ident">event</span>; <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">cid</span><span class="op">=</span><span class="number">4</span> <span class="ident">mtu</span><span class="op">=</span><span class="number">256</span>
-<span class="ident">subscribe</span> <span class="ident">event</span>; <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">attr_handle</span><span class="op">=</span><span class="number">30</span> <span class="ident">reason</span><span class="op">=</span><span class="number">1</span> <span class="ident">prevn</span><span class="op">=</span><span class="number">0</span> <span class="ident">curn</span><span class="op">=</span><span class="number">1</span> <span class="ident">previ</span><span class="op">=</span><span class="number">0</span> <span class="ident">curi</span><span class="op">=</span><span class="number">0</span>
-<span class="ident">subscribe</span> <span class="ident">event</span>; <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">attr_handle</span><span class="op">=</span><span class="number">30</span> <span class="ident">reason</span><span class="op">=</span><span class="number">2</span> <span class="ident">prevn</span><span class="op">=</span><span class="number">1</span> <span class="ident">curn</span><span class="op">=</span><span class="number">0</span> <span class="ident">previ</span><span class="op">=</span><span class="number">0</span> <span class="ident">curi</span><span class="op">=</span><span class="number">0</span>
-<span class="ident">disconnect</span>; <span class="ident">reason</span><span class="op">=</span><span class="number">531</span> <span class="ident">handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr</span><span class="op">=</span> <span class="ident">our_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_id_addr</span><span class="op">=</span> <span class="ident">peer_ota_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_ota_addr</span><span class="op">=</span> <span class="ident">peer_id_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_id_addr</span><span class="op">=</span> <span class="ident">conn_itvl</span><span class="op">=</span><span class="number">6</span> <span class="ident">conn_latency</span><span class="op">=</span><span class="number">0</span> <span class="ident">supervision_timeout</span><span class="op">=</span><span class="number">72</span> <span class="ident">encrypted</span><span class="op">=</span><span class="number">0</span> <span class="ident">authenticated</span><span class="op">=</span><span class="number">0</span> <span class="ident">bonded</span><span class="op">=</span><span class="number">0</span>
+connection established; status=0 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=0 peer_ota_addr= peer_id_addr_type=0 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=72 encrypted=0 authenticated=0 bonded=0
 
-<span class="ident">connection</span> <span class="ident">established</span>; <span class="ident">status</span><span class="op">=</span><span class="number">0</span> <span class="ident">handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr</span><span class="op">=</span> <span class="ident">our_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_id_addr</span><span class="op">=</span> <span class="ident">peer_ota_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_ota_addr</span><span class="op">=</span> <span class="ident">peer_id_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_id_addr</span><span class="op">=</span> <span class="ident">conn_itvl</span><span class="op">=</span><span class="number">6</span> <span class="ident">conn_latency</span><span class="op">=</span><span class="number">0</span> <span class="ident">supervision_timeout</span><span class="op">=</span><span class="number">72</span> <span class="ident">encrypted</span><span class="op">=</span><span class="number">0</span> <span class="ident">authenticated</span><span class="op">=</span><span class="number">0</span> <span class="ident">bonded</span><span class="op">=</span><span class="number">0</span>
-
-<span class="ident">mtu</span> <span class="ident">update</span> <span class="ident">event</span>; <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">cid</span><span class="op">=</span><span class="number">4</span> <span class="ident">mtu</span><span class="op">=</span><span class="number">256</span>
-<span class="ident">subscribe</span> <span class="ident">event</span>; <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">attr_handle</span><span class="op">=</span><span class="number">30</span> <span class="ident">reason</span><span class="op">=</span><span class="number">1</span> <span class="ident">prevn</span><span class="op">=</span><span class="number">0</span> <span class="ident">curn</span><span class="op">=</span><span class="number">1</span> <span class="ident">previ</span><span class="op">=</span><span class="number">0</span> <span class="ident">curi</span><span class="op">=</span><span class="number">0</span>
-<span class="ident">subscribe</span> <span class="ident">event</span>; <span class="ident">conn_handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">attr_handle</span><span class="op">=</span><span class="number">30</span> <span class="ident">reason</span><span class="op">=</span><span class="number">2</span> <span class="ident">prevn</span><span class="op">=</span><span class="number">1</span> <span class="ident">curn</span><span class="op">=</span><span class="number">0</span> <span class="ident">previ</span><span class="op">=</span><span class="number">0</span> <span class="ident">curi</span><span class="op">=</span><span class="number">0</span>
-<span class="ident">disconnect</span>; <span class="ident">reason</span><span class="op">=</span><span class="number">531</span> <span class="ident">handle</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_ota_addr</span><span class="op">=</span> <span class="ident">our_id_addr_type</span><span class="op">=</span><span class="number">1</span> <span class="ident">our_id_addr</span><span class="op">=</span> <span class="ident">peer_ota_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_ota_addr</span><span class="op">=</span> <span class="ident">peer_id_addr_type</span><span class="op">=</span><span class="number">0</span> <span class="ident">peer_id_addr</span><span class="op">=</span> <span class="ident">conn_itvl</span><span class="op">=</span><span class="number">6</span> <span class="ident">conn_latency</span><span class="op">=</span><span class="number">0</span> <span class="ident">supervision_timeout</span><span class="op">=</span><span class="number">72</span> <span class="ident">encrypted</span><span class="op">=</span><span class="number">0</span> <span class="ident">authenticated</span><span class="op">=</span><span class="number">0</span> <span class="ident">bonded</span><span class="op">=</span><span class="number">0</span></pre></div>
+mtu update event; conn_handle=1 cid=4 mtu=256
+subscribe event; conn_handle=1 attr_handle=30 reason=1 prevn=0 curn=1 previ=0 curi=0
+subscribe event; conn_handle=1 attr_handle=30 reason=2 prevn=1 curn=0 previ=0 curi=0
+disconnect; reason=531 handle=1 our_ota_addr_type=1 our_ota_addr= our_id_addr_type=1 our_id_addr= peer_ota_addr_type=0 peer_ota_addr= peer_id_addr_type=0 peer_id_addr= conn_itvl=6 conn_latency=0 supervision_timeout=72 encrypted=0 authenticated=0 bonded=0
+</code></pre>
 </li>
 <li>
 <p>Alternatively, use <a href="https://github.com/lupyuen/pinetime-updater/blob/master/README.md"><strong>PineTime Updater</strong></a> to flash the Application Firmware...</p>
@@ -1396,8 +1385,22 @@ verified 139268 bytes in 0.363909s (373.731 KiB/s)
 </ol>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">12 Further Reading</a></h1>
 <p>[ UPDATE: <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/dfutest">Check out the testing of Wireless Firmware Updates on PineTime</a> ]</p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
+<ul>
+<li>
+<p><a href="https://github.com/sponsors/lupyuen">Sponsor me a coffee</a></p>
+</li>
+<li>
+<p><a href="https://forum.pine64.org/showthread.php?tid=9880">Discuss this article on Pine64 Forum</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io">Check out my articles</a></p>
+</li>
+<li>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+</li>
+</ul>
+<p><em>Got a question, comment or suggestion? Create an Issue or submit a Pull Request here...</em></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/mcuboot.md"><code>pinetime-rust-mynewt/rust/ app/src/mcuboot.md</code></a></p>
 
     
 </body>

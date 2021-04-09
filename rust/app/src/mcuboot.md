@@ -483,7 +483,7 @@ cargo run -v pinetime-graphic.png
 
 The RGB565 values (115,200 bytes) will be dumped to the console like this...
 
-```
+```text
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 ...
@@ -842,7 +842,7 @@ We should see this on the PineTime screen...
 
 Here is the log that appears on Semihosting Console in OpenOCD...
 
-```
+```text
 Starting Bootloader...
 Displaying image...
 Image displayed
@@ -876,7 +876,7 @@ Rust test display
 
 The Enhanced MCUBoot Bootloader for PineTime is now __22 KB__ in size. Here are the sizes of each MCUBoot component...
 
-```
+```text
 + newt size -v nrf52_boot
 Size of Application Image: app
 Mem FLASH: 0x0-0x6000
@@ -1112,7 +1112,7 @@ Follow these steps to build the MCUBoot Bootloader on Linux (including Raspberry
 
     We should see...
 
-    ```
+    ```text
     Downloading repository mynewt-core (commit: master) from https://github.com/apache/mynewt-core.git
     Downloading repository mynewt-mcumgr (commit: master) from https://github.com/apache/mynewt-mcumgr.git
     Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git
@@ -1171,7 +1171,7 @@ scripts/nrf52/build-boot.sh
 
 We should see...
 
-```
+```text
 Linking pinetime/pinetime-rust-mynewt/bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf
 Target successfully built: targets/nrf52_boot
 + newt size -v nrf52_boot
@@ -1242,7 +1242,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1.  The path of the built firmware file is defined in [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-boot.ocd`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/scripts/nrf52/flash-boot.ocd). We shouldn't need to change this.
 
-    ```
+    ```text
     # For MCUBoot (debugging not supported):
     program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
     ```
@@ -1255,7 +1255,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1. We should see...
 
-    ```
+    ```text
     > Executing task in folder pinetime-rust-mynewt: bash -c -l ' scripts/nrf52/flash-boot.sh && echo ✅ ◾ ️Done! ' <
 
     + source scripts/config.sh
@@ -1298,7 +1298,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
     
 1.  For ST-Link, check that the Adapter Speed is set to 1000 kHz. OpenOCD won't work at higher speeds.
 
-    ```
+    ```text
     adapter speed: 1000 kHz
     ```
 
@@ -1337,7 +1337,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1. Change `bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img` to the path of the downloaded Application Firmware Image File...
 
-    ```
+    ```text
     program bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img verify 0x00008000
     ```
 
@@ -1349,7 +1349,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1. We should see...
 
-    ```
+    ```text
     > Executing task in folder pinetime-rust-mynewt: bash -c -l ' scripts/nrf52/flash-app.sh && echo ✅ ◾ ️Done! ' <
 
     + source scripts/config.sh
@@ -1386,7 +1386,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1.  For ST-Link, check that the Adapter Speed is set to 1000 kHz. OpenOCD won't work at higher speeds.
 
-    ```
+    ```text
     adapter speed: 1000 kHz
     ```
 
@@ -1394,7 +1394,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1. PineTime reboots (with the `reset init` OpenOCD Command)...
 
-    ```
+    ```text
     Restarting...
     target halted due to debug-request, current mode: Thread 
     xPSR: 0x01000000 pc: 0x000000d8 msp: 0x20010000, semihosting
@@ -1404,7 +1404,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1. PineTime starts MCUBoot Bootloader...
 
-    ```
+    ```text
     **** Done! Press Ctrl-C to exit...
     Starting Bootloader...
     Displaying image...
@@ -1421,7 +1421,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1. Finally PineTime starts the Application Firmware...
 
-    ```
+    ```text
     TMP create temp_stub_0
     NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
     NET standalone node 
@@ -1429,7 +1429,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1. Firmware tests internal and external flash memory...
 
-    ```
+    ```text
     Testing flash...
     Read Internal Flash ROM...
     Read 0x0 + 20
@@ -1448,7 +1448,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1. When we connect with `newtmgr`, the Bluetooth LE events are shown...
 
-    ```
+    ```text
     Starting BLE...
     BLE started
     Rust test display 1.0.0

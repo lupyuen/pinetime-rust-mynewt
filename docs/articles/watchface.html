@@ -85,8 +85,7 @@
 <li><a href="#advanced-topic-get-the-time">7 Advanced Topic: Get the Time</a><ul></ul></li>
 <li><a href="#advanced-topic-watch-face-framework">8 Advanced Topic: Watch Face Framework</a><ul></ul></li>
 <li><a href="#advanced-topic-rust-bindings-for-lvgl">9 Advanced Topic: Rust Bindings for LVGL</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/timesync-title.png" alt="PineTime Smart Watch with Rust Watch Face" /></p>
-    <p>📝 <em>17 Oct 2020</em></p>
-
+<p>📝 <em>17 Oct 2020</em></p>
 <p><em>We can build Watch Faces for <a href="https://wiki.pine64.org/index.php/PineTime">PineTime Smart Watch</a> in C... Right?</em></p>
 <p>Sure we can <a href="https://lupyuen.github.io/pinetime-rust-mynewt/articles/timesync#create-watch-face">create Watch Faces in C</a>. But as our Watch Face code in C grows in complexity... It becomes harder to test, deploy, maintain and extend.</p>
 <p>Today we'll look at a more sustainable way to build Watch Faces... With a <strong>Watch Face Framework in Rust</strong>!</p>
@@ -209,9 +208,8 @@
 <p><em>Why did we call <code>set_recolor</code> for the Bluetooth and Power labels?</em></p>
 <p>Instead of the default white colour, we'll be showing the Bluetooth and Power Labels in various colour (to indicate the current status).</p>
 <p>By calling <code>set_recolor</code> on the Bluetooth and Power Labels, we may specify <code>#RGB</code> Colour Codes inside the labels. For example, this label...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-#<span class="number">00ff00</span> <span class="ident">OK</span>#</pre></div>
+<pre><code class="language-text">#00ff00 OK#
+</code></pre>
 <p>Will show the text <code>OK</code> in Green. We'll see the <code>#RGB</code> Colour Codes in a while.</p>
 <p><em>Where are the Labels defined?</em></p>
 <p>The Labels are defined in the <code>BarebonesWatchFace</code> Struct in <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L55-L65"><code>lib.rs</code></a>...</p>
@@ -438,14 +436,13 @@
     };</pre></div>
 <p>This code converts the current Bluetooth State into an <code>#RGB</code> Colour Code <code>color</code>.</p>
 <p>The Bluetooth Label is coloured by the <code>#RGB</code> Colour Code. For example, this label...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-#<span class="number">00ff00</span> <span class="ident">OK</span>#</pre></div>
+<pre><code class="language-text">#00ff00 OK#
+</code></pre>
 <p>Will show the text <code>OK</code> in Green.</p>
 <p><em>What's <code>\u{F293}</code>?</em></p>
 <p><code>\u{F293}</code> is the Unicode Symbol for the Bluetooth Icon. So when we set a label to...</p>
-
-<pre><code>#00ff00 \u{F293}#</code></pre>
+<pre><code class="language-text">#00ff00 \u{F293}#
+</code></pre>
 <p>This means we're displaying the Bluetooth Icon in Green.</p>
 <h2 id="update-power-label" class="section-header"><a href="#update-power-label">2.4 Update Power Label</a></h2>
 <p>Lastly our function <code>update_power</code> refreshes the Power Label like so: <a href="https://github.com/lupyuen/barebones-watchface/blob/master/src/lib.rs#L225-L265"><code>barebones-watchface/src/lib.rs</code></a></p>
@@ -526,9 +523,8 @@
 <p><em>How can we discover PineTime Watch Faces that others have created?</em></p>
 <p><em>So that we may load them into our watches... Even modify them?</em></p>
 <p>It's easy to discover Rust Watch Faces for PineTime! Just head over to <a href="https://crates.io"><strong>crates.io</strong></a> and search for...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">pinetime</span> <span class="ident">watchface</span></pre></div>
+<pre><code class="language-text">pinetime watchface
+</code></pre>
 <p><a href="https://crates.io/search?q=pinetime%20watchface&amp;sort=recent-updates">Search crates.io for <code>pinetime watchface</code></a></p>
 <p>Each Watch Face comes with its own link to let us <strong>preview the Watch Face in our web browser</strong> (thanks to WebAssembly)...</p>
 <p><a href="https://lupyuen.github.io/barebones-watchface/lvgl.html">Click here to preview Barebones Watch Face</a></p>
@@ -565,24 +561,21 @@
 </li>
 <li>
 <p>Browse to your Watch Face at...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//YOUR_GITHUB_ACCOUNT.github.io/barebones-watchface</span></pre></div>
+<pre><code class="language-text">https://YOUR_GITHUB_ACCOUNT.github.io/barebones-watchface
+</code></pre>
 <p>Change <code>YOUR_GITHUB_ACCOUNT</code> to your GitHub Account Name.</p>
 <p>Click <code>PineTime Watch Face Simulator</code> and your Custom Watch Face appears (rendered with WebAssembly)...</p>
 <p><img src="https://lupyuen.github.io/images/timesync-publish6.jpg" alt="Publish Watch Face Step 6" /></p>
 </li>
 <li>
 <p>Your Custom Watch Face can now be built and installed by other PineTime Owners! Just share with them your Watch Face repo URL...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">https</span>:<span class="comment">//github.com/YOUR_GITHUB_ACCOUNT/barebones-watchface</span></pre></div>
+<pre><code class="language-text">https://github.com/YOUR_GITHUB_ACCOUNT/barebones-watchface
+</code></pre>
 <p>Change <code>YOUR_GITHUB_ACCOUNT</code> to your GitHub Account Name.</p>
 <p>You should probably rename <code>barebone-watchface</code>... Just click <code>Settings</code> to rename your repo.</p>
 <p>Remember to edit <a href="https://github.com/lupyuen/barebones-watchface/blob/master/README.md"><code>README.md</code></a> and change the preview URL...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-[<span class="ident">__Preview</span> <span class="ident">this</span> <span class="ident">Watch</span> <span class="ident">Face</span> <span class="kw">in</span> <span class="ident">your</span> <span class="ident">web</span> <span class="ident">browser__</span>](<span class="ident">https</span>:<span class="comment">//lupyuen.github.io/barebones-watchface/lvgl.html)</span></pre></div>
+<pre><code class="language-text">[__Preview this Watch Face in your web browser__](https://lupyuen.github.io/barebones-watchface/lvgl.html)
+</code></pre>
 </li>
 <li>
 <p><a href="https://youtu.be/NC5OmlZIdlA"><strong>Need help?</strong></a></p>
@@ -684,9 +677,8 @@ license       = &quot;Apache-2.0&quot;
 </li>
 </ol>
 <p>We'll flash this built firmware file in the next step...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_my_sensor</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">my_sensor_app</span><span class="op">/</span><span class="ident">my_sensor_app</span>.<span class="ident">img</span></pre></div>
+<pre><code class="language-text">bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
+</code></pre>
 <h2 id="flash-firmware-to-pinetime" class="section-header"><a href="#flash-firmware-to-pinetime">4.4 Flash Firmware to PineTime</a></h2>
 <p>We'll flash the firmware the wired way using an ST-Link v2 or Raspberry Pi.  (We don't recommend flashing by Bluetooth... The firmware is not fully tested and may brick our watch)</p>
 <p><strong>For macOS and Linux...</strong></p>
@@ -842,10 +834,25 @@ barebones-watchface = &quot;1.0.5&quot;
 </ol>
 <p>Lemme know if you're keen to help! :-)</p>
 <p>In the meantime, please go right ahead to create your own Watch Faces and publish them on crates.io... So that all PineTime Owners can share, learn and enjoy :-)</p>
-<p><a href="https://lupyuen.github.io">Check out my PineTime articles</a></p>
+<ul>
+<li>
+<p><a href="https://github.com/sponsors/lupyuen">Sponsor me a coffee</a></p>
+</li>
+<li>
+<p><a href="https://www.reddit.com/r/rust/comments/jckeih/create_your_own_pinetime_watch_face_in_rust_and/?utm_source=share&amp;utm_medium=web2x&amp;context=3">Discuss this article on Reddit</a></p>
+</li>
+<li>
+<p><a href="https://forum.pine64.org/showthread.php?tid=11848">Discuss this article on Pine64 Forum</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io">Check out my articles</a></p>
+</li>
+<li>
 <p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+</li>
+</ul>
 <p><em>Got a question, comment or suggestion? Create an Issue or submit a Pull Request here...</em></p>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watchface.md"><code>github.com/lupyuen/pinetime-rust-mynewt/rust/app/src/watchface.md</code></a></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/watchface.md"><code>pinetime-rust-mynewt/rust/ app/src/watchface.md</code></a></p>
 <p><img src="https://lupyuen.github.io/images/cloud-firmware.jpg" alt="Custom PineTime Firmware Built In The Cloud" /></p>
 <h1 id="advanced-topic-webassembly-simulator" class="section-header"><a href="#advanced-topic-webassembly-simulator">6 Advanced Topic: WebAssembly Simulator</a></h1>
 <p>The WebAssembly Simulator for Watch Faces is auto-generated by a GitHub Actions Workflow: <a href=".github/workflows/simulator.yml"><code>simulator.yml</code></a></p>

@@ -143,13 +143,13 @@ _Have you ever wondered... Why do we speak the way we speak?_
 
 _Why is this ok..._
 
-```
+```text
     I EAT RICE
 ```
 
 _But not this?_
 
-```
+```text
     I RICE
 ```
 
@@ -179,13 +179,13 @@ Because the Surrounding Context matters!
 
 If we don't look at the surrounding text, translating `I EAT RICE` word for word produces this hilarious result...
 
-```
+```text
     我吃米
 ```
 
 Which sounds really weird because it means...
 
-```
+```text
     I EAT UNCOOKED RICE
 ```
 
@@ -495,7 +495,7 @@ Next we translate the Go Type from `ast.Field.Type` to `DartField`: [`dart/conve
 
 This works for simple Go Types like `uint32`. But the code above converts array types like `[]byte` to something weird like...
 
-```
+```text
   &{181 <nil> byte}
 ```
 
@@ -850,7 +850,7 @@ func convertFunction(fileset *token.FileSet, decl *ast.FuncDecl) {
 
 TODO
 
-```
+```text
 > Executing task: /usr/local/go/bin/go run dart/convert.go <
 ```
 

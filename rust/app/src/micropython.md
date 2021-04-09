@@ -551,7 +551,7 @@ According to the build output, the MicroPython Runtime takes up __33 KB of RAM__
 
 The compiled MicroPython Runtime code occupies __210 KB__ of Flash ROM.
 
-```
+```text
   FLASH     RAM 
  214606   33557 libs_micropython.a
 ```
@@ -560,7 +560,7 @@ The MicroPython Runtime is compiled as a custom library in Mynewt, hence the nam
 
 The combined MicroPython + Mynewt firmware (including the NimBLE Bluetooth Stack) occupies __340 KB of Flash ROM, 53 KB of RAM__...
 
-```
+```text
    text    data     bss
  347992     984   54728
 ```
@@ -569,7 +569,7 @@ Hence MicroPython takes up 62% of the firmware ROM, 61% of the firmware RAM.
 
 Here are the ROM and RAM sizes of all code modules in the MicroPython + Mynewt firmware...
 
-```
+```text
 + newt size -v nrf52_my_sensor
 Size of Application Image: app
 Mem FLASH: 0x8000-0x7bc00
@@ -732,7 +732,7 @@ _But won't Rust bloat our Mynewt + MicroPython firmware unnecessarily?_
 
 Not at all! The Rust Application and Rust Core Library occupy only 2.4 KB of ROM, 0 KB of RAM! Amazing!
 
-```
+```text
   FLASH     RAM 
    1410       0 libs_rust_app.a
    1014       0 libs_rust_libcore.a
@@ -871,7 +871,7 @@ We'll download the source files into these folders...
 
     We should see...
 
-    ```
+    ```text
     Downloading repository mynewt-core (commit: master) from https://github.com/apache/mynewt-core.git
     Downloading repository mynewt-mcumgr (commit: master) from https://github.com/apache/mynewt-mcumgr.git
     Downloading repository mynewt-nimble (commit: master) from https://github.com/apache/mynewt-nimble.git
@@ -902,7 +902,7 @@ scripts/build-app.sh
 
 We should see...
 
-```
+```text
 Linking my_sensor_app.elf
 Error: ld: libc_baselibc.a(start.o): in function `_start':
 start.c:39: undefined reference to `main'
@@ -921,7 +921,7 @@ make -j 1 BOARD=pinetime micropython
 
 We should see...
 
-```
+```text
 arm-none-eabi-size build-pinetime/micropython.a
    text    data     bss     dec     hex filename
       0       0       0       0       0 mpstate.o (ex build-pinetime/micropython.a)
@@ -943,7 +943,7 @@ make[1]: Leaving directory 'pinetime/wasp-os/micropython/ports/mynewt'
 
     We should see...
 
-    ```
+    ```text
     objsize
     text    data     bss     dec     hex filename
     346216     984   54720  401920   62200 pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.elf
@@ -962,7 +962,7 @@ make[1]: Leaving directory 'pinetime/wasp-os/micropython/ports/mynewt'
 
     We should see...
 
-    ```
+    ```text
     App image successfully generated: pinetime/pinetime-rust-mynewt/bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img    
     ```
 
@@ -1007,7 +1007,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1. Change `bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin` to the path of the downloaded `mynewt.elf.bin`
 
-    ```
+    ```text
     # For MCUBoot (debugging not supported):
     program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
     ```
@@ -1033,7 +1033,7 @@ swd_device=scripts/nrf52-pi/swd-pi.ocd
 
 1.  The path of the built firmware file is defined in [`~/pinetime/pinetime-rust-mynewt/scripts/nrf52/flash-app.ocd`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/micropython/scripts/nrf52/flash-app.ocd). We shouldn't need to change this.
 
-    ```
+    ```text
     program bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img verify 0x00008000
     ```
 
@@ -1053,7 +1053,7 @@ Here's the debug log that appears in OpenOCD when we run `flash-app.sh`...
 
 The firmware is flashed to PineTime via OpenOCD and ST-Link...
 
-```
+```text
 > Executing task in folder pinetime-rust-mynewt: bash -c -l ' scripts/nrf52/flash-app.sh && echo ✅ ◾ ️Done! ' <
 
 + source scripts/config.sh
@@ -1097,7 +1097,7 @@ semihosting is enabled
 
 PineTime reboots after flashing. The MCUBoot Booloader starts...
 
-```
+```text
 Starting Bootloader...
 Displaying image...
 Image displayed
@@ -1113,7 +1113,7 @@ Bootloader done
 
 Mynewt starts running...
 
-```
+```text
 TMP create temp_stub_0
 NET hwid 4a f8 cf 95 6a be c1 f6 89 ba 12 1a 
 NET standalone node 
@@ -1121,7 +1121,7 @@ NET standalone node
 
 MicroPython initialises the stack and heap...
 
-```
+```text
 stack_start: 20000618
 stack_end: 20002618
 heap_start: 20004bfa
@@ -1145,7 +1145,7 @@ The ADC is probably used for reading the battery status.
 
 wasp-os starts the REPL loop and renders the watch face...
 
-```
+```text
 Watch is running, use Ctrl-C to stop
 TODO machine_adc_value_read
 stack_end: 20002618
@@ -1179,7 +1179,7 @@ After a while PineTime reboots, probably because of the Mynewt watchdog.
 
 And PineTime runs the same thing again and again...
 
-```
+```text
 Starting Bootloader...
 Displaying image...
 Image displayed

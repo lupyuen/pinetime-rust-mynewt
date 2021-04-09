@@ -7,13 +7,25 @@
     <title>Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)</title>
 
     
-    <!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
-<!-- TODO -->
-<meta property="og:image" content="https://lupyuen.github.io/images/spiflash-config.png">
+    <!-- Begin scripts/articles/*-header.html: Article Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<meta property="og:title" 
+    content="Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)" 
+    data-rh="true">
+<meta property="og:description" 
+    content="Configure Mynewt OS to enable access to SPI Flash Memory on PineTime Smart Watch" 
+    data-rh="true">
+<meta property="og:image" 
+    content="https://lupyuen.github.io/images/spiflash-config.png">
+<meta property="og:type" 
+    content="article" data-rh="true">
+<!-- End scripts/articles/*-header.html -->
+<!-- Begin scripts/rustdoc-header.html: Header for Custom Markdown files processed by rustdoc, like chip8.md -->
+<link rel="alternate" type="application/rss+xml" title="RSS Feed for lupyuen" href="/rss.xml" />
 <link rel="stylesheet" type="text/css" href="../normalize.css">
 <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
 <link rel="stylesheet" type="text/css" href="../dark.css">
 <link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+<link rel="stylesheet" type="text/css" href="../prism.css">
 <script src="../storage.js"></script><noscript>
 <link rel="stylesheet" href="../noscript.css"></noscript>
 <link rel="shortcut icon" href="../favicon.ico">
@@ -45,6 +57,7 @@
         <div id="theme-choices"></div>
     </div>
     <script src="../theme.js"></script>
+    <script src="../prism.js"></script>
     <!-- Theme Picker -->
 
     <!-- End scripts/rustdoc-before.html -->
@@ -72,8 +85,7 @@
 <li><a href="#spi-flash-file-system">14 SPI Flash File System</a><ul></ul></li>
 <li><a href="#further-reading">15 Further Reading</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/spiflash-config.png" alt="Configure Mynewt for SPI Flash on PineTime Smart Watch (nRF52)" /></p>
 <p><a href="https://lupyuen.github.io/images/spiflash-config.png"><em>Larger image here</em></a></p>
-    <p>📝 <em>15 May 2020</em></p>
-
+<p>📝 <em>15 May 2020</em></p>
 <p>There's one thing truly remarkable about the <a href="https://mynewt.apache.org/"><strong>Apache Mynewt</strong></a> embedded operating system... <strong>Almost any feature may be switched on by editing a configuration file!</strong></p>
 <p>Today we'll learn to configure Mynewt OS to enable access to <strong>SPI Flash Memory</strong> on <a href="https://wiki.pine64.org/index.php/PineTime"><strong>PineTime Smart Watch</strong></a>... Just by editing two configuration files (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/syscfg.yml"><code>syscfg.yml</code></a> and <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/pkg.yml"><code>pkg.yml</code></a>), and making some minor code changes (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/hw/bsp/nrf52/src/hal_bsp.c"><code>hal_bsp.c</code></a>).</p>
 <p>These steps will work for any Nordic nRF52 device, and probably STM32 devices too (<a href="https://lupyuen.github.io/images/spiflash-config.png">see diagram above</a>)...</p>
@@ -283,21 +295,20 @@ int test_flash() {
 }
 </code></pre>
 <p>This code reads 32 bytes, starting at offset 0, from both Internal Flash ROM and External SPI Flash. As expected, the flash memory contents are different for Internal Flash ROM and External SPI Flash...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Testing</span> <span class="ident">flash</span>...
-<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
-<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
-<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-  <span class="number">0x0000</span>: <span class="number">0x01</span> <span class="number">0x02</span> <span class="number">0x03</span> <span class="number">0x04</span> <span class="number">0x05</span> <span class="number">0x06</span> <span class="number">0x07</span> <span class="number">0x08</span> 
-  <span class="number">0x0008</span>: <span class="number">0x09</span> <span class="number">0x0a</span> <span class="number">0x0b</span> <span class="number">0x0c</span> <span class="number">0x0d</span> <span class="number">0x0e</span> <span class="number">0x0f</span> <span class="number">0x10</span> 
-  <span class="number">0x0010</span>: <span class="number">0x11</span> <span class="number">0x12</span> <span class="number">0x13</span> <span class="number">0x14</span> <span class="number">0x15</span> <span class="number">0x16</span> <span class="number">0x17</span> <span class="number">0x18</span> 
-  <span class="number">0x0018</span>: <span class="number">0x19</span> <span class="number">0x1a</span> <span class="number">0x1b</span> <span class="number">0x1c</span> <span class="number">0x1d</span> <span class="number">0x1e</span> <span class="number">0x1f</span> <span class="number">0x20</span> </pre></div>
+<pre><code class="language-text">Testing flash...
+Read Internal Flash ROM...
+Read 0x0 + 20
+  0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
+  0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
+  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+Read External SPI Flash...
+Read 0x0 + 20
+  0x0000: 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 
+  0x0008: 0x09 0x0a 0x0b 0x0c 0x0d 0x0e 0x0f 0x10 
+  0x0010: 0x11 0x12 0x13 0x14 0x15 0x16 0x17 0x18 
+  0x0018: 0x19 0x1a 0x1b 0x1c 0x1d 0x1e 0x1f 0x20 
+</code></pre>
 <h2 id="erase-spi-flash" class="section-header"><a href="#erase-spi-flash">8.2 Erase SPI Flash</a></h2>
 <p>Next in <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a> we erase the External SPI Flash...</p>
 <pre><code class="language-c">/////////////////////////////////////
@@ -307,11 +318,10 @@ int test_flash() {
 //  Erase external SPI flash
 flash_cmd(ERASE_COMMAND, 1, 0x0, 32) ||
 </code></pre>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Erase</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
-<span class="ident">Erase</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-<span class="macro">Done</span><span class="macro">!</span></pre></div>
+<pre><code class="language-text">Erase External SPI Flash...
+Erase 0x0 + 20
+Done!
+</code></pre>
 <p>After erasing, let's read both Internal Flash ROM and External SPI Flash (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a>)...</p>
 <pre><code class="language-c">////////////////////////////////////////
 //  Read Flash
@@ -324,20 +334,19 @@ flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 </code></pre>
 <p>Here are the contents...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
-<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
-<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-  <span class="number">0x0000</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
-  <span class="number">0x0008</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
-  <span class="number">0x0010</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> 
-  <span class="number">0x0018</span>: <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> <span class="number">0xff</span> </pre></div>
+<pre><code class="language-text">Read Internal Flash ROM...
+Read 0x0 + 20
+  0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
+  0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
+  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+Read External SPI Flash...
+Read 0x0 + 20
+  0x0000: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
+  0x0008: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
+  0x0010: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
+  0x0018: 0xff 0xff 0xff 0xff 0xff 0xff 0xff 0xff 
+</code></pre>
 <p><em>Why was SPI Flash wiped out with <code>0xff</code>?</em></p>
 <p>That's expected when we erase <a href="https://en.wikipedia.org/wiki/Flash_memory#NOR_memories">NOR Flash Memory</a>... All bits will get set to <code>1</code>.</p>
 <p>When we write to NOR Flash Memory, we may only flip <code>1</code> bits to <code>0</code>, not <code>0</code> to <code>1</code>.</p>
@@ -353,11 +362,10 @@ flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 flash_cmd(WRITE_COMMAND, 1, 0x0, 32) ||
 </code></pre>
 <p>This shows...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Write</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
-<span class="ident">Write</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-<span class="macro">Done</span><span class="macro">!</span></pre></div>
+<pre><code class="language-text">Write External SPI Flash...
+Write 0x0 + 20
+Done!
+</code></pre>
 <p><code>flash_cmd()</code> writes to SPI Flash the bytes <code>0x01</code>, <code>0x02</code>, <code>0x03</code>, ... </p>
 <p>Let's read SPI Flash and check (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a>)...</p>
 <pre><code class="language-c">////////////////////////////////////////////
@@ -371,20 +379,19 @@ flash_cmd(READ_COMMAND, 0, 0x0, 32) ||
 flash_cmd(READ_COMMAND, 1, 0x0, 32) ||
 </code></pre>
 <p>Here's the result...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Read</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
-<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-  <span class="number">0x0000</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x01</span> <span class="number">0x20</span> <span class="number">0xd9</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0008</span>: <span class="number">0x35</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x37</span> <span class="number">0x01</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0010</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-  <span class="number">0x0018</span>: <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> <span class="number">0x00</span> 
-<span class="ident">Read</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
-<span class="ident">Read</span> <span class="number">0x0</span> <span class="op">+</span> <span class="number">20</span>
-  <span class="number">0x0000</span>: <span class="number">0x01</span> <span class="number">0x02</span> <span class="number">0x03</span> <span class="number">0x04</span> <span class="number">0x05</span> <span class="number">0x06</span> <span class="number">0x07</span> <span class="number">0x08</span> 
-  <span class="number">0x0008</span>: <span class="number">0x09</span> <span class="number">0x0a</span> <span class="number">0x0b</span> <span class="number">0x0c</span> <span class="number">0x0d</span> <span class="number">0x0e</span> <span class="number">0x0f</span> <span class="number">0x10</span> 
-  <span class="number">0x0010</span>: <span class="number">0x11</span> <span class="number">0x12</span> <span class="number">0x13</span> <span class="number">0x14</span> <span class="number">0x15</span> <span class="number">0x16</span> <span class="number">0x17</span> <span class="number">0x18</span> 
-  <span class="number">0x0018</span>: <span class="number">0x19</span> <span class="number">0x1a</span> <span class="number">0x1b</span> <span class="number">0x1c</span> <span class="number">0x1d</span> <span class="number">0x1e</span> <span class="number">0x1f</span> <span class="number">0x20</span> </pre></div>
+<pre><code class="language-text">Read Internal Flash ROM...
+Read 0x0 + 20
+  0x0000: 0x00 0x00 0x01 0x20 0xd9 0x00 0x00 0x00 
+  0x0008: 0x35 0x01 0x00 0x00 0x37 0x01 0x00 0x00 
+  0x0010: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+  0x0018: 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 
+Read External SPI Flash...
+Read 0x0 + 20
+  0x0000: 0x01 0x02 0x03 0x04 0x05 0x06 0x07 0x08 
+  0x0008: 0x09 0x0a 0x0b 0x0c 0x0d 0x0e 0x0f 0x10 
+  0x0010: 0x11 0x12 0x13 0x14 0x15 0x16 0x17 0x18 
+  0x0018: 0x19 0x1a 0x1b 0x1c 0x1d 0x1e 0x1f 0x20 
+</code></pre>
 <p>Yep the flipping of bits from <code>1</code> to <code>0</code> worked!</p>
 <h2 id="spi-flash-sector-map" class="section-header"><a href="#spi-flash-sector-map">8.4 SPI Flash Sector Map</a></h2>
 <p>To check whether SPI Flash is correctly configured, we may dump the Flash Sector Map like this (<a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/apps/my_sensor_app/src/flash_test.c"><code>flash_test.c</code></a>)...</p>
@@ -399,22 +406,21 @@ map_cmd(1) ||
 
 </code></pre>
 <p>Here's the output...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Sector</span> <span class="ident">Map</span> <span class="kw">for</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
-<span class="ident">Flash</span> <span class="number">0</span> <span class="ident">at</span> <span class="number">0x0</span> <span class="ident">size</span> <span class="number">0x80000</span> <span class="ident">with</span> <span class="number">128</span> <span class="ident">sectors</span>, <span class="ident">alignment</span> <span class="ident">req</span> <span class="number">1</span> <span class="ident">bytes</span>
-  <span class="number">0</span>: <span class="number">1000</span>
-  <span class="number">1</span>: <span class="number">1000</span>
-  <span class="number">2</span>: <span class="number">1000</span>
+<pre><code class="language-text">Sector Map for Internal Flash ROM...
+Flash 0 at 0x0 size 0x80000 with 128 sectors, alignment req 1 bytes
+  0: 1000
+  1: 1000
+  2: 1000
   ...  
-  <span class="number">127</span>: <span class="number">1000</span>
-<span class="ident">Sector</span> <span class="ident">Map</span> <span class="kw">for</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
-<span class="ident">Flash</span> <span class="number">1</span> <span class="ident">at</span> <span class="number">0x0</span> <span class="ident">size</span> <span class="number">0x400000</span> <span class="ident">with</span> <span class="number">1024</span> <span class="ident">sectors</span>, <span class="ident">alignment</span> <span class="ident">req</span> <span class="number">1</span> <span class="ident">bytes</span>
-  <span class="number">0</span>: <span class="number">1000</span>
-  <span class="number">1</span>: <span class="number">1000</span>
-  <span class="number">2</span>: <span class="number">1000</span>
+  127: 1000
+Sector Map for External SPI Flash...
+Flash 1 at 0x0 size 0x400000 with 1024 sectors, alignment req 1 bytes
+  0: 1000
+  1: 1000
+  2: 1000
   ...  
-  <span class="number">1023</span>: <span class="number">1000</span></pre></div>
+  1023: 1000
+</code></pre>
 <p>This says that SPI Flash has been configured with 1024 sectors, each sector 4 KB in size (<code>0x1000</code>).</p>
 <h1 id="spi-flash-benchmark" class="section-header"><a href="#spi-flash-benchmark">9 SPI Flash Benchmark</a></h1>
 <p><em>How fast can we read SPI Flash? Compared with Internal Flash ROM?</em></p>
@@ -432,14 +438,13 @@ speed_cmd(1, 0x0, 32, 0, 0) ||
 </code></pre>
 <p>This code repeatedly reads 32 bytes from Internal Flash ROM and External SPI Flash... And counts how many Read Operations were completed in 2 seconds.</p>
 <p>Here's the output...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Speed</span> <span class="ident">Test</span> <span class="kw">for</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
-<span class="ident">Speed</span> <span class="ident">test</span>, <span class="ident">hal_flash_read</span>(<span class="number">0</span>, <span class="number">0x0</span>, <span class="number">32</span>)
-<span class="number">207503</span>
-<span class="ident">Speed</span> <span class="ident">Test</span> <span class="kw">for</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
-<span class="ident">Speed</span> <span class="ident">test</span>, <span class="ident">hal_flash_read</span>(<span class="number">1</span>, <span class="number">0x0</span>, <span class="number">32</span>)
-<span class="number">16107</span></pre></div>
+<pre><code class="language-text">Speed Test for Internal Flash ROM...
+Speed test, hal_flash_read(0, 0x0, 32)
+207503
+Speed Test for External SPI Flash...
+Speed test, hal_flash_read(1, 0x0, 32)
+16107
+</code></pre>
 <p>That's 207,503 Read Operations Per 2 Seconds for Internal Flash ROM, and 16,107 Read Operations Per 2 Seconds for External SPI Flash.</p>
 <p>When we divide the numbers by 2, we get the Read Operations Per Second...</p>
 <table><thead><tr><th align="right">Size (Bytes)</th><th align="right">Flash ROM<br>Reads/Sec</th><th align="right">SPI Flash<br>Reads/Sec</th></tr></thead><tbody>
@@ -456,38 +461,37 @@ speed_cmd(0, 0x0, 0, 1, 0) ||
 speed_cmd(1, 0x0, 0, 1, 0) ||
 </code></pre>
 <p>Now we get a table of Read Operations Per 2 Seconds (second column), for data sizes ranging from 1 byte to 256 bytes (first column)...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Speed</span> <span class="ident">Test</span> <span class="kw">for</span> <span class="ident">Internal</span> <span class="ident">Flash</span> <span class="ident">ROM</span>...
-<span class="ident">Speed</span> <span class="ident">test</span>, <span class="ident">hal_flash_read</span>(<span class="number">0</span>, <span class="number">0x0</span>, <span class="ident">X</span>)
-  <span class="number">1</span> <span class="number">271962</span>
-  <span class="number">2</span> <span class="number">261931</span>
-  <span class="number">4</span> <span class="number">271962</span>
-  <span class="number">8</span> <span class="number">260862</span>
- <span class="number">16</span> <span class="number">241174</span>
- <span class="number">24</span> <span class="number">221913</span>
- <span class="number">32</span> <span class="number">207503</span>
- <span class="number">48</span> <span class="number">182082</span>
- <span class="number">64</span> <span class="number">162210</span>
- <span class="number">96</span> <span class="number">133148</span>
-<span class="number">128</span> <span class="number">112917</span>
-<span class="number">192</span> <span class="number">86600</span>
-<span class="number">256</span> <span class="number">70232</span>
-<span class="ident">Speed</span> <span class="ident">Test</span> <span class="kw">for</span> <span class="ident">External</span> <span class="ident">SPI</span> <span class="ident">Flash</span>...
-<span class="ident">Speed</span> <span class="ident">test</span>, <span class="ident">hal_flash_read</span>(<span class="number">1</span>, <span class="number">0x0</span>, <span class="ident">X</span>)
-  <span class="number">1</span> <span class="number">44139</span>
-  <span class="number">2</span> <span class="number">42048</span>
-  <span class="number">4</span> <span class="number">37684</span>
-  <span class="number">8</span> <span class="number">31639</span>
- <span class="number">16</span> <span class="number">23955</span>
- <span class="number">24</span> <span class="number">19250</span>
- <span class="number">32</span> <span class="number">16107</span>
- <span class="number">48</span> <span class="number">12132</span>
- <span class="number">64</span> <span class="number">9731</span>
- <span class="number">96</span> <span class="number">6971</span>
-<span class="number">128</span> <span class="number">5431</span>
-<span class="number">192</span> <span class="number">3766</span>
-<span class="number">256</span> <span class="number">2883</span></pre></div>
+<pre><code class="language-text">Speed Test for Internal Flash ROM...
+Speed test, hal_flash_read(0, 0x0, X)
+  1 271962
+  2 261931
+  4 271962
+  8 260862
+ 16 241174
+ 24 221913
+ 32 207503
+ 48 182082
+ 64 162210
+ 96 133148
+128 112917
+192 86600
+256 70232
+Speed Test for External SPI Flash...
+Speed test, hal_flash_read(1, 0x0, X)
+  1 44139
+  2 42048
+  4 37684
+  8 31639
+ 16 23955
+ 24 19250
+ 32 16107
+ 48 12132
+ 64 9731
+ 96 6971
+128 5431
+192 3766
+256 2883
+</code></pre>
 <p>Divide the numbers by 2 to get Read Operations Per Second for various data sizes...</p>
 <table><thead><tr><th align="right">Size (Bytes)</th><th align="right">Flash ROM<br>Reads/Sec</th><th align="right">SPI Flash <br>Reads/Sec</th></tr></thead><tbody>
 <tr><td align="right">1</td><td align="right">135,981</td><td align="right">22,069</td></tr>
@@ -575,13 +579,13 @@ bsp.flash_map:
 </code></pre>
 <p>Then edit the Bootloader OpenOCD Script <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.ocd"><code>scripts/nrf52/flash-boot.ocd</code></a></p>
 <p>Comment out the <code>program</code> line below (insert <code>#</code> at the beginning of the line)...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-</pre></div>
+<pre><code class="language-text"># For MCUBoot (debugging not supported):
+# program bin/targets/nrf52_boot/app/boot/mynewt/mynewt.elf.bin verify 0x00000000
+</code></pre>
 <p>And uncomment the <code>program</code> line below (remove <code>#</code> from the beginning of the line)...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">program</span> <span class="ident">bin</span><span class="op">/</span><span class="ident">targets</span><span class="op">/</span><span class="ident">nrf52_boot</span><span class="op">/</span><span class="ident">app</span><span class="op">/</span><span class="ident">apps</span><span class="op">/</span><span class="ident">boot_stub</span><span class="op">/</span><span class="ident">boot_stub</span>.<span class="ident">elf</span>.<span class="ident">bin</span> <span class="ident">verify</span> <span class="number">0x00000000</span></pre></div>
+<pre><code class="language-text"># For Stub Bootloader (supports debugging):
+program bin/targets/nrf52_boot/app/apps/boot_stub/boot_stub.elf.bin verify 0x00000000
+</code></pre>
 <p>Build the Stub Bootloader by clicking <code>Terminal -&gt; Run Task -&gt; Build Bootloader</code>. Or run the Bootloader Build Script: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/build-boot.sh"><code>scripts/nrf52/build-boot.sh</code></a></p>
 <p>Flash the Stub Bootloader to PineTime by clicking <code>Terminal -&gt; Run Task -&gt; Flash Bootloader</code>. Or run the Bootloader Flash Script: <a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota2/scripts/nrf52/flash-boot.sh"><code>scripts/nrf52/flash-boot.sh</code></a></p>
 <p>Our PineTime now boots with the Stub Bootloader... Ready for debugging!</p>
@@ -672,7 +676,19 @@ int test_littlefs(void) {
 <p><a href="https://github.com/ARMmbed/littlefs/blob/master/DESIGN.md">Design of littlefs</a></p>
 <p><a href="https://github.com/ARMmbed/littlefs/blob/master/SPEC.md">Specification of littlefs</a></p>
 <h1 id="further-reading" class="section-header"><a href="#further-reading">15 Further Reading</a></h1>
-<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/README.md">Check out the other PineTime articles</a></p>
+<ul>
+<li>
+<p><a href="https://github.com/sponsors/lupyuen">Sponsor me a coffee</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io">Check out my articles</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+</li>
+</ul>
+<p><em>Got a question, comment or suggestion? Create an Issue or submit a Pull Request here...</em></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/spiflash.md"><code>pinetime-rust-mynewt/rust/ app/src/spiflash.md</code></a></p>
 
     
 </body>

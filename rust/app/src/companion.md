@@ -458,7 +458,7 @@ go tool trace trace.out
 
 The Go Tracing web page appears, showing the following links...
 
-```
+```text
   View trace
   Goroutine analysis
   Network blocking profile (⬇)
@@ -517,7 +517,7 @@ So that we can look at the call duration in the above chart... And figure out wh
 
 There's something odd about the Bluetooth LE messages that we transmit to (and receive from) PineTime...
 
-```
+```text
 00000000                           bf 66 69 6d 61 67 65 73  |        .fimages|
 00000010  9f bf 64 73 6c 6f 74 00  67 76 65 72 73 69 6f 6e  |..dslot.gversion|
 00000020  65 31 2e 30 2e 30 64 68  61 73 68 58 20 70 3e bb  |e1.0.0dhashX p>.|
@@ -720,7 +720,7 @@ dart newtmgr.dart
 
 We'll see this...
 
-```
+```text
 Encoded {NmpBase:{hdr:{Op:0 Flags:0 Len:0 Group:1 Seq:187 Id:0}}} {} to:
 a0
 Encoded:
@@ -907,7 +907,7 @@ _The response from PineTime appears truncated in our unfinished app. What does t
 
 The full response message from PineTime (returned via GATT Notification) looks like this...
 
-```
+```text
 00000000  01 00 00 86 00 01 42 00  bf 66 69 6d 61 67 65 73  |......B..fimages|
 00000010  9f bf 64 73 6c 6f 74 00  67 76 65 72 73 69 6f 6e  |..dslot.gversion|
 00000020  65 31 2e 30 2e 30 64 68  61 73 68 58 20 70 3e bb  |e1.0.0dhashX p>.|

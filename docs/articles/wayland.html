@@ -91,8 +91,7 @@
 <li><a href="#copy-files-from-microsd-card-on-pinephone">18 Copy Files from MicroSD Card on PinePhone</a><ul></ul></li>
 <li><a href="#build-and-test-lvgl-app-on-linux">19 Build and Test LVGL App on Linux</a><ul></ul></li></ul></nav><p><img src="https://lupyuen.github.io/images/wayland-title.jpg" alt="Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch" /></p>
 <p><em>Work-in-progress LVGL GUI Framework ported to Wayland EGL on PinePhone with Ubuntu Touch</em></p>
-    <p>📝 <em>25 Jul 2020</em></p>
-
+<p>📝 <em>25 Jul 2020</em></p>
 <p><strong>We ❤️   Old Underwear...</strong></p>
 <p>They feel comfy, they fit our contours. Nevermind the holes and the old stains 🤢</p>
 <p><strong>X11 is like Old Underwear.</strong> It's been around for 30 years... Yet we still use it in spite of its feature gaps and wonky quirks.</p>
@@ -917,13 +916,11 @@ sudo nano com.ubuntu.filemanager.desktop
 <p>We're now altering the behaviour of File Manager, by tampering with the <a href="http://docs.ubports.com/en/latest/appdev/platform/click.html#security-and-app-isolation"><strong>Click Package</strong></a> settings for File Manager.</p>
 <p>(Why are we tampering with a Click Package? We'll learn in a while)</p>
 <p>Change the <code>Exec</code> line from...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Exec</span><span class="op">=</span><span class="ident">filemanager</span></pre></div>
+<pre><code class="language-text">Exec=filemanager
+</code></pre>
 <p>To...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Exec</span><span class="op">=</span>.<span class="op">/</span><span class="ident">run</span>.<span class="ident">sh</span></pre></div>
+<pre><code class="language-text">Exec=./run.sh
+</code></pre>
 <p>Save and exit <code>nano</code></p>
 <p>We have modded the File Manager icon so that it now launches <code>run.sh</code> instead of the usual <code>filemanager</code> executable.</p>
 <p>(It's like switching the executable for a Windows Explorer Shortcut)</p>
@@ -960,24 +957,20 @@ gdb \
 ./wayland/lvgl.sh
 </code></pre>
 <p>The script <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/lvgl.sh"><code>lvgl.sh</code></a> copies <a href="https://github.com/lupyuen/lvgl-wayland/blob/master/wayland/run.sh"><code>run.sh</code></a> from <code>~/lvgl-wayland/wayland</code> to the Click Package Folder for File Manager...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">/</span><span class="ident">usr</span><span class="op">/</span><span class="ident">share</span><span class="op">/</span><span class="ident">click</span><span class="op">/</span><span class="ident">preinstalled</span><span class="op">/</span>.<span class="ident">click</span><span class="op">/</span><span class="ident">users</span><span class="op">/</span>@<span class="ident">all</span><span class="op">/</span><span class="ident">com</span>.<span class="ident">ubuntu</span>.<span class="ident">filemanager</span></pre></div>
+<pre><code class="language-text">/usr/share/click/preinstalled/.click/users/@all/com.ubuntu.filemanager
+</code></pre>
 <p>In a few seconds we'll see the message...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="kw-2">*</span><span class="kw-2">*</span><span class="op">*</span> <span class="ident">Tap</span> <span class="ident">on</span> <span class="ident">File</span> <span class="ident">Manager</span> <span class="ident">icon</span> <span class="ident">on</span> <span class="ident">PinePhone</span></pre></div>
+<pre><code class="language-text">*** Tap on File Manager icon on PinePhone
+</code></pre>
 <p>Go ahead and tap the File Manager icon on PinePhone. </p>
 <p>Our LVGL App shall run instead of the File Manager.</p>
 <p>In the SSH console, press <code>Ctrl-C</code> to stop the log display.</p>
 <p>The log file for the app is located at...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">phablet</span><span class="op">/</span>.<span class="ident">cache</span><span class="op">/</span><span class="ident">upstart</span><span class="op">/</span><span class="ident">application</span><span class="op">-</span><span class="ident">click</span><span class="op">-</span><span class="ident">com</span>.<span class="ident">ubuntu</span>.<span class="ident">filemanager_filemanager_0</span>.<span class="number">7.5</span>.<span class="ident">log</span></pre></div>
+<pre><code class="language-text">/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log
+</code></pre>
 <p>The log for the Wayland Compositor <code>unity-system-compositor</code> may be useful for troubleshooting...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="op">/</span><span class="ident">home</span><span class="op">/</span><span class="ident">phablet</span><span class="op">/</span>.<span class="ident">cache</span><span class="op">/</span><span class="ident">upstart</span><span class="op">/</span><span class="ident">unity8</span>.<span class="ident">log</span></pre></div>
+<pre><code class="language-text">/home/phablet/.cache/upstart/unity8.log
+</code></pre>
 <p>Copy the log files to our machine like this...</p>
 <pre><code class="language-bash">scp -i ~/.ssh/pinephone_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_filemanager_0.7.5.log .
 scp -i ~/.ssh/pinephone_rsa phablet@192.168.1.160:/home/phablet/.cache/upstart/unity8.log .
@@ -1049,10 +1042,9 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 <p>Because Ubuntu Touch's Wayland Service stops unauthorized processes from grabbing the Compositor...</p>
 <p><img src="https://lupyuen.github.io/images/wayland-security.jpg" alt="Stopped by Wayland Security" /></p>
 <p>We see this in the Wayland Compositor log: <code>/home/phablet/.cache/upstart/unity8.log</code></p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">ApplicationManager</span> <span class="ident">REJECTED</span> <span class="ident">connection</span> <span class="ident">from</span> <span class="ident">app</span> <span class="ident">with</span> <span class="ident">pid</span> <span class="number">6710</span> 
-<span class="kw">as</span> <span class="ident">it</span> <span class="ident">was</span> <span class="ident">not</span> <span class="ident">launched</span> <span class="ident">by</span> <span class="ident">upstart</span>, <span class="ident">and</span> <span class="ident">no</span> <span class="ident">desktop_file_hint</span> <span class="ident">is</span> <span class="ident">specified</span></pre></div>
+<pre><code class="language-text">ApplicationManager REJECTED connection from app with pid 6710 
+as it was not launched by upstart, and no desktop_file_hint is specified
+</code></pre>
 <p>That's why we need to inject <code>lvgl</code> into File Manager... So that Wayland thinks that the File Manager is grabbing the Compositor.</p>
 <p><em>Why did we choose the File Manager app instead of another app like Camera?</em></p>
 <p>Because File Manager has Unconfined AppArmor Permissions... It can do anything! </p>
@@ -1189,7 +1181,22 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 <h1 id="whats-next" class="section-header"><a href="#whats-next">16 What's Next?</a></h1>
 <p>Wayland feels like New Underwear... And it needs a New App Toolkit like LVGL to make us comfortable.</p>
 <p>If you're keen to help make <strong>LVGL the Newer, Simpler App Toolkit</strong> on Wayland, Ubuntu Touch and PinePhone, <a href="https://github.com/lupyuen">please lemme know</a>! 😀</p>
-<p><a href="https://lupyuen.github.io/rss.xml">Check out my RSS Feed</a></p>
+<ul>
+<li>
+<p><a href="https://github.com/sponsors/lupyuen">Sponsor me a coffee</a></p>
+</li>
+<li>
+<p><a href="https://forum.pine64.org/showthread.php?tid=10833">Discuss this article on Pine64 Forum</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io">Check out my articles</a></p>
+</li>
+<li>
+<p><a href="https://lupyuen.github.io/rss.xml">RSS Feed</a></p>
+</li>
+</ul>
+<p><em>Got a question, comment or suggestion? Create an Issue or submit a Pull Request here...</em></p>
+<p><a href="https://github.com/lupyuen/pinetime-rust-mynewt/blob/master/rust/app/src/wayland.md"><code>pinetime-rust-mynewt/rust/ app/src/wayland.md</code></a></p>
 <h1 id="configure-ssh-on-pinephone" class="section-header"><a href="#configure-ssh-on-pinephone">17 Configure SSH on PinePhone</a></h1>
 <p><strong>First Thing</strong> to do when we get our new PinePhone: Open the PinePhone Back Cover and <a href="https://twitter.com/RealDanct12/status/1286969529516453888?s=20"><strong>Remove the Battery Insulation Sticker!</strong></a></p>
 <p>(Can't believe I missed that!)</p>
@@ -1204,27 +1211,23 @@ tail -f /home/phablet/.cache/upstart/application-click-com.ubuntu.filemanager_fi
 </li>
 <li>
 <p>When prompted...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Enter</span> <span class="ident">a</span> <span class="ident">file</span> <span class="kw">in</span> <span class="ident">which</span> <span class="ident">to</span> <span class="ident">save</span> <span class="ident">the</span> <span class="ident">key</span></pre></div>
+<pre><code class="language-text">Enter a file in which to save the key
+</code></pre>
 <p>Press <code>Enter</code>. This stores the new SSH Key in the <code>.ssh</code> folder in our Home Directory.</p>
 </li>
 <li>
 <p>When prompted...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Enter</span> <span class="ident">a</span> <span class="ident">file</span> <span class="kw">in</span> <span class="ident">which</span> <span class="ident">to</span> <span class="ident">save</span> <span class="ident">the</span> <span class="ident">key</span></pre></div>
+<pre><code class="language-text">Enter a file in which to save the key
+</code></pre>
 <p>Enter...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">pinephone_rsa</span></pre></div>
+<pre><code class="language-text">pinephone_rsa
+</code></pre>
 <p>We'll create an SSH Key Pair named <code>pinephone_rsa</code> (Private Key) and <code>pinephone_rsa.pub</code> (Public Key)</p>
 </li>
 <li>
 <p>When prompted...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">Enter</span> <span class="ident">passphrase</span></pre></div>
+<pre><code class="language-text">Enter passphrase
+</code></pre>
 <p>Press <code>Enter</code>. We won't need a passphrase unless our PinePhone needs to be super-secure.</p>
 </li>
 </ol>
@@ -1264,11 +1267,10 @@ chmod 600 .ssh/authorized_keys
 ls -la ~/.ssh
 </code></pre>
 <p>We should see this...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">drwx</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="number">2</span> <span class="ident">phablet</span> <span class="ident">phablet</span> <span class="number">4096</span> <span class="ident">Jul</span>  <span class="number">7</span> <span class="number">20</span>:<span class="number">06</span> .
-<span class="ident">drwxr</span><span class="op">-</span><span class="ident">xr</span><span class="op">-</span><span class="ident">x</span> <span class="number">28</span> <span class="ident">phablet</span> <span class="ident">phablet</span> <span class="number">4096</span> <span class="ident">Jul</span> <span class="number">24</span> <span class="number">11</span>:<span class="number">38</span> ..
-<span class="op">-</span><span class="ident">rw</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span><span class="op">-</span>  <span class="number">1</span> <span class="ident">phablet</span> <span class="ident">phablet</span>  <span class="number">743</span> <span class="ident">Jul</span>  <span class="number">7</span> <span class="number">20</span>:<span class="number">08</span> <span class="ident">authorized_keys</span></pre></div>
+<pre><code class="language-text">drwx------  2 phablet phablet 4096 Jul  7 20:06 .
+drwxr-xr-x 28 phablet phablet 4096 Jul 24 11:38 ..
+-rw-------  1 phablet phablet  743 Jul  7 20:08 authorized_keys
+</code></pre>
 <p>Check that the permissions (<code>rw</code>) and owner (<code>phablet</code>) are correct.</p>
 </li>
 </ol>
@@ -1317,12 +1319,11 @@ ping google.com
 <pre><code class="language-bash">ls -l /dev/disk/by-label
 </code></pre>
 <p>We should see something like this...</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered">
-<span class="ident">lrwxrwxrwx</span> <span class="number">1</span> <span class="ident">root</span> <span class="ident">root</span> <span class="number">15</span> <span class="ident">Jul</span> <span class="number">23</span> <span class="number">22</span>:<span class="number">24</span> <span class="ident">BOOT_MNJRO</span> <span class="op">-&gt;</span> ..<span class="op">/</span>..<span class="op">/</span><span class="ident">mmcblk0p1</span>
-<span class="ident">lrwxrwxrwx</span> <span class="number">1</span> <span class="ident">root</span> <span class="ident">root</span> <span class="number">15</span> <span class="ident">Jul</span> <span class="number">23</span> <span class="number">22</span>:<span class="number">24</span> <span class="ident">cache</span> <span class="op">-&gt;</span> ..<span class="op">/</span>..<span class="op">/</span><span class="ident">mmcblk2p8</span>
-<span class="ident">lrwxrwxrwx</span> <span class="number">1</span> <span class="ident">root</span> <span class="ident">root</span> <span class="number">15</span> <span class="ident">Jul</span> <span class="number">23</span> <span class="number">22</span>:<span class="number">24</span> <span class="ident">ROOT_MNJRO</span> <span class="op">-&gt;</span> ..<span class="op">/</span>..<span class="op">/</span><span class="ident">mmcblk0p2</span>
-<span class="ident">lrwxrwxrwx</span> <span class="number">1</span> <span class="ident">root</span> <span class="ident">root</span> <span class="number">16</span> <span class="ident">Jul</span> <span class="number">23</span> <span class="number">22</span>:<span class="number">24</span> <span class="ident">userdata</span> <span class="op">-&gt;</span> ..<span class="op">/</span>..<span class="op">/</span><span class="ident">mmcblk2p10</span></pre></div>
+<pre><code class="language-text">lrwxrwxrwx 1 root root 15 Jul 23 22:24 BOOT_MNJRO -&gt; ../../mmcblk0p1
+lrwxrwxrwx 1 root root 15 Jul 23 22:24 cache -&gt; ../../mmcblk2p8
+lrwxrwxrwx 1 root root 15 Jul 23 22:24 ROOT_MNJRO -&gt; ../../mmcblk0p2
+lrwxrwxrwx 1 root root 16 Jul 23 22:24 userdata -&gt; ../../mmcblk2p10
+</code></pre>
 <p>These are the Partition Labels on our MicroSD Card. </p>
 <p>Let's say we wish to mount the MicroSD Card partition <code>ROOT_MNJRO</code>, which links to <code>/dev/mmcblk0p2</code>...</p>
 <pre><code class="language-bash">mkdir /tmp/sdcard

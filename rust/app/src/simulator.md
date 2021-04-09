@@ -40,7 +40,7 @@ _(Nope no knife!)_
 
     The URL looks like this...
     
-    ```
+    ```text
     https://github.com/ACCOUNT_NAME/Pinetime
     ```
 
@@ -114,7 +114,7 @@ We have just created a __Workflow__... An automated job that will be run by GitH
 
 If we ever need to edit the Workflow, just browse to this URL...
 
-```
+```text
 https://github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/simulate.yml
 ```
 
@@ -128,7 +128,7 @@ We shall modify the source code so that the PineTime Watch Face shows our own sp
 
 1.  Browse to this URL...
 
-    ```
+    ```text
     https://github.com/ACCOUNT_NAME/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp
     ```
 
@@ -196,7 +196,7 @@ Let's check the result of our Simulator Build...
 
 1.  Browse to this URL to see PineTime Simulator for our Fork...
 
-    ```
+    ```text
     https://ACCOUNT_NAME.github.io/Pinetime
     ```
 
@@ -691,7 +691,7 @@ Let's take a peek at the environment variables and the files that have been chec
 
 The current directory `pwd` is shown as...
 
-```
+```text
 /home/runner/work/Pinetime/Pinetime
 ```
 

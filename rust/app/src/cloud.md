@@ -66,7 +66,7 @@ _(Nope no spoon!)_
 
     The URL looks like this...
     
-    ```
+    ```text
     https://github.com/ACCOUNT_NAME/Pinetime
     ```
 
@@ -120,7 +120,7 @@ We have just created a __Workflow__... An automated job that will be run by GitH
 
 If we ever need to edit the Workflow, just browse to this URL...
 
-```
+```text
 https://github.com/ACCOUNT_NAME/Pinetime/blob/master/.github/workflows/main.yml
 ```
 
@@ -134,7 +134,7 @@ We shall modify the source code so that the PineTime Watch Face shows our own sp
 
 1.  Browse to this URL...
 
-    ```
+    ```text
     https://github.com/ACCOUNT_NAME/Pinetime/blob/master/src/DisplayApp/Screens/Clock.cpp
     ```
 
@@ -196,7 +196,7 @@ Let's check the result of our Firmware Build in the Cloud...
 
 If we see this error...
 
-```
+```text
 /home/runner/work/Pinetime/Pinetime/src/drivers/TwiMaster.cpp:1:10: fatal error: sdk/integration/nrfx/nrfx_log.h: No such file or directory
  #include <sdk/integration/nrfx/nrfx_log.h>
           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -206,7 +206,7 @@ make[3]: *** [src/CMakeFiles/pinetime-app.dir/drivers/TwiMaster.cpp.o] Error 1
 
 Browse to...
 
-```
+```text
 https://github.com/ACCOUNT_NAME/Pinetime/blob/master/src/drivers/TwiMaster.cpp
 ```
 
@@ -242,7 +242,7 @@ Now let's download and flash the new firmware to PineTime!
 
     Browse to this URL to see GitHub Actions for our Fork...
 
-    ```
+    ```text
     https://github.com/ACCOUNT_NAME/Pinetime/actions
     ```
 
@@ -696,13 +696,13 @@ Let's take a peek at the environment variables and the files that have been chec
 
 The current directory `pwd` is shown as...
 
-```
+```text
 /home/runner/work/Pinetime/Pinetime
 ```
 
 The list of files and folders in that directory...
 
-```
+```text
 total 48
 -rw-r--r--  1 runner docker 2194 Jul 26 14:39 CMakeLists.txt
 -rw-r--r--  1 runner docker 5079 Jul 26 14:39 README.md
@@ -754,7 +754,7 @@ This is exactly as prescribed by [the build doc](https://github.com/JF002/Pineti
 
 This generates the PineTime Firmware File `pinetime-mcuboot-app.out`, as shown in the log...
 
-```
+```text
 [100%] Linking CXX executable pinetime-mcuboot-app.out
 post build steps for pinetime-mcuboot-app
    text	   data	    bss	    dec	    hex	filename
@@ -849,7 +849,7 @@ This creates the DFU Package `pinetime-mcuboot-app-dfu.zip`.
 
 The DFU Package contains 3 files...
 
-```
+```text
 Archive:  build/src/pinetime-mcuboot-app-dfu.zip
  Length   Method    Size  Cmpr    Date    Time   CRC-32   Name
 --------  ------  ------- ---- ---------- ----- --------  ----
@@ -888,7 +888,7 @@ The [`actions/upload-artifact`](https://docs.github.com/en/actions/configuring-a
 
 Remember that this path contains 3 files...
 
-```
+```text
         path: build/src/pinetime-mcuboot-app-dfu/*
 ```
 
@@ -907,7 +907,7 @@ Our Workflow also creates the __Standalone PineTime Firmware__... It's self-cont
 
 This generates the PineTime Firmware File `pinetime-app.out`, as shown in the log...
 
-```
+```text
 [100%] Linking CXX executable pinetime-app.out
 post build steps for pinetime-app
   text	   data	    bss	    dec	    hex	filename
@@ -947,7 +947,7 @@ For curiosity, let's discover what other outputs are generated during the PineTi
 
 Some of these files may be useful for troubleshooting our firmware (like the Linker Maps `*.map`)...
 
-```
+```text
   1327374    656 -rw-r--r--   1 runner   docker     671691 Jul 30 06:50 ./build/src/pinetime-app.hex
   1327372   6504 -rwxr-xr-x   1 runner   docker    6740720 Jul 30 06:50 ./build/src/pinetime-app.out
   1326257      4 drwxr-xr-x  11 runner   docker       4096 Jul 30 06:48 ./build/src/CMakeFiles/pinetime-app.dir

@@ -160,7 +160,7 @@ Instead of the default white colour, we'll be showing the Bluetooth and Power La
 
 By calling `set_recolor` on the Bluetooth and Power Labels, we may specify `#RGB` Colour Codes inside the labels. For example, this label...
 
-```
+```text
 #00ff00 OK#
 ```
 
@@ -429,7 +429,7 @@ This code converts the current Bluetooth State into an `#RGB` Colour Code `color
 
 The Bluetooth Label is coloured by the `#RGB` Colour Code. For example, this label...
 
-```
+```text
 #00ff00 OK#
 ```
 
@@ -439,7 +439,7 @@ _What's `\u{F293}`?_
 
 `\u{F293}` is the Unicode Symbol for the Bluetooth Icon. So when we set a label to...
 
-```
+```text
 #00ff00 \u{F293}#
 ```
 
@@ -533,7 +533,7 @@ _So that we may load them into our watches... Even modify them?_
 
 It's easy to discover Rust Watch Faces for PineTime! Just head over to [__crates.io__](https://crates.io) and search for...
 
-```
+```text
 pinetime watchface
 ```
 
@@ -585,7 +585,7 @@ _How do we publish our own Watch Face?_
 
 1.  Browse to your Watch Face at...
 
-    ```
+    ```text
     https://YOUR_GITHUB_ACCOUNT.github.io/barebones-watchface
     ```
 
@@ -597,7 +597,7 @@ _How do we publish our own Watch Face?_
 
 1.  Your Custom Watch Face can now be built and installed by other PineTime Owners! Just share with them your Watch Face repo URL...
 
-    ```
+    ```text
     https://github.com/YOUR_GITHUB_ACCOUNT/barebones-watchface
     ```
 
@@ -607,7 +607,7 @@ _How do we publish our own Watch Face?_
 
     Remember to edit [`README.md`](https://github.com/lupyuen/barebones-watchface/blob/master/README.md) and change the preview URL...
 
-    ```
+    ```text
     [__Preview this Watch Face in your web browser__](https://lupyuen.github.io/barebones-watchface/lvgl.html)
     ```
 
@@ -706,7 +706,7 @@ Follow the steps under ["Build Instructions"](https://github.com/lupyuen/pinetim
 
 We'll flash this built firmware file in the next step...
 
-```
+```text
 bin/targets/nrf52_my_sensor/app/apps/my_sensor_app/my_sensor_app.img
 ```
 

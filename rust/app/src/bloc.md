@@ -477,7 +477,7 @@ final request = composeRequest();
 
 `composeRequest()` has been documented [in our previous article](https://lupyuen.github.io/pinetime-rust-mynewt/articles/companion).  It sets `request` to a byte buffer that contains our request message for the Query Firmware Command...
 
-```
+```text
 00 00 00 01 00 01 3f 00 a0
 ```
 
@@ -645,7 +645,7 @@ _What's inside `response2`?_
 
 It looks like this...
 
-```
+```text
 00000000  01 00 00 f4 00 01 3f 00  bf 66 69 6d 61 67 65 73  |.........fimages|
 00000010  9f bf 64 73 6c 6f 74 00  67 76 65 72 73 69 6f 6e  |..dslot.gversion|
 00000020  65 31 2e 30 2e 30 64 68  61 73 68 58 20 ea bc 3a  |e1.0.0dhashX ..:|
@@ -1166,7 +1166,7 @@ In VSCode, look at the __Debug Console__.
 
 It shows the Events triggered and the transitions between States...
 
-```
+```text
 (...Search button pressed...)
 
 onEvent DeviceRequested
@@ -1375,7 +1375,7 @@ _["Wireless Firmware Update In Action on PineTime Smart Watch (nRF52)"](https://
 
 # Sample Android Debug Log
 
-```
+```text
 Launching lib/main.dart on Pixel 4 XL in debug mode...
 ✓ Built build/app/outputs/apk/debug/app-debug.apk.
 I/FlutterBluePlugin(20366): setup
@@ -1465,7 +1465,7 @@ Exited (sigterm)
 
 # Sample iOS Debug Log
 
-```
+```text
 Launching lib/main.dart on iPhone 6 Plus in debug mode...
 Warning: Missing build name (CFBundleShortVersionString).
 Warning: Missing build number (CFBundleVersion).

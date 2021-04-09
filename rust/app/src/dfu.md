@@ -576,7 +576,7 @@ _How shall we modify the GCC Linker Script for our firmware to include the Image
 
 For building our firmware, we'll modify our Linker Script like this (See [`nrf52.ld`](https://github.com/apache/mynewt-core/blob/master/hw/mcu/nordic/nrf52xxx/nrf52.ld) and [`nrf52xxaa.ld`](https://github.com/lupyuen/pinetime-rust-mynewt/blob/ota/hw/bsp/nrf52/nrf52xxaa.ld))
 
-```
+```text
 _imghdr_size = 0x20;
 
 MEMORY
@@ -614,7 +614,7 @@ This Linker Script says...
 
 When GCC links our firmware with the above Linker Script, it produces a [Firmware ELF File](https://linuxhint.com/understanding_elf_file_format/) that has the following layout...
 
-```
+```text
 /* Section   Address      Size */
 .imghdr      0x8000       0x20
 .text        0x8020    0x32578
@@ -628,7 +628,7 @@ _How shall we convert the Firmware ELF File to a Firmware BIN File?_
 
 To create the Firmware BIN File `my_sensor_app.elf.bin` from the Firmware ELF File `my_sensor_app.elf`, we run `arm-none-eabi-objcopy` ([documented here](http://web.mit.edu/gnu/doc/html/binutils_4.html))...
 
-```
+```text
 arm-none-eabi-objcopy \
     -R .bss \
     -R .bss.core \
@@ -887,7 +887,7 @@ The Firmware ELF (`my_sensor_app.elf`), BIN (`my_sensor_app.elf.bin`) and Image 
 
 The built Firmware Image is 201 KB in size. Here are the sizes of each library linked into the firmware...
 
-```
+```text
 ----- Build Mynewt and link with Rust app
 + newt build nrf52_my_sensor
 Building target targets/nrf52_my_sensor

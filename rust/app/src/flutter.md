@@ -88,7 +88,7 @@ _(If you're building for iPhone, skip to the next section)_
 
     We should see our phone...
 
-    ```
+    ```text
     List of devices attached
     99031FFG device usb:3376X product:coral model:Pixel_4_XL device:coral
     Pixel 4 XL • 99031FFG • android-arm64 • Android 10 (API 29)
@@ -138,7 +138,7 @@ Let's fix 3 things shown below: __Xcode__, __VSCode__ and __Connected Device__
 
     We should see our phone...
 
-    ```
+    ```text
     1 connected device:
     iPhone 6 Plus • ios • iOS 12.4.6
     ```
@@ -312,7 +312,7 @@ This GATT Service contains two GATT Charactertistics: Device Name (`pinetime`) a
 
 Some GATT Characteristics are shown as a list of numbers...
 
-```
+```text
     Device Name:
     Characteristic 0x2A00
     [112, 105, 110, ...]
@@ -445,7 +445,7 @@ _How do we call the Bluetooth LE functions in our own Flutter app?_
 
 Just add the [`flutter_blue`](https://github.com/pauldemarco/flutter_blue) plugin as a dependency like this: [`pubspec.yaml`](https://github.com/lupyuen/flutter-blue-sample/blob/master/pubspec.yaml)
 
-```
+```text
 dependencies:
   flutter_blue: ^0.7.2
 ```
